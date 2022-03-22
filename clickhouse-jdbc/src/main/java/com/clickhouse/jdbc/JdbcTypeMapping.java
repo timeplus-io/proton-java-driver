@@ -88,86 +88,85 @@ public final class JdbcTypeMapping {
         int sqlType = Types.OTHER;
 
         switch (column.getDataType()) {
-            case Bool:
+            case bool:
                 sqlType = Types.BOOLEAN;
                 break;
-            case Int8:
+            case int8:
                 sqlType = Types.TINYINT;
                 break;
-            case UInt8:
-            case Int16:
+            case uint8:
+            case int16:
                 sqlType = Types.SMALLINT;
                 break;
-            case UInt16:
-            case Int32:
+            case uint16:
+            case int32:
                 sqlType = Types.INTEGER;
                 break;
-            case UInt32:
-            case IntervalYear:
-            case IntervalQuarter:
-            case IntervalMonth:
-            case IntervalWeek:
-            case IntervalDay:
-            case IntervalHour:
-            case IntervalMinute:
-            case IntervalSecond:
-            case Int64:
+            case uint32:
+            case interval_year:
+            case interval_quarter:
+            case interval_month:
+            case interval_week:
+            case interval_day:
+            case interval_hour:
+            case interval_minute:
+            case interval_second:
+            case int64:
                 sqlType = Types.BIGINT;
                 break;
-            case UInt64:
-            case Int128:
-            case UInt128:
-            case Int256:
-            case UInt256:
+            case uint64:
+            case int128:
+            case uint128:
+            case int256:
+            case uint256:
                 sqlType = Types.NUMERIC;
                 break;
-            case Float32:
+            case float32:
                 sqlType = Types.FLOAT;
                 break;
-            case Float64:
+            case float64:
                 sqlType = Types.DOUBLE;
                 break;
-            case Decimal:
-            case Decimal32:
-            case Decimal64:
-            case Decimal128:
-            case Decimal256:
+            case decimal:
+            case decimal32:
+            case decimal64:
+            case decimal128:
+            case decimal256:
                 sqlType = Types.DECIMAL;
                 break;
-            case Date:
-            case Date32:
+            case date:
+            case date32:
                 sqlType = Types.DATE;
                 break;
-            case DateTime:
-            case DateTime32:
-            case DateTime64:
+            case datetime:
+            case datetime32:
+            case datetime64:
                 sqlType = column.getTimeZone() != null ? Types.TIMESTAMP_WITH_TIMEZONE : Types.TIMESTAMP;
                 break;
-            case Enum:
-            case Enum8:
-            case Enum16:
-            case IPv4:
-            case IPv6:
-            case FixedString:
-            case String:
-            case UUID:
+            case enum8:
+            case enum16:
+            case ipv4:
+            case ipv6:
+            case fixed_string:
+            case string:
+            case uuid:
                 sqlType = Types.VARCHAR;
                 break;
-            case Point:
-            case Ring:
-            case Polygon:
-            case MultiPolygon:
-            case Array:
+            case point:
+            case ring:
+            case polygon:
+            case multi_polygon:
+            case array:
                 sqlType = Types.ARRAY;
                 break;
-            case Tuple:
-            case Nested:
+            case tuple:
+            case nested:
                 sqlType = Types.STRUCT;
                 break;
-            case Nothing:
+            case nothing:
                 sqlType = Types.NULL;
                 break;
-            case Map:
+            case map:
             default:
                 break;
         }
@@ -190,9 +189,9 @@ public final class JdbcTypeMapping {
 
         ClickHouseDataType type = column.getDataType();
         switch (type) {
-            case DateTime:
-            case DateTime32:
-            case DateTime64:
+            case datetime:
+            case datetime32:
+            case datetime64:
                 clazz = column.getTimeZone() != null ? OffsetDateTime.class : LocalDateTime.class;
                 break;
             default:
@@ -214,14 +213,14 @@ public final class JdbcTypeMapping {
                         break;
                     }
                 }
-            } else if (dataType == ClickHouseDataType.Date) {
+            } else if (dataType == ClickHouseDataType.date) {
                 if (scaleOrLength > 2) {
-                    dataType = ClickHouseDataType.Date32;
+                    dataType = ClickHouseDataType.date32;
                 }
-            } else if (dataType == ClickHouseDataType.DateTime) {
-                column = ClickHouseColumn.of("", ClickHouseDataType.DateTime64, false, 0, scaleOrLength);
-            } else if (dataType == ClickHouseDataType.String) {
-                column = ClickHouseColumn.of("", ClickHouseDataType.FixedString, false, scaleOrLength, 0);
+            } else if (dataType == ClickHouseDataType.datetime) {
+                column = ClickHouseColumn.of("", ClickHouseDataType.datetime64, false, 0, scaleOrLength);
+            } else if (dataType == ClickHouseDataType.string) {
+                column = ClickHouseColumn.of("", ClickHouseDataType.fixed_string, false, scaleOrLength, 0);
             }
         }
 
@@ -234,32 +233,32 @@ public final class JdbcTypeMapping {
         switch (jdbcType) {
             case Types.BIT:
             case Types.BOOLEAN:
-                dataType = ClickHouseDataType.UInt8;
+                dataType = ClickHouseDataType.uint8;
                 break;
             case Types.TINYINT:
-                dataType = ClickHouseDataType.Int8;
+                dataType = ClickHouseDataType.int8;
                 break;
             case Types.SMALLINT:
-                dataType = ClickHouseDataType.Int16;
+                dataType = ClickHouseDataType.int16;
                 break;
             case Types.INTEGER:
-                dataType = ClickHouseDataType.Int32;
+                dataType = ClickHouseDataType.int32;
                 break;
             case Types.BIGINT:
-                dataType = ClickHouseDataType.Int64;
+                dataType = ClickHouseDataType.int64;
                 break;
             case Types.NUMERIC:
-                dataType = ClickHouseDataType.Int256;
+                dataType = ClickHouseDataType.int256;
                 break;
             case Types.FLOAT:
             case Types.REAL:
-                dataType = ClickHouseDataType.Float32;
+                dataType = ClickHouseDataType.float32;
                 break;
             case Types.DOUBLE:
-                dataType = ClickHouseDataType.Float64;
+                dataType = ClickHouseDataType.float64;
                 break;
             case Types.DECIMAL:
-                dataType = ClickHouseDataType.Decimal;
+                dataType = ClickHouseDataType.decimal;
                 break;
             case Types.BLOB:
             case Types.BINARY:
@@ -276,22 +275,22 @@ public final class JdbcTypeMapping {
             case Types.SQLXML:
             case Types.VARBINARY:
             case Types.VARCHAR:
-                dataType = ClickHouseDataType.String;
+                dataType = ClickHouseDataType.string;
                 break;
             case Types.DATE:
-                dataType = ClickHouseDataType.Date;
+                dataType = ClickHouseDataType.date;
                 break;
             case Types.TIME:
             case Types.TIME_WITH_TIMEZONE:
             case Types.TIMESTAMP:
             case Types.TIMESTAMP_WITH_TIMEZONE:
-                dataType = ClickHouseDataType.DateTime;
+                dataType = ClickHouseDataType.datetime;
                 break;
             case Types.ARRAY:
-                dataType = ClickHouseDataType.Array;
+                dataType = ClickHouseDataType.array;
                 break;
             case Types.STRUCT:
-                dataType = ClickHouseDataType.Nested;
+                dataType = ClickHouseDataType.nested;
                 break;
             case Types.DATALINK:
             case Types.DISTINCT:
@@ -300,7 +299,7 @@ public final class JdbcTypeMapping {
             case Types.ROWID:
             case Types.NULL:
             default:
-                dataType = ClickHouseDataType.Nothing;
+                dataType = ClickHouseDataType.nothing;
                 break;
         }
         return dataType;

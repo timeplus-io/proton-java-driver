@@ -32,30 +32,6 @@
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>clickhouse-grpc-client</artifactId>
-            <classifier>netty</classifier>
-            <version>${revision}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>clickhouse-http-client</artifactId>
-            <classifier>shaded</classifier>
-            <version>${revision}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>${project.parent.groupId}</groupId>
             <artifactId>org.roaringbitmap</artifactId>
             <version>${repackaged.version}</version>
             <scope>provided</scope>
@@ -371,12 +347,6 @@
                                 </transformer>
                             </transformers>
                             <filters>
-                                <filter>
-                                    <artifact>${project.parent.groupId}:clickhouse-http-client</artifact>
-                                    <excludes>
-                                        <exclude>**</exclude>
-                                    </excludes>
-                                </filter>
                                 <filter>
                                     <artifact>org.apache.httpcomponents:*</artifact>
                                     <excludes>

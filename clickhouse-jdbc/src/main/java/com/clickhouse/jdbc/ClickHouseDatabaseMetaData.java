@@ -839,7 +839,7 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
                     r.getValue("IS_NULLABLE").update("NO");
                 }
 
-                if (column.getDataType() == ClickHouseDataType.FixedString) {
+                if (column.getDataType() == ClickHouseDataType.fixed_string) {
                     r.getValue("CHAR_OCTET_LENGTH").update(column.getPrecision());
                 }
 
@@ -930,42 +930,41 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
         String suffix = "";
         String params = "";
         int nullable = DatabaseMetaData.typeNullable;
-        int searchable = type == ClickHouseDataType.FixedString || type == ClickHouseDataType.String
+        int searchable = type == ClickHouseDataType.fixed_string || type == ClickHouseDataType.string
                 ? DatabaseMetaData.typeSearchable
                 : DatabaseMetaData.typePredBasic;
         int money = 0;
         switch (type) {
-            case Date:
-            case Date32:
-            case DateTime:
-            case DateTime32:
-            case DateTime64:
-            case Enum:
-            case Enum8:
-            case Enum16:
-            case String:
-            case FixedString:
-            case UUID:
+            case date:
+            case date32:
+            case datetime:
+            case datetime32:
+            case datetime64:
+            case enum8:
+            case enum16:
+            case string:
+            case fixed_string:
+            case uuid:
                 prefix = "'";
                 suffix = "'";
                 break;
-            case Array:
-            case Nested:
-            case Ring:
-            case Polygon:
-            case MultiPolygon:
+            case array:
+            case nested:
+            case ring:
+            case polygon:
+            case multi_polygon:
                 prefix = "[";
                 suffix = "]";
                 nullable = DatabaseMetaData.typeNoNulls;
                 break;
-            case AggregateFunction:
-            case Tuple:
-            case Point:
+            case aggregate_function:
+            case tuple:
+            case point:
                 prefix = "(";
                 suffix = ")";
                 nullable = DatabaseMetaData.typeNoNulls;
                 break;
-            case Map:
+            case map:
                 prefix = "{";
                 suffix = "}";
                 nullable = DatabaseMetaData.typeNoNulls;

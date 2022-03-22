@@ -36,11 +36,9 @@
 
     <modules>
         <module>clickhouse-client</module>
-        <module>clickhouse-grpc-client</module>
         <module>clickhouse-http-client</module>
         <module>clickhouse-tcp-client</module>
         <module>clickhouse-jdbc</module>
-        <module>clickhouse-benchmark</module>
     </modules>
 
     <scm>
