@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.time.Duration;
 import java.util.Properties;
+
 import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -33,6 +34,7 @@ import org.testng.annotations.BeforeSuite;
  * container mode</li>
  * </ul>
  */
+
 public class ClickHouseServerForTest {
     private static final Properties properties;
 

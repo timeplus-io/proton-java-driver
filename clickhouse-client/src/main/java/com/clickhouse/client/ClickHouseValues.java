@@ -985,64 +985,63 @@ public final class ClickHouseValues {
     private static ClickHouseValue newValue(ClickHouseConfig config, ClickHouseDataType type, ClickHouseColumn column) {
         ClickHouseValue value = null;
         switch (type) { // still faster than EnumMap and with less overhead
-            case Bool:
+            case bool:
                 value = ClickHouseBoolValue.ofNull();
                 break;
-            case Enum:
-            case Enum8:
-            case Int8:
+            case enum8:
+            case int8:
                 value = ClickHouseByteValue.ofNull();
                 break;
-            case UInt8:
-            case Enum16:
-            case Int16:
+            case uint8:
+            case enum16:
+            case int16:
                 value = ClickHouseShortValue.ofNull();
                 break;
-            case UInt16:
-            case Int32:
+            case uint16:
+            case int32:
                 value = ClickHouseIntegerValue.ofNull();
                 break;
-            case UInt32:
-            case IntervalYear:
-            case IntervalQuarter:
-            case IntervalMonth:
-            case IntervalWeek:
-            case IntervalDay:
-            case IntervalHour:
-            case IntervalMinute:
-            case IntervalSecond:
-            case Int64:
+            case uint32:
+            case interval_year:
+            case interval_quarter:
+            case interval_month:
+            case interval_week:
+            case interval_day:
+            case interval_hour:
+            case interval_minute:
+            case interval_second:
+            case int64:
                 value = ClickHouseLongValue.ofNull(false);
                 break;
-            case UInt64:
+            case uint64:
                 value = ClickHouseLongValue.ofNull(true);
                 break;
-            case Int128:
-            case UInt128:
-            case Int256:
-            case UInt256:
+            case int128:
+            case uint128:
+            case int256:
+            case uint256:
                 value = ClickHouseBigIntegerValue.ofNull();
                 break;
-            case Float32:
+            case float32:
                 value = ClickHouseFloatValue.ofNull();
                 break;
-            case Float64:
+            case float64:
                 value = ClickHouseDoubleValue.ofNull();
                 break;
-            case Decimal:
-            case Decimal32:
-            case Decimal64:
-            case Decimal128:
-            case Decimal256:
+            case decimal:
+            case decimal32:
+            case decimal64:
+            case decimal128:
+            case decimal256:
                 value = ClickHouseBigDecimalValue.ofNull();
                 break;
-            case Date:
-            case Date32:
+            case date:
+            case date32:
                 value = ClickHouseDateValue.ofNull();
                 break;
-            case DateTime:
-            case DateTime32:
-            case DateTime64: {
+            case datetime:
+            case datetime32:
+            case datetime64: {
                 if (column == null) {
                     value = ClickHouseDateTimeValue.ofNull(0, config.getUseTimeZone());
                 } else if (column.getTimeZone() == null) {
@@ -1052,39 +1051,39 @@ public final class ClickHouseValues {
                 }
                 break;
             }
-            case IPv4:
+            case ipv4:
                 value = ClickHouseIpv4Value.ofNull();
                 break;
-            case IPv6:
+            case ipv6:
                 value = ClickHouseIpv6Value.ofNull();
                 break;
-            case FixedString:
-            case String:
+            case fixed_string:
+            case string:
                 value = ClickHouseStringValue.ofNull();
                 break;
-            case UUID:
+            case uuid:
                 value = ClickHouseUuidValue.ofNull();
                 break;
-            case Point:
+            case point:
                 value = ClickHouseGeoPointValue.ofOrigin();
                 break;
-            case Ring:
+            case ring:
                 value = ClickHouseGeoRingValue.ofEmpty();
                 break;
-            case Polygon:
+            case polygon:
                 value = ClickHouseGeoPolygonValue.ofEmpty();
                 break;
-            case MultiPolygon:
+            case multi_polygon:
                 value = ClickHouseGeoMultiPolygonValue.ofEmpty();
                 break;
-            case AggregateFunction:
+            case aggregate_function:
                 value = ClickHouseEmptyValue.INSTANCE;
                 if (column != null) {
                     switch (column.getAggregateFunction()) {
                         case any:
                             value = newValue(config, column.getNestedColumns().get(0));
                             break;
-                        case groupBitmap:
+                        case group_bitmap:
                             value = ClickHouseBitmapValue.ofEmpty(column.getNestedColumns().get(0).getDataType());
                             break;
                         default:
@@ -1092,7 +1091,7 @@ public final class ClickHouseValues {
                     }
                 }
                 break;
-            case Array:
+            case array:
                 if (column == null) {
                     value = ClickHouseArrayValue.ofEmpty();
                 } else if (column.getArrayNestedLevel() > 1) {
@@ -1119,23 +1118,23 @@ public final class ClickHouseValues {
                     }
                 }
                 break;
-            case Map:
+            case map:
                 if (column == null) {
                     throw new IllegalArgumentException("column types for key and value are required");
                 }
                 value = ClickHouseMapValue.ofEmpty(column.getKeyInfo().getDataType().getObjectClass(),
                         column.getValueInfo().getDataType().getObjectClass());
                 break;
-            case Nested:
+            case nested:
                 if (column == null) {
                     throw new IllegalArgumentException("nested column types are required");
                 }
                 value = ClickHouseNestedValue.ofEmpty(column.getNestedColumns());
                 break;
-            case Tuple:
+            case tuple:
                 value = ClickHouseTupleValue.of();
                 break;
-            case Nothing:
+            case nothing:
                 value = ClickHouseEmptyValue.INSTANCE;
                 break;
             default:

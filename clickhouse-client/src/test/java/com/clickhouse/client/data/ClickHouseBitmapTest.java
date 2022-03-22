@@ -14,9 +14,9 @@ public class ClickHouseBitmapTest {
     @Test(groups = "unit")
     public void testEmptyBitmap32() {
         byte[] expectedBytes = new byte[] { 0, 0 };
-        ClickHouseDataType[] types = new ClickHouseDataType[] { ClickHouseDataType.Int8, ClickHouseDataType.UInt8,
-                ClickHouseDataType.Int16, ClickHouseDataType.UInt16, ClickHouseDataType.Int32,
-                ClickHouseDataType.UInt32 };
+        ClickHouseDataType[] types = new ClickHouseDataType[] { ClickHouseDataType.int8, ClickHouseDataType.uint8,
+                ClickHouseDataType.int16, ClickHouseDataType.uint16, ClickHouseDataType.int32,
+                ClickHouseDataType.uint32};
         for (ClickHouseDataType t : types) {
             Assert.assertTrue(ClickHouseBitmap.empty(t).isEmpty(), "Bitmap should be empty");
             Assert.assertEquals(ClickHouseBitmap.empty(t).toBytes(), expectedBytes);
@@ -38,12 +38,12 @@ public class ClickHouseBitmapTest {
     public void testEmptyBitmap64() {
         byte[] expectedBytes = new byte[] { 0, 0 };
 
-        Assert.assertTrue(ClickHouseBitmap.empty(ClickHouseDataType.Int64).isEmpty(), "Bitmap should be empty");
-        Assert.assertEquals(ClickHouseBitmap.empty(ClickHouseDataType.Int64).toBytes(), expectedBytes);
-        Assert.assertTrue(ClickHouseBitmap.empty(ClickHouseDataType.UInt64).isEmpty(), "Bitmap should be empty");
-        Assert.assertEquals(ClickHouseBitmap.empty(ClickHouseDataType.UInt64).toBytes(), expectedBytes);
+        Assert.assertTrue(ClickHouseBitmap.empty(ClickHouseDataType.int64).isEmpty(), "Bitmap should be empty");
+        Assert.assertEquals(ClickHouseBitmap.empty(ClickHouseDataType.int64).toBytes(), expectedBytes);
+        Assert.assertTrue(ClickHouseBitmap.empty(ClickHouseDataType.uint64).isEmpty(), "Bitmap should be empty");
+        Assert.assertEquals(ClickHouseBitmap.empty(ClickHouseDataType.uint64).toBytes(), expectedBytes);
 
-        ClickHouseDataType[] types = new ClickHouseDataType[] { ClickHouseDataType.Int64, ClickHouseDataType.UInt64 };
+        ClickHouseDataType[] types = new ClickHouseDataType[] { ClickHouseDataType.int64, ClickHouseDataType.uint64};
         Object[] bitmaps = new Object[] { Roaring64Bitmap.bitmapOf(), Roaring64NavigableMap.bitmapOf() };
 
         for (Object bm : bitmaps) {

@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public abstract class ClickHouseDataProcessor {
     public static final List<ClickHouseColumn> DEFAULT_COLUMNS = Collections
-            .singletonList(ClickHouseColumn.of("results", "Nullable(String)"));
+            .singletonList(ClickHouseColumn.of("results", "nullable(string)"));
 
     protected static final String ERROR_UNKNOWN_DATA_TYPE = "Unsupported data type: ";
 
@@ -26,10 +26,10 @@ public abstract class ClickHouseDataProcessor {
             ClickHouseAggregateFunction... types) {
         for (ClickHouseAggregateFunction t : types) {
             if (deserializers.put(t, d) != null) {
-                throw new IllegalArgumentException("Duplicated deserializer of AggregateFunction - " + t.name());
+                throw new IllegalArgumentException("Duplicated deserializer of aggregate_function - " + t.name());
             }
             if (serializers.put(t, s) != null) {
-                throw new IllegalArgumentException("Duplicated serializer of AggregateFunction - " + t.name());
+                throw new IllegalArgumentException("Duplicated serializer of aggregate_function - " + t.name());
             }
         }
     }

@@ -69,14 +69,14 @@ public class ClickHouseValuesTest extends BaseClickHouseValueTest {
     @Test(groups = { "unit" })
     public void testNewArray() {
         ClickHouseConfig config = new ClickHouseConfig();
-        ClickHouseValue v = ClickHouseValues.newValue(config, ClickHouseColumn.of("a", "Array(UInt32)"));
+        ClickHouseValue v = ClickHouseValues.newValue(config, ClickHouseColumn.of("a", "array(uint32)"));
         Assert.assertEquals(v.asObject(), new long[0]);
-        v = ClickHouseValues.newValue(config, ClickHouseColumn.of("a", "Array(Array(UInt16))"));
+        v = ClickHouseValues.newValue(config, ClickHouseColumn.of("a", "array(array(uint16))"));
         Assert.assertEquals(v.asObject(), new int[0][]);
-        v = ClickHouseValues.newValue(config, ClickHouseColumn.of("a", "Array(Array(Array(Nullable(UInt8))))"));
+        v = ClickHouseValues.newValue(config, ClickHouseColumn.of("a", "array(array(array(nullable(uint8))))"));
         Assert.assertEquals(v.asObject(), new short[0][][]);
         v = ClickHouseValues.newValue(config,
-                ClickHouseColumn.of("a", "Array(Array(Array(Array(LowCardinality(String)))))"));
+                ClickHouseColumn.of("a", "array(array(array(array(low_cardinality(string)))))"));
         Assert.assertEquals(v.asObject(), new String[0][][][]);
     }
 
@@ -85,21 +85,21 @@ public class ClickHouseValuesTest extends BaseClickHouseValueTest {
         ClickHouseConfig config = new ClickHouseConfig();
         for (ClickHouseDataType type : ClickHouseDataType.values()) {
             // skip advanced types
-            if (type.isNested() || type == ClickHouseDataType.AggregateFunction
-                    || type == ClickHouseDataType.SimpleAggregateFunction) {
+            if (type.isNested() || type == ClickHouseDataType.aggregate_function
+                    || type == ClickHouseDataType.simple_aggregate_function) {
                 continue;
             }
 
             ClickHouseValue value = ClickHouseValues.newValue(config, type);
             Assert.assertNotNull(value);
 
-            if (type == ClickHouseDataType.Point) {
+            if (type == ClickHouseDataType.point) {
                 Assert.assertEquals(value.asObject(), new double[] { 0D, 0D });
-            } else if (type == ClickHouseDataType.Ring) {
+            } else if (type == ClickHouseDataType.ring) {
                 Assert.assertEquals(value.asObject(), new double[0][]);
-            } else if (type == ClickHouseDataType.Polygon) {
+            } else if (type == ClickHouseDataType.polygon) {
                 Assert.assertEquals(value.asObject(), new double[0][][]);
-            } else if (type == ClickHouseDataType.MultiPolygon) {
+            } else if (type == ClickHouseDataType.multi_polygon) {
                 Assert.assertEquals(value.asObject(), new double[0][][][]);
             } else {
                 Assert.assertNull(value.asObject());
@@ -191,8 +191,8 @@ public class ClickHouseValuesTest extends BaseClickHouseValueTest {
                 "'0:0:0:0:0:0:0:1'");
 
         // enum, big integer and decimals
-        Assert.assertEquals(ClickHouseValues.convertToSqlExpression(ClickHouseDataType.DateTime64),
-                String.valueOf(ClickHouseDataType.DateTime64.ordinal()));
+        Assert.assertEquals(ClickHouseValues.convertToSqlExpression(ClickHouseDataType.datetime64),
+                String.valueOf(ClickHouseDataType.datetime64.ordinal()));
         Assert.assertEquals(ClickHouseValues.convertToSqlExpression(BigInteger.valueOf(1L)), String.valueOf(1));
         Assert.assertEquals(ClickHouseValues.convertToSqlExpression(BigDecimal.valueOf(123456789.123456789D)),
                 "123456789.12345679");
@@ -255,7 +255,7 @@ public class ClickHouseValuesTest extends BaseClickHouseValueTest {
                         6.666666D, "'x'",
                         UUID.fromString("00000000-0000-0000-0000-000000000002"),
                         InetAddress.getByName("127.0.0.1"), InetAddress.getByName("::1"),
-                        ClickHouseDataType.Decimal256,
+                        ClickHouseDataType.decimal256,
                         BigInteger.valueOf(123456789L), BigDecimal.valueOf(1.23456789D), null,
                         LocalDate.of(2021, 11, 12), LocalTime.of(11, 12, 13, 123456789),
                         LocalDateTime.of(LocalDate.of(2021, 11, 12),

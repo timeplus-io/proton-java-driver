@@ -22,17 +22,17 @@ public abstract class ClickHouseBitmap {
     private static final int[] EMPTY_INT_ARRAY = new int[0];
     private static final long[] EMPTY_LONG_ARRAY = new long[0];
     private static final ClickHouseBitmap EMPTY_INT8_BITMAP = wrap(ImmutableRoaringBitmap.bitmapOf(EMPTY_INT_ARRAY),
-            ClickHouseDataType.Int8);
+            ClickHouseDataType.int8);
     private static final ClickHouseBitmap EMPTY_UINT8_BITMAP = wrap(ImmutableRoaringBitmap.bitmapOf(EMPTY_INT_ARRAY),
-            ClickHouseDataType.UInt8);
+            ClickHouseDataType.uint8);
     private static final ClickHouseBitmap EMPTY_INT16_BITMAP = wrap(ImmutableRoaringBitmap.bitmapOf(EMPTY_INT_ARRAY),
-            ClickHouseDataType.Int16);
+            ClickHouseDataType.int16);
     private static final ClickHouseBitmap EMPTY_UINT16_BITMAP = wrap(ImmutableRoaringBitmap.bitmapOf(EMPTY_INT_ARRAY),
-            ClickHouseDataType.UInt16);
+            ClickHouseDataType.uint16);
     private static final ClickHouseBitmap EMPTY_INT32_BITMAP = wrap(ImmutableRoaringBitmap.bitmapOf(EMPTY_INT_ARRAY),
-            ClickHouseDataType.Int32);
+            ClickHouseDataType.int32);
     private static final ClickHouseBitmap EMPTY_UINT32_BITMAP = wrap(ImmutableRoaringBitmap.bitmapOf(EMPTY_INT_ARRAY),
-            ClickHouseDataType.UInt32);
+            ClickHouseDataType.uint32);
 
     static class ClickHouseRoaringBitmap extends ClickHouseBitmap {
         private final RoaringBitmap rb;
@@ -220,31 +220,31 @@ public abstract class ClickHouseBitmap {
 
     public static ClickHouseBitmap empty(ClickHouseDataType type) {
         if (type == null) {
-            type = ClickHouseDataType.UInt32;
+            type = ClickHouseDataType.uint32;
         }
 
         ClickHouseBitmap v;
         switch (type) {
-        case Int8:
+        case int8:
             v = ClickHouseBitmap.EMPTY_INT8_BITMAP;
             break;
-        case UInt8:
+        case uint8:
             v = ClickHouseBitmap.EMPTY_UINT8_BITMAP;
             break;
-        case Int16:
+        case int16:
             v = ClickHouseBitmap.EMPTY_INT16_BITMAP;
             break;
-        case UInt16:
+        case uint16:
             v = ClickHouseBitmap.EMPTY_UINT16_BITMAP;
             break;
-        case Int32:
+        case int32:
             v = ClickHouseBitmap.EMPTY_INT32_BITMAP;
             break;
-        case UInt32:
+        case uint32:
             v = ClickHouseBitmap.EMPTY_UINT32_BITMAP;
             break;
-        case Int64:
-        case UInt64:
+        case int64:
+        case uint64:
             v = wrap(Roaring64NavigableMap.bitmapOf(EMPTY_LONG_ARRAY), type);
             break;
         default:
@@ -265,7 +265,7 @@ public abstract class ClickHouseBitmap {
             }
         }
 
-        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.UInt8 : ClickHouseDataType.Int8);
+        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.uint8 : ClickHouseDataType.int8);
     }
 
     public static ClickHouseBitmap wrap(short... values) {
@@ -280,7 +280,7 @@ public abstract class ClickHouseBitmap {
             }
         }
 
-        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.UInt16 : ClickHouseDataType.Int16);
+        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.uint16 : ClickHouseDataType.int16);
     }
 
     public static ClickHouseBitmap wrap(int... values) {
@@ -295,7 +295,7 @@ public abstract class ClickHouseBitmap {
             }
         }
 
-        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.UInt32 : ClickHouseDataType.Int32);
+        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.uint32 : ClickHouseDataType.int32);
     }
 
     public static ClickHouseBitmap wrap(long... values) {
@@ -311,7 +311,7 @@ public abstract class ClickHouseBitmap {
         }
 
         return wrap(Roaring64NavigableMap.bitmapOf(longs),
-                isUnsigned ? ClickHouseDataType.UInt64 : ClickHouseDataType.Int64);
+                isUnsigned ? ClickHouseDataType.uint64 : ClickHouseDataType.int64);
     }
 
     public static ClickHouseBitmap wrap(Object bitmap, ClickHouseDataType innerType) {
@@ -477,14 +477,14 @@ public abstract class ClickHouseBitmap {
     private static int byteLength(ClickHouseDataType type) {
         int byteLen;
         switch (Objects.requireNonNull(type)) {
-        case Int8:
-        case UInt8:
-        case Int16:
-        case UInt16:
-        case Int32:
-        case UInt32:
-        case Int64:
-        case UInt64:
+        case int8:
+        case uint8:
+        case int16:
+        case uint16:
+        case int32:
+        case uint32:
+        case int64:
+        case uint64:
             byteLen = type.getByteLength();
             break;
         default:

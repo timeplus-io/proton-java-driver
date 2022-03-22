@@ -74,40 +74,40 @@ public abstract class ClientIntegrationTest extends BaseIntegrationTest {
     @DataProvider(name = "simpleTypeProvider")
     protected Object[][] getSimpleTypes() {
         return new Object[][] {
-                { ClickHouseDataType.Enum.name() + "('v-1' = -1, 'v0' = 0, 'v+1' = 1)", "v0", "v-1", "v+1" },
-                { ClickHouseDataType.Enum8.name() + "('v-1' = -1, 'v0' = 0, 'v+1' = 1)", "v0", "v-1", "v+1" },
-                { ClickHouseDataType.Enum16.name() + "('v-1' = -1, 'v0' = 0, 'v+1' = 1)", "v0", "v-1", "v+1" },
-                { ClickHouseDataType.Int8.name(), "0", "-1", "1" },
-                { ClickHouseDataType.UInt8.name(), "0", "255", "1" },
-                { ClickHouseDataType.Int16.name(), "0", "-1", "1" },
-                { ClickHouseDataType.UInt16.name(), "0", "65535", "1" },
-                { ClickHouseDataType.Int32.name(), "0", "-1", "1" },
-                { ClickHouseDataType.UInt32.name(), "0", "4294967295", "1" },
-                { ClickHouseDataType.Int64.name(), "0", "-1", "1" },
-                { ClickHouseDataType.UInt64.name(), "0", "18446744073709551615", "1" },
-                { ClickHouseDataType.Int128.name(), "0", "-1", "1" },
-                { ClickHouseDataType.UInt128.name(), "0", "340282366920938463463374607431768211455", "1" },
-                { ClickHouseDataType.Int256.name(), "0", "-1", "1" },
-                { ClickHouseDataType.UInt256.name(), "0",
+                /// { ClickHouseDataType.enum.name() + "('v-1' = -1, 'v0' = 0, 'v+1' = 1)", "v0", "v-1", "v+1" },
+                { ClickHouseDataType.enum8.name() + "('v-1' = -1, 'v0' = 0, 'v+1' = 1)", "v0", "v-1", "v+1" },
+                { ClickHouseDataType.enum16.name() + "('v-1' = -1, 'v0' = 0, 'v+1' = 1)", "v0", "v-1", "v+1" },
+                { ClickHouseDataType.int8.name(), "0", "-1", "1" },
+                { ClickHouseDataType.uint8.name(), "0", "255", "1" },
+                { ClickHouseDataType.int16.name(), "0", "-1", "1" },
+                { ClickHouseDataType.uint16.name(), "0", "65535", "1" },
+                { ClickHouseDataType.int32.name(), "0", "-1", "1" },
+                { ClickHouseDataType.uint32.name(), "0", "4294967295", "1" },
+                { ClickHouseDataType.int64.name(), "0", "-1", "1" },
+                { ClickHouseDataType.uint64.name(), "0", "18446744073709551615", "1" },
+                { ClickHouseDataType.int128.name(), "0", "-1", "1" },
+                { ClickHouseDataType.uint128.name(), "0", "340282366920938463463374607431768211455", "1" },
+                { ClickHouseDataType.int256.name(), "0", "-1", "1" },
+                { ClickHouseDataType.uint256.name(), "0",
                         "115792089237316195423570985008687907853269984665640564039457584007913129639935", "1" },
-                { ClickHouseDataType.Float32.name(), "0.0", "-1.0", "1.0" },
-                { ClickHouseDataType.Float64.name(), "0.0", "-1.0", "1.0" },
-                { ClickHouseDataType.Date.name(), "1970-01-01", "1970-01-01", "1970-01-02" },
-                { ClickHouseDataType.Date32.name(), "1970-01-01", "1969-12-31", "1970-01-02" },
-                { ClickHouseDataType.DateTime.name(), "1970-01-01 00:00:00", "1970-01-01 00:00:00",
+                { ClickHouseDataType.float32.name(), "0.0", "-1.0", "1.0" },
+                { ClickHouseDataType.float64.name(), "0.0", "-1.0", "1.0" },
+                { ClickHouseDataType.date.name(), "1970-01-01", "1970-01-01", "1970-01-02" },
+                { ClickHouseDataType.date32.name(), "1970-01-01", "1969-12-31", "1970-01-02" },
+                { ClickHouseDataType.datetime.name(), "1970-01-01 00:00:00", "1970-01-01 00:00:00",
                         "1970-01-01 00:00:01" },
-                { ClickHouseDataType.DateTime32.name(), "1970-01-01 00:00:00", "1970-01-01 00:00:00",
+                { ClickHouseDataType.datetime32.name(), "1970-01-01 00:00:00", "1970-01-01 00:00:00",
                         "1970-01-01 00:00:01" },
-                { ClickHouseDataType.DateTime64.name() + "(3)", "1970-01-01 00:00:00", "1969-12-31 23:59:59.999",
+                { ClickHouseDataType.datetime64.name() + "(3)", "1970-01-01 00:00:00", "1969-12-31 23:59:59.999",
                         "1970-01-01 00:00:00.001" },
-                { ClickHouseDataType.Decimal.name() + "(10,9)", "0E-9", "-1.000000000", "1.000000000" },
-                { ClickHouseDataType.Decimal32.name() + "(1)", "0.0", "-1.0", "1.0" },
-                { ClickHouseDataType.Decimal64.name() + "(3)", "0.000", "-1.000", "1.000" },
-                { ClickHouseDataType.Decimal128.name() + "(5)", "0.00000", "-1.00000", "1.00000" },
-                { ClickHouseDataType.Decimal256.name() + "(7)", "0E-7", "-1.0000000", "1.0000000" },
-                { ClickHouseDataType.FixedString.name() + "(3)", "0\0\0", "-1\0", "1\0\0" },
-                { ClickHouseDataType.String.name(), "0", "-1", "1" },
-                { ClickHouseDataType.UUID.name(), "00000000-0000-0000-0000-000000000000",
+                { ClickHouseDataType.decimal.name() + "(10,9)", "0E-9", "-1.000000000", "1.000000000" },
+                { ClickHouseDataType.decimal32.name() + "(1)", "0.0", "-1.0", "1.0" },
+                { ClickHouseDataType.decimal64.name() + "(3)", "0.000", "-1.000", "1.000" },
+                { ClickHouseDataType.decimal128.name() + "(5)", "0.00000", "-1.00000", "1.00000" },
+                { ClickHouseDataType.decimal256.name() + "(7)", "0E-7", "-1.0000000", "1.0000000" },
+                { ClickHouseDataType.fixed_string.name() + "(3)", "0\0\0", "-1\0", "1\0\0" },
+                { ClickHouseDataType.string.name(), "0", "-1", "1" },
+                { ClickHouseDataType.uuid.name(), "00000000-0000-0000-0000-000000000000",
                         "00000000-0000-0000-ffff-ffffffffffff", "00000000-0000-0000-0000-000000000001" } };
     }
 
@@ -364,10 +364,10 @@ public abstract class ClientIntegrationTest extends BaseIntegrationTest {
         ClickHouseNode server = getServer();
 
         try (ClickHouseClient client = getClient()) {
-            for (ClickHouseDataType type : new ClickHouseDataType[] { ClickHouseDataType.IntervalYear,
-                    ClickHouseDataType.IntervalQuarter, ClickHouseDataType.IntervalMonth,
-                    ClickHouseDataType.IntervalWeek, ClickHouseDataType.IntervalDay, ClickHouseDataType.IntervalHour,
-                    ClickHouseDataType.IntervalMinute, ClickHouseDataType.IntervalSecond }) {
+            for (ClickHouseDataType type : new ClickHouseDataType[] { ClickHouseDataType.interval_year,
+                    ClickHouseDataType.interval_quarter, ClickHouseDataType.interval_month,
+                    ClickHouseDataType.interval_week, ClickHouseDataType.interval_day, ClickHouseDataType.interval_hour,
+                    ClickHouseDataType.interval_minute, ClickHouseDataType.interval_second}) {
                 try (ClickHouseResponse resp = client.connect(server)
                         .format(ClickHouseFormat.RowBinaryWithNamesAndTypes)
                         .query(ClickHouseUtils.format(
@@ -536,11 +536,11 @@ public abstract class ClientIntegrationTest extends BaseIntegrationTest {
         String negativeOneValue = "-1";
         String zeroValue = "0";
         String positiveOneValue = "1";
-        if (dataType.startsWith(ClickHouseDataType.FixedString.name())) {
+        if (dataType.startsWith(ClickHouseDataType.fixed_string.name())) {
             negativeOneValue = "'-1'";
             zeroValue = "'0'";
             positiveOneValue = "'1'";
-        } else if (dataType.startsWith(ClickHouseDataType.UUID.name())) {
+        } else if (dataType.startsWith(ClickHouseDataType.uuid.name())) {
             negativeOneValue = ClickHouseUtils.format("'%s'", ClickHouseIntegerValue.of(-1).asUuid());
             zeroValue = ClickHouseUtils.format("'%s'", ClickHouseIntegerValue.of(0).asUuid());
             positiveOneValue = ClickHouseUtils.format("'%s'", ClickHouseIntegerValue.of(1).asUuid());
@@ -590,8 +590,8 @@ public abstract class ClientIntegrationTest extends BaseIntegrationTest {
             Assert.assertEquals(records.get(3)[0], positiveOne);
             Assert.assertEquals(records.get(3)[1], positiveOne);
 
-            if ((ClickHouseDataType.DateTime.name().equals(dataType)
-                    || ClickHouseDataType.DateTime32.name().equals(dataType)) && version.getMajorVersion() == 21
+            if ((ClickHouseDataType.datetime.name().equals(dataType)
+                    || ClickHouseDataType.datetime32.name().equals(dataType)) && version.getMajorVersion() == 21
                     && version.getMinorVersion() == 3) {
                 // skip DateTime and DateTime32 negative test on 21.3 since it's not doing well
                 // see https://github.com/ClickHouse/ClickHouse/issues/29835 for more

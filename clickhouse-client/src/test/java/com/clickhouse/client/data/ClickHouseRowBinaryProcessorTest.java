@@ -38,7 +38,7 @@ public class ClickHouseRowBinaryProcessorTest {
     public void testDeserializeArray() throws IOException {
         ClickHouseConfig config = new ClickHouseConfig();
         ClickHouseValue value = ClickHouseRowBinaryProcessor.getMappedFunctions().deserialize(null, config,
-                ClickHouseColumn.of("a", "Array(UInt8)"), BinaryStreamUtilsTest.generateInput(2, 1, 2));
+                ClickHouseColumn.of("a", "array(uint8)"), BinaryStreamUtilsTest.generateInput(2, 1, 2));
         Assert.assertTrue(value instanceof ClickHouseShortArrayValue);
         Assert.assertEquals(value.asObject(), new short[] { 1, 2 });
         Object[] shortArray = value.asArray();
@@ -47,7 +47,7 @@ public class ClickHouseRowBinaryProcessorTest {
         Assert.assertEquals(shortArray[1], Short.valueOf("2"));
 
         value = ClickHouseRowBinaryProcessor.getMappedFunctions().deserialize(null, config,
-                ClickHouseColumn.of("a", "Array(Nullable(Int8))"), BinaryStreamUtilsTest.generateInput(2, 0, 1, 0, 2));
+                ClickHouseColumn.of("a", "array(nullable(int8))"), BinaryStreamUtilsTest.generateInput(2, 0, 1, 0, 2));
         Assert.assertTrue(value instanceof ClickHouseByteArrayValue);
         Assert.assertEquals(value.asObject(), new byte[] { 1, 2 });
         Object[] byteArray = value.asArray();
@@ -56,7 +56,7 @@ public class ClickHouseRowBinaryProcessorTest {
         Assert.assertEquals(byteArray[1], Byte.valueOf("2"));
 
         value = ClickHouseRowBinaryProcessor.getMappedFunctions().deserialize(null, config,
-                ClickHouseColumn.of("a", "Array(Array(UInt8))"), BinaryStreamUtilsTest.generateInput(1, 2, 1, 2));
+                ClickHouseColumn.of("a", "array(array(uint8))"), BinaryStreamUtilsTest.generateInput(1, 2, 1, 2));
         Assert.assertTrue(value instanceof ClickHouseArrayValue);
         Assert.assertEquals(value.asObject(), new short[][] { new short[] { 1, 2 } });
         Object[] array = (Object[]) value.asObject();
@@ -65,7 +65,7 @@ public class ClickHouseRowBinaryProcessorTest {
 
         // SELECT arrayZip(['a', 'b', 'c'], [3, 2, 1])
         value = ClickHouseRowBinaryProcessor.getMappedFunctions().deserialize(null, config,
-                ClickHouseColumn.of("a", "Array(Tuple(String, UInt8))"),
+                ClickHouseColumn.of("a", "array(tuple(string, uint8))"),
                 BinaryStreamUtilsTest.generateInput(3, 1, 0x61, 3, 1, 0x62, 2, 1, 0x63, 1));
         Assert.assertTrue(value instanceof ClickHouseArrayValue);
         array = (Object[]) value.asObject();
@@ -82,7 +82,7 @@ public class ClickHouseRowBinaryProcessorTest {
 
         // insert into x values([{ 'a' : (null, 3), 'b' : (1, 2), 'c' : (2, 1)}])
         value = ClickHouseRowBinaryProcessor.getMappedFunctions().deserialize(null, config,
-                ClickHouseColumn.of("a", "Array(Map(String, Tuple(Nullable(UInt8), UInt16)))"),
+                ClickHouseColumn.of("a", "array(map(string, tuple(nullable(uint8), uint16)))"),
                 BinaryStreamUtilsTest.generateInput(1, 3, 1, 0x61, 1, 3, 0, 1, 0x62, 0, 1, 2, 0, 1, 0x63, 0, 2, 1, 0));
         Assert.assertTrue(value instanceof ClickHouseArrayValue);
         array = (Object[]) value.asObject();
@@ -109,19 +109,19 @@ public class ClickHouseRowBinaryProcessorTest {
         ClickHouseValue value = ClickHouseShortArrayValue.of(new short[] { 1, 2 });
         ByteArrayOutputStream bas = new ByteArrayOutputStream();
         ClickHouseRowBinaryProcessor.getMappedFunctions().serialize(value, config,
-                ClickHouseColumn.of("a", "Array(UInt8)"), bas);
+                ClickHouseColumn.of("a", "array(uint8)"), bas);
         Assert.assertEquals(bas.toByteArray(), BinaryStreamUtilsTest.generateBytes(2, 1, 2));
 
         value = ClickHouseByteArrayValue.of(new byte[] { 1, 2 });
         bas = new ByteArrayOutputStream();
         ClickHouseRowBinaryProcessor.getMappedFunctions().serialize(value, config,
-                ClickHouseColumn.of("a", "Array(Nullable(Int8))"), bas);
+                ClickHouseColumn.of("a", "array(nullable(int8))"), bas);
         Assert.assertEquals(bas.toByteArray(), BinaryStreamUtilsTest.generateBytes(2, 0, 1, 0, 2));
 
         value = ClickHouseArrayValue.of(new short[][] { new short[] { 1, 2 } });
         bas = new ByteArrayOutputStream();
         ClickHouseRowBinaryProcessor.getMappedFunctions().serialize(value, config,
-                ClickHouseColumn.of("a", "Array(Array(UInt8))"), bas);
+                ClickHouseColumn.of("a", "array(array(uint8))"), bas);
         Assert.assertEquals(bas.toByteArray(), BinaryStreamUtilsTest.generateBytes(1, 2, 1, 2));
 
         // SELECT arrayZip(['a', 'b', 'c'], [3, 2, 1])
@@ -129,7 +129,7 @@ public class ClickHouseRowBinaryProcessorTest {
                 Arrays.asList("c", (short) 1) });
         bas = new ByteArrayOutputStream();
         ClickHouseRowBinaryProcessor.getMappedFunctions().serialize(value, config,
-                ClickHouseColumn.of("a", "Array(Tuple(String, UInt8))"), bas);
+                ClickHouseColumn.of("a", "array(tuple(string, uint8))"), bas);
         Assert.assertEquals(bas.toByteArray(),
                 BinaryStreamUtilsTest.generateBytes(3, 1, 0x61, 3, 1, 0x62, 2, 1, 0x63, 1));
 
@@ -143,7 +143,7 @@ public class ClickHouseRowBinaryProcessorTest {
         } });
         bas = new ByteArrayOutputStream();
         ClickHouseRowBinaryProcessor.getMappedFunctions().serialize(value, config,
-                ClickHouseColumn.of("a", "Array(Map(String, Tuple(Nullable(UInt8), UInt16)))"), bas);
+                ClickHouseColumn.of("a", "array(map(string, tuple(nullable(uint8), uint16)))"), bas);
         Assert.assertEquals(bas.toByteArray(),
                 BinaryStreamUtilsTest.generateBytes(1, 3, 1, 0x61, 1, 3, 0, 1, 0x62, 0, 1, 2, 0, 1, 0x63, 0, 2, 1, 0));
     }
@@ -152,7 +152,7 @@ public class ClickHouseRowBinaryProcessorTest {
     public void testDeserializeMap() throws IOException {
         ClickHouseConfig config = new ClickHouseConfig();
         ClickHouseValue value = ClickHouseRowBinaryProcessor.getMappedFunctions().deserialize(null, config,
-                ClickHouseColumn.of("m", "Map(UInt8, UInt8)"), BinaryStreamUtilsTest.generateInput(2, 2, 2, 1, 1));
+                ClickHouseColumn.of("m", "map(uint8, uint8)"), BinaryStreamUtilsTest.generateInput(2, 2, 2, 1, 1));
         Assert.assertTrue(value instanceof ClickHouseMapValue);
         Map<?, ?> map = (Map<?, ?>) value.asObject();
         Assert.assertEquals(map.size(), 2);
@@ -160,7 +160,7 @@ public class ClickHouseRowBinaryProcessorTest {
         Assert.assertEquals(map.get((short) 1), (short) 1);
 
         value = ClickHouseRowBinaryProcessor.getMappedFunctions().deserialize(null, config,
-                ClickHouseColumn.of("m", "Map(String, UInt32)"),
+                ClickHouseColumn.of("m", "map(string, uint32)"),
                 BinaryStreamUtilsTest.generateInput(2, 1, 0x32, 2, 0, 0, 0, 1, 0x31, 1, 0, 0, 0));
         Assert.assertTrue(value instanceof ClickHouseMapValue);
         map = (Map<?, ?>) value.asObject();
@@ -180,7 +180,7 @@ public class ClickHouseRowBinaryProcessorTest {
         }, Short.class, Short.class);
         ByteArrayOutputStream bas = new ByteArrayOutputStream();
         ClickHouseRowBinaryProcessor.getMappedFunctions().serialize(value, config,
-                ClickHouseColumn.of("m", "Map(UInt8, UInt8)"), bas);
+                ClickHouseColumn.of("m", "map(uint8, uint8)"), bas);
         Assert.assertEquals(bas.toByteArray(), BinaryStreamUtilsTest.generateBytes(2, 2, 2, 1, 1));
 
         value = ClickHouseMapValue.of(new LinkedHashMap<String, Long>() {
@@ -191,7 +191,7 @@ public class ClickHouseRowBinaryProcessorTest {
         }, String.class, Long.class);
         bas = new ByteArrayOutputStream();
         ClickHouseRowBinaryProcessor.getMappedFunctions().serialize(value, config,
-                ClickHouseColumn.of("m", "Map(String, UInt32)"), bas);
+                ClickHouseColumn.of("m", "map(string, uint32)"), bas);
         Assert.assertEquals(bas.toByteArray(),
                 BinaryStreamUtilsTest.generateBytes(2, 1, 0x32, 2, 0, 0, 0, 1, 0x31, 1, 0, 0, 0));
     }
@@ -200,7 +200,7 @@ public class ClickHouseRowBinaryProcessorTest {
     public void testDeserializeNested() throws IOException {
         ClickHouseConfig config = new ClickHouseConfig();
         ClickHouseValue value = ClickHouseRowBinaryProcessor.getMappedFunctions().deserialize(null, config,
-                ClickHouseColumn.of("n", "Nested(n1 UInt8, n2 Nullable(String), n3 Int16)"),
+                ClickHouseColumn.of("n", "nested(n1 uint8, n2 nullable(string), n3 int16)"),
                 BinaryStreamUtilsTest.generateInput(1, 1, 1, 0, 1, 0x32, 1, 3, 0));
         Assert.assertTrue(value instanceof ClickHouseNestedValue);
 
@@ -220,12 +220,12 @@ public class ClickHouseRowBinaryProcessorTest {
     public void testSerializeNested() throws IOException {
         ClickHouseConfig config = new ClickHouseConfig();
         ClickHouseValue value = ClickHouseNestedValue.of(
-                ClickHouseColumn.of("n", "Nested(n1 UInt8, n2 Nullable(String), n3 Int16)").getNestedColumns(),
+                ClickHouseColumn.of("n", "nested(n1 uint8, n2 nullable(string), n3 int16)").getNestedColumns(),
                 new Object[][] { new Short[] { Short.valueOf("1") }, new String[] { "2" },
                         new Short[] { Short.valueOf("3") } });
         ByteArrayOutputStream bas = new ByteArrayOutputStream();
         ClickHouseRowBinaryProcessor.getMappedFunctions().serialize(value, config,
-                ClickHouseColumn.of("n", "Nested(n1 UInt8, n2 Nullable(String), n3 Int16)"), bas);
+                ClickHouseColumn.of("n", "nested(n1 uint8, n2 nullable(string), n3 int16)"), bas);
         Assert.assertEquals(bas.toByteArray(), BinaryStreamUtilsTest.generateBytes(1, 1, 1, 0, 1, 0x32, 1, 3, 0));
     }
 
@@ -233,7 +233,7 @@ public class ClickHouseRowBinaryProcessorTest {
     public void testDeserializeTuple() throws IOException {
         ClickHouseConfig config = new ClickHouseConfig();
         ClickHouseValue value = ClickHouseRowBinaryProcessor.getMappedFunctions().deserialize(null, config,
-                ClickHouseColumn.of("t", "Tuple(UInt8, String)"), BinaryStreamUtilsTest.generateInput(1, 1, 0x61));
+                ClickHouseColumn.of("t", "tuple(uint8, string)"), BinaryStreamUtilsTest.generateInput(1, 1, 0x61));
         Assert.assertTrue(value instanceof ClickHouseTupleValue);
         List<Object> values = (List<Object>) value.asObject();
         Assert.assertEquals(values.size(), 2);
@@ -241,7 +241,7 @@ public class ClickHouseRowBinaryProcessorTest {
         Assert.assertEquals(values.get(1), "a");
 
         value = ClickHouseRowBinaryProcessor.getMappedFunctions().deserialize(value, config,
-                ClickHouseColumn.of("t", "Tuple(UInt32, Int128, Nullable(IPv4)))"), BinaryStreamUtilsTest.generateInput(
+                ClickHouseColumn.of("t", "tuple(uint32, int128, nullable(ipv4)))"), BinaryStreamUtilsTest.generateInput(
                         1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0x05, 0xa8, 0xc0));
         Assert.assertTrue(value instanceof ClickHouseTupleValue);
         values = (List<Object>) value.asObject();
@@ -257,13 +257,13 @@ public class ClickHouseRowBinaryProcessorTest {
         ClickHouseValue value = ClickHouseTupleValue.of((byte) 1, "a");
         ByteArrayOutputStream bas = new ByteArrayOutputStream();
         ClickHouseRowBinaryProcessor.getMappedFunctions().serialize(value, config,
-                ClickHouseColumn.of("t", "Tuple(UInt8, String)"), bas);
+                ClickHouseColumn.of("t", "tuple(uint8, string)"), bas);
         Assert.assertEquals(bas.toByteArray(), BinaryStreamUtilsTest.generateBytes(1, 1, 0x61));
 
         value = ClickHouseTupleValue.of(1L, BigInteger.valueOf(2), InetAddress.getByName("192.168.5.1"));
         bas = new ByteArrayOutputStream();
         ClickHouseRowBinaryProcessor.getMappedFunctions().serialize(value, config,
-                ClickHouseColumn.of("t", "Tuple(UInt32, Int128, Nullable(IPv4)))"), bas);
+                ClickHouseColumn.of("t", "tuple(uint32, int128, nullable(ipv4)))"), bas);
         Assert.assertEquals(bas.toByteArray(), BinaryStreamUtilsTest.generateBytes(1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0x05, 0xa8, 0xc0));
     }

@@ -11,7 +11,7 @@ public class ClickHouseNestedValueTest extends BaseClickHouseValueTest {
     public void testMultipleValues() throws Exception {
         // single type
         checkValue(
-                ClickHouseNestedValue.of(ClickHouseColumn.parse("a String not null, b String null"),
+                ClickHouseNestedValue.of(ClickHouseColumn.parse("a string not null, b string null"),
                         new Object[][] { new String[] { "a1", "a2" }, new String[] { null, "b2" } }),
                 UnsupportedOperationException.class, // isInfinity
                 UnsupportedOperationException.class, // isNan
@@ -50,7 +50,7 @@ public class ClickHouseNestedValueTest extends BaseClickHouseValueTest {
 
         // mixed types
         checkValue(
-                ClickHouseNestedValue.of(ClickHouseColumn.parse("a Nullable(UInt8), b Date"),
+                ClickHouseNestedValue.of(ClickHouseColumn.parse("a nullable(uint8), b date"),
                         new Object[][] { new Short[] { (short) 1, null },
                                 new LocalDate[] { LocalDate.ofEpochDay(1L), LocalDate.ofEpochDay(2L) } }),
                 UnsupportedOperationException.class, // isInfinity
@@ -98,18 +98,18 @@ public class ClickHouseNestedValueTest extends BaseClickHouseValueTest {
     @Test(groups = { "unit" })
     public void testSingleValue() throws Exception {
         // null value
-        checkNull(ClickHouseNestedValue.ofEmpty(ClickHouseColumn.parse("a Nullable(String)")), false, 3, 9);
-        checkNull(ClickHouseNestedValue.ofEmpty(ClickHouseColumn.parse("a String not null")), false, 3, 9);
+        checkNull(ClickHouseNestedValue.ofEmpty(ClickHouseColumn.parse("a nullable(string)")), false, 3, 9);
+        checkNull(ClickHouseNestedValue.ofEmpty(ClickHouseColumn.parse("a string not null")), false, 3, 9);
         checkNull(
-                ClickHouseNestedValue.ofEmpty(ClickHouseColumn.parse("a String null")).update("x").resetToNullOrEmpty(),
+                ClickHouseNestedValue.ofEmpty(ClickHouseColumn.parse("a string null")).update("x").resetToNullOrEmpty(),
                 false, 3, 9);
         checkNull(
-                ClickHouseNestedValue.of(ClickHouseColumn.parse("a String not null, b Int8"),
+                ClickHouseNestedValue.of(ClickHouseColumn.parse("a string not null, b int8"),
                         new Object[][] { new String[] { "a" }, new Byte[] { (byte) 1 } }).resetToNullOrEmpty(),
                 false, 3, 9);
 
         checkValue(
-                ClickHouseNestedValue.of(ClickHouseColumn.parse("a Int8 not null"),
+                ClickHouseNestedValue.of(ClickHouseColumn.parse("a int8 not null"),
                         new Object[][] { new Byte[] { (byte) 1 } }),
                 UnsupportedOperationException.class, // isInfinity
                 UnsupportedOperationException.class, // isNan
