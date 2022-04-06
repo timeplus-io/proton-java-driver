@@ -321,7 +321,7 @@ public final class ClickHouseColumn implements Serializable {
 
                     if ("null".equalsIgnoreCase(modifier)) {
                         if (nullable) {
-                            throw new IllegalArgumentException("Nullable and NULL cannot be used together");
+                            throw new IllegalArgumentException("nullable and null cannot be used together");
                         }
                         nullable = !startsWithNot;
                         i = ClickHouseUtils.skipContentsUntil(args, i, len, ',') - 1;

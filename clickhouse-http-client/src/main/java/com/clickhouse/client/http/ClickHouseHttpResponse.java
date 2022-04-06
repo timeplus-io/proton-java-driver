@@ -65,7 +65,7 @@ public class ClickHouseHttpResponse {
         // {"read_rows":"0","read_bytes":"0","written_rows":"0","written_bytes":"0","total_rows_to_read":"0"}
         Map<String, String> map = (Map<String, String>) ClickHouseUtils
                 .parseJson(!ClickHouseChecker.isNullOrEmpty(summary) ? summary : "{}");
-        // discard those X-ClickHouse-Progress headers
+        // discard those x-proton-progress headers
         this.summary = new ClickHouseResponseSummary(
                 new ClickHouseResponseSummary.Progress(getLongValue(map, "read_rows"), getLongValue(map, "read_bytes"),
                         getLongValue(map, "total_rows_to_read"), getLongValue(map, "written_rows"),

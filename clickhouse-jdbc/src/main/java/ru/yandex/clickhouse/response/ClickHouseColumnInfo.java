@@ -8,9 +8,9 @@ import ru.yandex.clickhouse.domain.ClickHouseDataType;
  */
 public final class ClickHouseColumnInfo {
 
-    private static final String KEYWORD_NULLABLE = "Nullable";
-    private static final String KEYWORD_LOW_CARDINALITY = "LowCardinality";
-    private static final String KEYWORD_ARRAY = "Array";
+    private static final String KEYWORD_NULLABLE = "nullable";
+    private static final String KEYWORD_LOW_CARDINALITY = "low_cardinality";
+    private static final String KEYWORD_ARRAY = "array";
 
     private ClickHouseDataType clickHouseDataType;
     private final String originalTypeName;

@@ -34,7 +34,7 @@ public class ClickHouseNestedValueTest extends BaseClickHouseValueTest {
                 UnsupportedOperationException.class, // Inet4Address
                 UnsupportedOperationException.class, // Inet6Address
                 "[[a1, a2], [null, b2]]", // String
-                "['a1','a2'],[NULL,'b2']", // SQL Expression
+                "['a1','a2'],[null,'b2']", // SQL Expression
                 UnsupportedOperationException.class, // Time
                 UnsupportedOperationException.class, // UUID
                 String.class, // Key class
@@ -75,7 +75,7 @@ public class ClickHouseNestedValueTest extends BaseClickHouseValueTest {
                 UnsupportedOperationException.class, // Inet4Address
                 UnsupportedOperationException.class, // Inet6Address
                 "[[1, null], [1970-01-02, 1970-01-03]]", // String
-                "[1,NULL],['1970-01-02','1970-01-03']", // SQL Expression
+                "[1,null],['1970-01-02','1970-01-03']", // SQL Expression
                 UnsupportedOperationException.class, // Time
                 UnsupportedOperationException.class, // UUID
                 String.class, // Key class

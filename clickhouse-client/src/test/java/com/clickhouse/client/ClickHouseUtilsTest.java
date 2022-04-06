@@ -375,7 +375,7 @@ public class ClickHouseUtilsTest {
                 args.lastIndexOf(']') + 1);
         Assert.assertEquals(list, Arrays.asList("1", "2", "3"));
 
-        args = "[1, null , 3,, Null]";
+        args = "[1, null , 3,, null]";
         list.clear();
         Assert.assertEquals(ClickHouseUtils.readValueArray(args, 0, args.length(), list::add), args.length());
         Assert.assertEquals(list, Arrays.asList("1", null, "3", null, null));
@@ -390,10 +390,10 @@ public class ClickHouseUtilsTest {
         Assert.assertEquals(ClickHouseUtils.readValueArray(args, 0, args.length(), list::add), args.length());
         Assert.assertEquals(list, Arrays.asList("[1,2,3]", "[]", "()", "(4,5,6)"));
 
-        args = "[,null,nan,-inf,,123,]";
+        args = "[,null,NaN,-inf,,123,]";
         list.clear();
         Assert.assertEquals(ClickHouseUtils.readValueArray(args, 0, args.length(), list::add), args.length());
-        Assert.assertEquals(list, Arrays.asList(null, null, "nan", "-inf", null, "123", null));
+        Assert.assertEquals(list, Arrays.asList(null, null, "NaN", "-inf", null, "123", null));
 
         args = "1";
         list.clear();

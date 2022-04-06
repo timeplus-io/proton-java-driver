@@ -791,7 +791,7 @@ public class ClickHouseStatementImpl extends ConfigurableApi<ClickHouseStatement
             // retrieve response summary
             if (isQueryParamSet(ClickHouseQueryParam.SEND_PROGRESS_IN_HTTP_HEADERS, additionalClickHouseDBParams,
                     additionalRequestParams)) {
-                Header summaryHeader = response.getFirstHeader("X-ClickHouse-Summary");
+                Header summaryHeader = response.getFirstHeader("x-proton-summary");
                 currentSummary = summaryHeader != null
                         ? JsonStreamUtils.readObject(summaryHeader.getValue(), ClickHouseResponseSummary.class)
                         : null;
@@ -1058,7 +1058,7 @@ public class ClickHouseStatementImpl extends ConfigurableApi<ClickHouseStatement
             // retrieve response summary
             if (isQueryParamSet(ClickHouseQueryParam.SEND_PROGRESS_IN_HTTP_HEADERS, writer.getAdditionalDBParams(),
                     writer.getRequestParams())) {
-                Header summaryHeader = response.getFirstHeader("X-ClickHouse-Summary");
+                Header summaryHeader = response.getFirstHeader("x-proton-summary");
                 currentSummary = summaryHeader != null
                         ? JsonStreamUtils.readObject(summaryHeader.getValue(), ClickHouseResponseSummary.class)
                         : null;

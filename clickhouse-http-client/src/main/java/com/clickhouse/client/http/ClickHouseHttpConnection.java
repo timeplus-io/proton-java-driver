@@ -181,18 +181,18 @@ public abstract class ClickHouseHttpConnection implements AutoCloseable {
             // TODO check if auth-scheme is available and supported
             map.put("Authorization", credentials.getAccessToken());
         } else {
-            map.put("X-ClickHouse-User", credentials.getUserName());
+            map.put("x-proton-user", credentials.getUserName());
             if (!ClickHouseChecker.isNullOrEmpty(credentials.getPassword())) {
-                map.put("X-ClickHouse-Key", credentials.getPassword());
+                map.put("x-proton-key", credentials.getPassword());
             }
         }
 
         String database = server.getDatabase(config);
         if (!ClickHouseChecker.isNullOrEmpty(database)) {
-            map.put("X-ClickHouse-Database", database);
+            map.put("x-proton-database", database);
         }
         // Also, you can use the ‘default_format’ URL parameter
-        map.put("X-ClickHouse-Format", config.getFormat().name());
+        map.put("x-proton-format", config.getFormat().name());
         if (config.isCompressServerResponse()) {
             map.put("Accept-Encoding", config.getCompressAlgorithmForServerResponse().encoding());
         }

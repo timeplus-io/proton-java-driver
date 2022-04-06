@@ -72,8 +72,8 @@ public class ClickHouseConnectionImpl extends JdbcWrapper implements ClickHouseC
         try (ClickHouseResponse response = newReq.option(ClickHouseClientOption.ASYNC, false)
                 .option(ClickHouseClientOption.COMPRESS, false).option(ClickHouseClientOption.DECOMPRESS, false)
                 .option(ClickHouseClientOption.FORMAT, ClickHouseFormat.RowBinaryWithNamesAndTypes)
-                .query("select currentUser(), timezone(), version(), "
-                        + "ifnull((select toUInt8(value) from system.settings where name='readonly'),0) readonly "
+                .query("select current_user(), timezone(), version(), "
+                        + "if_null((select to_uint8(value) from system.settings where name='readonly'), 0) AS readonly "
                         + "FORMAT RowBinaryWithNamesAndTypes")
                 .execute().get()) {
             return response.firstRecord();
@@ -248,10 +248,10 @@ public class ClickHouseConnectionImpl extends JdbcWrapper implements ClickHouseC
             String ver = r.getValue(2).asString();
             version = ClickHouseVersion.of(ver);
             // https://github.com/ClickHouse/ClickHouse/commit/486d63864bcc6e15695cd3e9f9a3f83a84ec4009
-            if (version.check("(,20.7)")) {
+            /*if (version.check("(,20.7)")) {
                 throw SqlExceptionUtils
                         .unsupportedError("Sorry this driver only supports ClickHouse server 20.7 or above");
-            }
+            }*/
             if (ClickHouseChecker.isNullOrBlank(tz)) {
                 tz = "UTC";
             }

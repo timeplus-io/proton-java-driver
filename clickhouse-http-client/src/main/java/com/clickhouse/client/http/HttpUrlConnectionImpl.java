@@ -40,24 +40,24 @@ public class HttpUrlConnectionImpl extends ClickHouseHttpConnection {
     private final HttpURLConnection conn;
 
     private ClickHouseHttpResponse buildResponse() throws IOException {
-        // X-ClickHouse-Server-Display-Name: xxx
-        // X-ClickHouse-Query-Id: xxx
-        // X-ClickHouse-Format: RowBinaryWithNamesAndTypes
-        // X-ClickHouse-Timezone: UTC
-        // X-ClickHouse-Summary:
+        // x-proton-server-display-name: xxx
+        // x-proton-query-id: xxx
+        // x-proton-format: RowBinaryWithNamesAndTypes
+        // x-proton-timezone: UTC
+        // x-proton-summary:
         // {"read_rows":"0","read_bytes":"0","written_rows":"0","written_bytes":"0","total_rows_to_read":"0"}
-        String displayName = getResponseHeader("X-ClickHouse-Server-Display-Name", server.getHost());
-        String queryId = getResponseHeader("X-ClickHouse-Query-Id", "");
-        String summary = getResponseHeader("X-ClickHouse-Summary", "{}");
+        String displayName = getResponseHeader("x-proton-server-display-name", server.getHost());
+        String queryId = getResponseHeader("x-proton-query-id", "");
+        String summary = getResponseHeader("x-proton-summary", "{}");
 
         ClickHouseFormat format = config.getFormat();
         TimeZone timeZone = config.getServerTimeZone();
         // queryId, format and timeZone are only available for queries
         if (!ClickHouseChecker.isNullOrEmpty(queryId)) {
-            String value = getResponseHeader("X-ClickHouse-Format", "");
+            String value = getResponseHeader("x-proton-format", "");
             format = !ClickHouseChecker.isNullOrEmpty(value) ? ClickHouseFormat.valueOf(value)
                     : format;
-            value = getResponseHeader("X-ClickHouse-Timezone", "");
+            value = getResponseHeader("x-proton-timezone", "");
             timeZone = !ClickHouseChecker.isNullOrEmpty(value) ? TimeZone.getTimeZone(value)
                     : timeZone;
         }
@@ -115,7 +115,7 @@ public class HttpUrlConnectionImpl extends ClickHouseHttpConnection {
     private void checkResponse(HttpURLConnection conn) throws IOException {
         if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
             // TODO get exception from response header, for example:
-            // X-ClickHouse-Exception-Code: 47
+            // x-proton-exception-code: 47
             StringBuilder builder = new StringBuilder();
             try (Reader reader = new InputStreamReader(getResponseInputStream(conn.getErrorStream()),
                     StandardCharsets.UTF_8)) {

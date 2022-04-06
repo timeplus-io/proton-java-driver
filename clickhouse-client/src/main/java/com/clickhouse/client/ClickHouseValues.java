@@ -95,7 +95,7 @@ public final class ClickHouseValues {
     public static final ZoneId UTC_ZONE = UTC_TIMEZONE.toZoneId();
     public static final ZoneId SYS_ZONE = SYS_TIMEZONE.toZoneId();
 
-    public static final String NULL_EXPR = "NULL";
+    public static final String NULL_EXPR = "null";
     public static final String NAN_EXPR = "NaN";
     public static final String INF_EXPR = "Inf";
     public static final String NINF_EXPR = "-Inf";
@@ -118,23 +118,23 @@ public final class ClickHouseValues {
     public static final String TYPE_DOUBLE = "double";
     public static final String TYPE_BIG_DECIMAL = "BigDecimal";
     public static final String TYPE_BIG_INTEGER = "BigInteger";
-    public static final String TYPE_DATE = "Date";
-    public static final String TYPE_TIME = "Time";
-    public static final String TYPE_DATE_TIME = "DateTime";
-    public static final String TYPE_ENUM = "Enum";
-    public static final String TYPE_IPV4 = "Inet4Address";
-    public static final String TYPE_IPV6 = "Inet6Address";
-    public static final String TYPE_STRING = "String";
-    public static final String TYPE_UUID = "UUID";
+    public static final String TYPE_DATE = "date";
+    public static final String TYPE_TIME = "time";
+    public static final String TYPE_DATE_TIME = "datetime";
+    public static final String TYPE_ENUM = "enum";
+    public static final String TYPE_IPV4 = "inet4_address";
+    public static final String TYPE_IPV6 = "inet6_address";
+    public static final String TYPE_STRING = "string";
+    public static final String TYPE_UUID = "uuid";
     public static final String TYPE_OBJECT = "Object";
-    public static final String TYPE_ARRAY = "Array";
-    public static final String TYPE_MAP = "Map";
-    public static final String TYPE_NESTED = "Nested";
-    public static final String TYPE_TUPLE = "Tuple";
-    public static final String TYPE_POINT = "Point";
-    public static final String TYPE_RING = "Ring";
-    public static final String TYPE_POLYGON = "Polygon";
-    public static final String TYPE_MULTI_POLYGON = "MultiPolygon";
+    public static final String TYPE_ARRAY = "array";
+    public static final String TYPE_MAP = "map";
+    public static final String TYPE_NESTED = "nested";
+    public static final String TYPE_TUPLE = "tuple";
+    public static final String TYPE_POINT = "point";
+    public static final String TYPE_RING = "ring";
+    public static final String TYPE_POLYGON = "polygon";
+    public static final String TYPE_MULTI_POLYGON = "multipolygon";
 
     public static final String TYPE_CLASS = "Class";
 
