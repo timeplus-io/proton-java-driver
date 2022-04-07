@@ -231,7 +231,7 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
         // took from below URLs(not from system.functions):
         // https://clickhouse.com/docs/en/sql-reference/functions/arithmetic-functions/
         // https://clickhouse.com/docs/en/sql-reference/functions/math-functions/
-        return "abs,acos,acosh,asin,asinh,atan,atan2,atanh,cbrt,cos,cosh,divide,e,erf,erfc,exp,exp10,exp2,gcd,hypot,intDiv,intDivOrZero,intExp10,intExp2,lcm,lgamma,ln,log,log10,log1p,log2,minus,modulo,moduloOrZero,multiply,negate,pi,plus,pow,power,sign,sin,sinh,sqrt,tan,tgamma";
+        return "abs,acos,acosh,asin,asinh,atan,atan2,atanh,cbrt,cos,cosh,divide,e,erf,erfc,exp,exp10,exp2,gcd,hypot,int_div,int_div_or_zero,int_exp10,int_exp2,lcm,lgamma,ln,log,log10,log1p,log2,minus,modulo,modulo_or_zero,multiply,negate,pi,plus,pow,power,sign,sin,sinh,sqrt,tan,tgamma";
     }
 
     @Override
@@ -240,21 +240,21 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
         // https://clickhouse.com/docs/en/sql-reference/functions/string-functions/
         // https://clickhouse.com/docs/en/sql-reference/functions/string-search-functions/
         // https://clickhouse.com/docs/en/sql-reference/functions/string-replace-functions/
-        return "appendTrailingCharIfAbsent,base64Decode,base64Encode,char_length,CHAR_LENGTH,character_length,CHARACTER_LENGTH,concat,concatAssumeInjective,convertCharset,countMatches,countSubstrings,countSubstringsCaseInsensitive,countSubstringsCaseInsensitiveUTF8,CRC32,CRC32IEEE,CRC64,decodeXMLComponent,empty,encodeXMLComponent,endsWith,extract,extractAll,extractAllGroupsHorizontal,extractAllGroupsVertical,extractTextFromHTML ,format,ilike,isValidUTF8,lcase,leftPad,leftPadUTF8,length,lengthUTF8,like,locate,lower,lowerUTF8,match,mid,multiFuzzyMatchAllIndices,multiFuzzyMatchAny,multiFuzzyMatchAnyIndex,multiMatchAllIndices,multiMatchAny,multiMatchAnyIndex,multiSearchAllPositions,multiSearchAllPositionsUTF8,multiSearchAny,multiSearchFirstIndex,multiSearchFirstPosition,ngramDistance,ngramSearch,normalizedQueryHash,normalizeQuery,notEmpty,notLike,position,positionCaseInsensitive,positionCaseInsensitiveUTF8,positionUTF8,regexpQuoteMeta,repeat,replace,replaceAll,replaceOne,replaceRegexpAll,replaceRegexpOne,reverse,reverseUTF8,rightPad,rightPadUTF8,startsWith,substr,substring,substringUTF8,tokens,toValidUTF8,trim,trimBoth,trimLeft,trimRight,tryBase64Decode,ucase,upper,upperUTF8";
+        return "append_trailing_char_if_absent,base64_decode,base64_encode,char_length,CHAR_LENGTH,character_length,CHARACTER_LENGTH,concat,concat_assume_injective,convert_charset,count_matches,count_substrings,count_substrings_case_insensitive,count_substrings_case_insensitive_utf8,crc32,crc32ieee,crc64,decode_xml_component,empty,encode_xml_component,ends_with,extract,extract_all,extract_all_groups_horizontal,extract_all_groups_vertical,extract_text_from_html ,format,ilike,is_valid_utf8,lcase,left_pad,left_pad_utf8,length,length_utf8,like,locate,lower,lower_utf8,match,mid,multi_fuzzy_match_all_indices,multi_fuzzy_match_any,multi_fuzzy_match_any_index,multi_match_all_indices,multi_match_any,multi_match_any_index,multi_search_all_positions,multi_search_all_positions_utf8,multi_search_any,multi_search_first_index,multi_search_first_position,ngram_distance,ngram_search,normalized_query_hash,normalize_query,not_empty,not_like,position,position_case_insensitive,position_case_insensitive_utf8,position_utf8,regexp_quote_meta,repeat,replace,replace_all,replace_one,replace_regexp_all,replace_regexp_one,reverse,reverse_utf8,right_pad,right_pad_utf8,starts_with,substr,substring,substring_utf8,tokens,to_valid_utf8,trim,trim_both,trim_left,trim_right,try_base64_decode,ucase,upper,upper_utf8";
     }
 
     @Override
     public String getSystemFunctions() throws SQLException {
         // took from below URL(not from system.functions):
         // https://clickhouse.com/docs/en/sql-reference/functions/other-functions/
-        return "bar,basename,blockNumber,blockSerializedSize,blockSize,buildId,byteSize,countDigits,currentDatabase,currentProfiles,currentRoles,currentUser,defaultProfiles,defaultRoles,defaultValueOfArgumentType,defaultValueOfTypeName,dumpColumnStructure,enabledProfiles,enabledRoles,errorCodeToName,filesystemAvailable,filesystemCapacity,filesystemFree,finalizeAggregation,formatReadableQuantity,formatReadableSize,formatReadableTimeDelta,FQDN,getMacro,getServerPort,getSetting,getSizeOfEnumType,greatest,hasColumnInTable,hostName,identity,ifNotFinite,ignore,indexHint,initializeAggregation,initialQueryID,isConstant,isDecimalOverflow,isFinite,isInfinite,isNaN,joinGet,least,MACNumToString,MACStringToNum,MACStringToOUI,materialize,modelEvaluate,neighbor,queryID,randomFixedString,randomPrintableASCII,randomString,randomStringUTF8,replicate,rowNumberInAllBlocks,rowNumberInBlock,runningAccumulate,runningConcurrency,runningDifference,runningDifferenceStartingWithFirstValue,shardCount ,shardNum,sleep,sleepEachRow,tcpPort,throwIf,toColumnTypeName,toTypeName,transform,uptime,version,visibleWidth";
+        return "bar,basename,block_number,block_serialized_size,block_size,build_id,byte_size,count_digits,current_database,current_profiles,current_roles,current_user,default_profiles,default_roles,default_value_of_argument_type,default_value_of_typeName,dump_column_structure,enabled_profiles,enabled_roles,error_code_to_name,filesystem_available,filesystem_capacity,filesystem_free,finalize_aggregation,format_readable_quantity,format_readable_size,format_readable_time_delta,fqdn,get_macro,get_server_port,get_setting,get_size_of_enum_type,greatest,has_column_in_table,hostname,identity,if_not_finite,ignore,index_hint,initialize_aggregation,initial_query_id,is_constant,is_decimal_overflow,is_finite,is_infinite,is_nan,join_get,least,mac_num_to_string,mac_string_to_num,mac_string_to_oui,materialize,model_evaluate,neighbor,query_id,random_fixed_string,random_printable_ascii,random_string,random_string_utf8,replicate,row_number_in_all_blocks,row_number_in_block,running_accumulate,running_concurrency,running_difference,running_difference_starting_with_first_value,shard_count ,shard_num,sleep,sleep_each_row,tcp_port,throw_if,to_column_type_name,to_type_name,transform,uptime,version,visible_width";
     }
 
     @Override
     public String getTimeDateFunctions() throws SQLException {
         // took from below URL(not from system.functions):
         // https://clickhouse.com/docs/en/sql-reference/functions/date-time-functions/
-        return "addDays,addHours,addMinutes,addMonths,addQuarters,addSeconds,addWeeks,addYears,date_add,date_diff,date_sub,date_trunc,dateName,formatDateTime,FROM_UNIXTIME,fromModifiedJulianDay,fromModifiedJulianDayOrNull,now,subtractDays,subtractHours,subtractMinutes,subtractMonths,subtractQuarters,subtractSeconds,subtractWeeks,subtractYears,timeSlot,timeSlots,timestamp_add,timestamp_sub,timeZone,timeZoneOf,timeZoneOffset,today,toDayOfMonth,toDayOfWeek,toDayOfYear,toHour,toISOWeek,toISOYear,toMinute,toModifiedJulianDay,toModifiedJulianDayOrNull,toMonday,toMonth,toQuarter,toRelativeDayNum,toRelativeHourNum,toRelativeMinuteNum,toRelativeMonthNum,toRelativeQuarterNum,toRelativeSecondNum,toRelativeWeekNum,toRelativeYearNum,toSecond,toStartOfDay,toStartOfFifteenMinutes,toStartOfFiveMinute,toStartOfHour,toStartOfInterval,toStartOfISOYear,toStartOfMinute,toStartOfMonth,toStartOfQuarter,toStartOfSecond,toStartOfTenMinutes,toStartOfWeek,toStartOfYear,toTime,toTimeZone,toUnixTimestamp,toWeek,toYear,toYearWeek,toYYYYMM,toYYYYMMDD,toYYYYMMDDhhmmss,yesterday";
+        return "add_days,add_hours,add_minutes,add_months,add_quarters,add_seconds,add_weeks,add_years,date_add,date_diff,date_sub,date_trunc,date_name,format_date_time,from_unixtime,from_modified_julian_day,from_modified_julian_day_or_null,now,subtract_days,subtract_hours,subtract_minutes,subtract_months,subtract_quarters,subtract_seconds,subtract_weeks,subtract_years,time_slot,time_slots,timestamp_add,timestamp_sub,timeZone,time_zone_of,time_zone_offset,today,to_day_of_month,weekday,to_day_of_year,to_hour,to_iso_week,to_iso_year,to_minute,to_modified_julian_day,to_modified_julian_day_or_null,to_monday,to_month,to_quarter,to_relative_day_num,to_relative_hour_num,to_relative_minute_num,to_relative_month_num,to_relative_quarter_num,to_relative_second_num,to_relative_week_num,to_relative_year_num,to_second,to_start_of_day,to_start_of_fifteen_minutes,to_start_of_five_minute,to_start_of_hour,to_start_of_interval,to_start_of_iso_year,to_start_of_minute,to_start_of_month,to_start_of_quarter,to_start_of_second,to_start_of_ten_minutes,to_start_of_week,to_start_of_year,to_time,to_time_zone,to_unix_timestamp,to_week,to_year,to_year_week,to_YYYYMM,to_YYYYMMDD,to_YYYYMMDDhhmmss,yesterday";
     }
 
     @Override
@@ -708,20 +708,20 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
     @Override
     public ResultSet getProcedures(String catalog, String schemaPattern, String procedureNamePattern)
             throws SQLException {
-        return empty("PROCEDURE_CAT Nullable(String), PROCEDURE_SCHEM Nullable(String), "
-                + "RESERVED1 Nullable(String), RESERVED2 Nullable(String), RESERVED3 Nullable(String), "
-                + "PROCEDURE_NAME String, REMARKS String, PROCEDURE_TYPE Int16, SPECIFIC_NAME String");
+        return empty("PROCEDURE_CAT nullable(string), PROCEDURE_SCHEM nullable(string), "
+                + "RESERVED1 nullable(string), RESERVED2 nullable(string), RESERVED3 nullable(string), "
+                + "PROCEDURE_NAME string, REMARKS string, PROCEDURE_TYPE int16, SPECIFIC_NAME string");
     }
 
     @Override
     public ResultSet getProcedureColumns(String catalog, String schemaPattern, String procedureNamePattern,
             String columnNamePattern) throws SQLException {
-        return empty("PROCEDURE_CAT Nullable(String), PROCEDURE_SCHEM Nullable(String), "
-                + "PROCEDURE_NAME String, COLUMN_NAME String, COLUMN_TYPE Int16, "
-                + "DATA_TYPE Int32, TYPE_NAME String, PRECISION Int32, LENGTH Int32, "
-                + "SCALE Int16, RADIX Int16, NULLABLE Int16, REMARKS String, "
-                + "COLUMN_DEF Nullable(String), SQL_DATA_TYPE Int32, SQL_DATETIME_SUB Int32, "
-                + "CHAR_OCTET_LENGTH Int32, ORDINAL_POSITION Int32, IS_NULLABLE String, SPECIFIC_NAME String");
+        return empty("PROCEDURE_CAT nullable(string), PROCEDURE_SCHEM nullable(string), "
+                + "PROCEDURE_NAME string, COLUMN_NAME string, COLUMN_TYPE int16, "
+                + "DATA_TYPE int32, TYPE_NAME string, PRECISION int32, LENGTH int32, "
+                + "SCALE int16, RADIX int16, NULLABLE int16, REMARKS string, "
+                + "COLUMN_DEF nullable(string), SQL_DATA_TYPE int32, SQL_DATETIME_SUB int32, "
+                + "CHAR_OCTET_LENGTH int32, ORDINAL_POSITION int32, IS_NULLABLE string, SPECIFIC_NAME string");
     }
 
     @Override
@@ -798,7 +798,7 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
         for (int i = 0; i < len; i++) {
             rows[i] = new Object[] { TABLE_TYPES[i] };
         }
-        return fixed("TABLE_TYPE String", rows);
+        return fixed("TABLE_TYPE string", rows);
     }
 
     @Override
@@ -859,16 +859,16 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
     @Override
     public ResultSet getColumnPrivileges(String catalog, String schema, String table, String columnNamePattern)
             throws SQLException {
-        return empty("TABLE_CAT Nullable(String), TABLE_SCHEM Nullable(String), TABLE_NAME String, "
-                + "COLUMN_NAME String, GRANTOR Nullable(String), GRANTEE String, PRIVILEGE String, "
-                + "IS_GRANTABLE Nullable(String)");
+        return empty("TABLE_CAT nullable(string), TABLE_SCHEM nullable(string), TABLE_NAME string, "
+                + "COLUMN_NAME string, GRANTOR nullable(string), GRANTEE string, PRIVILEGE string, "
+                + "IS_GRANTABLE nullable(string)");
     }
 
     @Override
     public ResultSet getTablePrivileges(String catalog, String schemaPattern, String tableNamePattern)
             throws SQLException {
-        return empty("TABLE_CAT Nullable(String), TABLE_SCHEM Nullable(String), TABLE_NAME String, "
-                + "GRANTOR Nullable(String), GRANTEE String, PRIVILEGE String, IS_GRANTABLE Nullable(String)");
+        return empty("TABLE_CAT nullable(string), TABLE_SCHEM nullable(string), TABLE_NAME string, "
+                + "GRANTOR nullable(string), GRANTEE string, PRIVILEGE string, IS_GRANTABLE nullable(string)");
     }
 
     @Override
@@ -879,22 +879,22 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
 
     @Override
     public ResultSet getVersionColumns(String catalog, String schema, String table) throws SQLException {
-        return empty("SCOPE Int16, COLUMN_NAME String, DATA_TYPE Int32, TYPE_NAME String, "
-                + "COLUMN_SIZE Int32, BUFFER_LENGTH Int32, DECIMAL_DIGITS Int16, PSEUDO_COLUMN Int16");
+        return empty("SCOPE int16, COLUMN_NAME string, DATA_TYPE int32, TYPE_NAME string, "
+                + "COLUMN_SIZE int32, BUFFER_LENGTH int32, DECIMAL_DIGITS int16, PSEUDO_COLUMN int16");
     }
 
     @Override
     public ResultSet getPrimaryKeys(String catalog, String schema, String table) throws SQLException {
-        return empty("TABLE_CAT Nullable(String), TABLE_SCHEM Nullable(String), TABLE_NAME String, "
-                + "COLUMN_NAME String, KEY_SEQ Int16, PK_NAME String");
+        return empty("TABLE_CAT nullable(string), TABLE_SCHEM nullable(string), TABLE_NAME string, "
+                + "COLUMN_NAME string, KEY_SEQ int16, PK_NAME string");
     }
 
     @Override
     public ResultSet getImportedKeys(String catalog, String schema, String table) throws SQLException {
-        return empty("PKTABLE_CAT Nullable(String), PKTABLE_SCHEM Nullable(String), PKTABLE_NAME String, "
-                + "PKCOLUMN_NAME String, FKTABLE_CAT Nullable(String), FKTABLE_SCHEM Nullable(String), "
-                + "FKTABLE_NAME String, FKCOLUMN_NAME String, KEY_SEQ Int16, UPDATE_RULE Int16, "
-                + "DELETE_RULE Int16, FK_NAME Nullable(String), PK_NAME Nullable(String), DEFERRABILITY Int16");
+        return empty("PKTABLE_CAT nullable(string), PKTABLE_SCHEM nullable(string), PKTABLE_NAME string, "
+                + "PKCOLUMN_NAME string, FKTABLE_CAT nullable(string), FKTABLE_SCHEM nullable(string), "
+                + "FKTABLE_NAME string, FKCOLUMN_NAME string, KEY_SEQ int16, UPDATE_RULE int16, "
+                + "DELETE_RULE int16, FK_NAME nullable(string), PK_NAME nullable(string), DEFERRABILITY int16");
     }
 
     @Override
@@ -905,10 +905,10 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
     @Override
     public ResultSet getCrossReference(String parentCatalog, String parentSchema, String parentTable,
             String foreignCatalog, String foreignSchema, String foreignTable) throws SQLException {
-        return empty("PKTABLE_CAT Nullable(String), PKTABLE_SCHEM Nullable(String), PKTABLE_NAME String, "
-                + "PKCOLUMN_NAME String, FKTABLE_CAT Nullable(String), FKTABLE_SCHEM Nullable(String), "
-                + "FKTABLE_NAME String, FKCOLUMN_NAME String, KEY_SEQ Int16, UPDATE_RULE Int16, "
-                + "DELETE_RULE Int16, FK_NAME Nullable(String), PK_NAME Nullable(String), DEFERRABILITY Int16");
+        return empty("PKTABLE_CAT nullable(string), PKTABLE_SCHEM nullable(string), PKTABLE_NAME string, "
+                + "PKCOLUMN_NAME string, FKTABLE_CAT nullable(string), FKTABLE_SCHEM nullable(string), "
+                + "FKTABLE_NAME string, FKCOLUMN_NAME string, KEY_SEQ int16, UPDATE_RULE int16, "
+                + "DELETE_RULE int16, FK_NAME nullable(string), PK_NAME nullable(string), DEFERRABILITY int16");
     }
 
     private Object[] toTypeRow(String typeName, String aliasTo) {
@@ -992,12 +992,12 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
             }
         }
 
-        return fixed("TYPE_NAME String, DATA_TYPE Int32, PRECISION Int32, "
-                + "LITERAL_PREFIX Nullable(String), LITERAL_SUFFIX Nullable(String), CREATE_PARAMS Nullable(String), "
-                + "NULLABLE Int16, CASE_SENSITIVE UInt8, SEARCHABLE Int16, UNSIGNED_ATTRIBUTE UInt8, "
-                + "FIXED_PREC_SCALE UInt8, AUTO_INCREMENT UInt8, LOCAL_TYPE_NAME Nullable(String), "
-                + "MINIMUM_SCALE Int16, MAXIMUM_SCALE Int16, SQL_DATA_TYPE Int32, SQL_DATETIME_SUB Int32, "
-                + "NUM_PREC_RADIX Int32", list.toArray(new Object[0][]));
+        return fixed("TYPE_NAME string, DATA_TYPE int32, PRECISION int32, "
+                + "LITERAL_PREFIX nullable(string), LITERAL_SUFFIX nullable(string), CREATE_PARAMS nullable(string), "
+                + "NULLABLE int16, CASE_SENSITIVE uint8, SEARCHABLE int16, UNSIGNED_ATTRIBUTE uint8, "
+                + "FIXED_PREC_SCALE uint8, AUTO_INCREMENT uint8, LOCAL_TYPE_NAME nullable(string), "
+                + "MINIMUM_SCALE int16, MAXIMUM_SCALE int16, SQL_DATA_TYPE int32, SQL_DATETIME_SUB int32, "
+                + "NUM_PREC_RADIX int32", list.toArray(new Object[0][]));
     }
 
     @Override
@@ -1008,32 +1008,32 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
                 ClickHouseChecker.isNullOrEmpty(schema) ? "'%'" : ClickHouseValues.convertToQuotedString(schema));
         params.put("table",
                 ClickHouseChecker.isNullOrEmpty(table) ? "'%'" : ClickHouseValues.convertToQuotedString(table));
-        params.put("statIndex", String.valueOf(DatabaseMetaData.tableIndexStatistic));
-        params.put("otherIndex", String.valueOf(DatabaseMetaData.tableIndexOther));
+        params.put("stat_index", String.valueOf(DatabaseMetaData.tableIndexStatistic));
+        params.put("other_index", String.valueOf(DatabaseMetaData.tableIndexOther));
         return new CombinedResultSet(
-                empty("TABLE_CAT Nullable(String), TABLE_SCHEM Nullable(String), TABLE_NAME String, "
-                        + "NON_UNIQUE UInt8, INDEX_QUALIFIER Nullable(String), INDEX_NAME Nullable(String), "
-                        + "TYPE Int16, ORDINAL_POSITION Int16, COLUMN_NAME Nullable(String), ASC_OR_DESC Nullable(String), "
-                        + "CARDINALITY Int64, PAGES Int64, FILTER_CONDITION Nullable(String)"),
+                empty("TABLE_CAT nullable(string), TABLE_SCHEM nullable(string), TABLE_NAME string, "
+                        + "NON_UNIQUE uint8, INDEX_QUALIFIER nullable(string), INDEX_NAME nullable(string), "
+                        + "TYPE int16, ORDINAL_POSITION int16, COLUMN_NAME nullable(string), ASC_OR_DESC nullable(string), "
+                        + "CARDINALITY int64, PAGES int64, FILTER_CONDITION nullable(string)"),
                 query(ClickHouseParameterizedQuery.apply(
                         "select null as TABLE_CAT, database as TABLE_SCHEM, table as TABLE_NAME, toUInt8(0) as NON_UNIQUE, "
-                                + "null as INDEX_QUALIFIER, null as INDEX_NAME, toInt16(:statIndex) as TYPE, "
-                                + "toInt16(0) as ORDINAL_POSITION, null as COLUMN_NAME, null as ASC_OR_DESC, "
-                                + "sum(rows) as CARDINALITY, uniqExact(name) as PAGES, null as FILTER_CONDITION from system.parts "
+                                + "null as INDEX_QUALIFIER, null as INDEX_NAME, to_int16(:statIndex) as TYPE, "
+                                + "to_int16(0) as ORDINAL_POSITION, null as COLUMN_NAME, null as ASC_OR_DESC, "
+                                + "sum(rows) as CARDINALITY, uniq_exact(name) as PAGES, null as FILTER_CONDITION from system.parts "
                                 + "where active = 1 and database like :database and table like :table group by database, table",
                         params), true),
                 query(ClickHouseParameterizedQuery.apply(
-                        "select null as TABLE_CAT, database as TABLE_SCHEM, table as TABLE_NAME, toUInt8(1) as NON_UNIQUE, "
-                                + "type as INDEX_QUALIFIER, name as INDEX_NAME, toInt16(:otherIndex) as TYPE, "
-                                + "toInt16(1) as ORDINAL_POSITION, expr as COLUMN_NAME, null as ASC_OR_DESC, "
+                        "select null as TABLE_CAT, database as TABLE_SCHEM, table as TABLE_NAME, to_uint8(1) as NON_UNIQUE, "
+                                + "type as INDEX_QUALIFIER, name as INDEX_NAME, to_int16(:otherIndex) as TYPE, "
+                                + "to_int16(1) as ORDINAL_POSITION, expr as COLUMN_NAME, null as ASC_OR_DESC, "
                                 + "0 as CARDINALITY, 0 as PAGES, null as FILTER_CONDITION "
                                 + "from system.data_skipping_indices where database like :database and table like :table",
                         params), true),
                 query(ClickHouseParameterizedQuery.apply(
-                        "select null as TABLE_CAT, database as TABLE_SCHEM, table as TABLE_NAME, toUInt8(1) as NON_UNIQUE, "
-                                + "null as INDEX_QUALIFIER, name as INDEX_NAME, toInt16(:otherIndex) as TYPE, "
+                        "select null as TABLE_CAT, database as TABLE_SCHEM, table as TABLE_NAME, to_uint8(1) as NON_UNIQUE, "
+                                + "null as INDEX_QUALIFIER, name as INDEX_NAME, to_int16(:otherIndex) as TYPE, "
                                 + "column_position as ORDINAL_POSITION, column as COLUMN_NAME, null as ASC_OR_DESC, "
-                                + "sum(rows) as CARDINALITY, uniqExact(partition) as PAGES, null as FILTER_CONDITION "
+                                + "sum(rows) as CARDINALITY, uniq_exact(partition) as PAGES, null as FILTER_CONDITION "
                                 + "from system.projection_parts_columns where active = 1 and database like :database and table like :table "
                                 + "group by database, table, name, column, column_position "
                                 + "order by database, table, name, column_position",
@@ -1103,8 +1103,8 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
     @Override
     public ResultSet getUDTs(String catalog, String schemaPattern, String typeNamePattern, int[] types)
             throws SQLException {
-        return empty("TYPE_CAT Nullable(String), TYPE_SCHEM Nullable(String), TYPE_NAME String, "
-                + "CLASS_NAME String, DATA_TYPE Int32, REMARKS String, BASE_TYPE Int16");
+        return empty("TYPE_CAT nullable(string), TYPE_SCHEM nullable(string), TYPE_NAME string, "
+                + "CLASS_NAME string, DATA_TYPE int32, REMARKS string, BASE_TYPE int16");
     }
 
     @Override
@@ -1134,25 +1134,25 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
 
     @Override
     public ResultSet getSuperTypes(String catalog, String schemaPattern, String typeNamePattern) throws SQLException {
-        return empty("TYPE_CAT Nullable(String), TYPE_SCHEM Nullable(String), TYPE_NAME String, "
-                + "SUPERTYPE_CAT Nullable(String), SUPERTYPE_SCHEM Nullable(String), SUPERTYPE_NAME String");
+        return empty("TYPE_CAT nullable(string), TYPE_SCHEM nullable(string), TYPE_NAME string, "
+                + "SUPERTYPE_CAT nullable(string), SUPERTYPE_SCHEM nullable(string), SUPERTYPE_NAME string");
     }
 
     @Override
     public ResultSet getSuperTables(String catalog, String schemaPattern, String tableNamePattern) throws SQLException {
         return empty(
-                "TABLE_CAT Nullable(String), TABLE_SCHEM Nullable(String), TABLE_NAME String, SUPERTABLE_NAME String");
+                "TABLE_CAT nullable(string), TABLE_SCHEM nullable(string), TABLE_NAME string, SUPERTABLE_NAME string");
     }
 
     @Override
     public ResultSet getAttributes(String catalog, String schemaPattern, String typeNamePattern,
             String attributeNamePattern) throws SQLException {
-        return empty("TYPE_CAT Nullable(String), TYPE_SCHEM Nullable(String), TYPE_NAME String, "
-                + "ATTR_NAME String, DATA_TYPE Int32, ATTR_TYPE_NAME String, ATTR_SIZE Int32, "
-                + "DECIMAL_DIGITS Int32, NUM_PREC_RADIX Int32, NULLABLE Int32, REMARKS Nullable(String), "
-                + "ATTR_DEF Nullable(String), SQL_DATA_TYPE Int32, SQL_DATETIME_SUB Int32, "
-                + "CHAR_OCTET_LENGTH Int32, ORDINAL_POSITION Int32, IS_NULLABLE String, "
-                + "SCOPE_CATALOG String, SCOPE_SCHEMA String, SCOPE_TABLE String, SOURCE_DATA_TYPE Int16");
+        return empty("TYPE_CAT nullable(string), TYPE_SCHEM nullable(string), TYPE_NAME string, "
+                + "ATTR_NAME string, DATA_TYPE int32, ATTR_TYPE_NAME string, ATTR_SIZE int32, "
+                + "DECIMAL_DIGITS int32, NUM_PREC_RADIX int32, NULLABLE int32, REMARKS nullable(string), "
+                + "ATTR_DEF nullable(string), SQL_DATA_TYPE int32, SQL_DATETIME_SUB int32, "
+                + "CHAR_OCTET_LENGTH int32, ORDINAL_POSITION int32, IS_NULLABLE string, "
+                + "SCOPE_CATALOG string, SCOPE_SCHEMA string, SCOPE_TABLE string, SOURCE_DATA_TYPE int16");
     }
 
     @Override
@@ -1233,7 +1233,7 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
     public ResultSet getClientInfoProperties() throws SQLException {
         ClickHouseParameterizedQuery q = ClickHouseParameterizedQuery
                 .of(connection.getConfig(),
-                        "select :name as NAME, toInt32(0) as MAX_LEN, :default as DEFAULT_VALUE, :desc as DESCRIPTION");
+                        "select :name as NAME, to_int32(0) as MAX_LEN, :default as DEFAULT_VALUE, :desc as DESCRIPTION");
         StringBuilder builder = new StringBuilder();
         q.apply(builder, ClickHouseConnection.PROP_APPLICATION_NAME,
                 connection.getClientInfo(ClickHouseConnection.PROP_APPLICATION_NAME), "Application name");
@@ -1277,10 +1277,10 @@ public class ClickHouseDatabaseMetaData extends JdbcWrapper implements DatabaseM
     @Override
     public ResultSet getPseudoColumns(String catalog, String schemaPattern, String tableNamePattern,
             String columnNamePattern) throws SQLException {
-        return empty("TABLE_CAT Nullable(String), TABLE_SCHEM Nullable(String), TABLE_NAME String, "
-                + "COLUMN_NAME String, DATA_TYPE Int32, COLUMN_SIZE Int32, DECIMAL_DIGITS Int32, "
-                + "NUM_PREC_RADIX Int32, COLUMN_USAGE String, REMARKS Nullable(String), "
-                + "CHAR_OCTET_LENGTH Int32, IS_NULLABLE String");
+        return empty("TABLE_CAT nullable(string), TABLE_SCHEM nullable(string), TABLE_NAME string, "
+                + "COLUMN_NAME string, DATA_TYPE int32, COLUMN_SIZE int32, DECIMAL_DIGITS int32, "
+                + "NUM_PREC_RADIX int32, COLUMN_USAGE string, REMARKS nullable(string), "
+                + "CHAR_OCTET_LENGTH int32, IS_NULLABLE string");
     }
 
     @Override
