@@ -190,7 +190,7 @@ public abstract class ClickHouseBitmap {
             }
         }
 
-        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.UInt8 : ClickHouseDataType.Int8);
+        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.uint8 : ClickHouseDataType.int8);
     }
 
     public static ClickHouseBitmap wrap(short... values) {
@@ -205,7 +205,7 @@ public abstract class ClickHouseBitmap {
             }
         }
 
-        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.UInt16 : ClickHouseDataType.Int16);
+        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.uint16 : ClickHouseDataType.int16);
     }
 
     public static ClickHouseBitmap wrap(int... values) {
@@ -220,7 +220,7 @@ public abstract class ClickHouseBitmap {
             }
         }
 
-        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.UInt32 : ClickHouseDataType.Int32);
+        return wrap(RoaringBitmap.bitmapOf(ints), isUnsigned ? ClickHouseDataType.uint32 : ClickHouseDataType.int32);
     }
 
     public static ClickHouseBitmap wrap(long... values) {
@@ -236,7 +236,7 @@ public abstract class ClickHouseBitmap {
         }
 
         return wrap(Roaring64NavigableMap.bitmapOf(longs),
-                isUnsigned ? ClickHouseDataType.UInt64 : ClickHouseDataType.Int64);
+                isUnsigned ? ClickHouseDataType.uint64 : ClickHouseDataType.int64);
     }
 
     public static ClickHouseBitmap wrap(Object bitmap, ClickHouseDataType innerType) {
@@ -399,20 +399,20 @@ public abstract class ClickHouseBitmap {
     private static int byteLength(ClickHouseDataType type) {
         int byteLen = 0;
         switch (Objects.requireNonNull(type)) {
-            case Int8:
-            case UInt8:
+            case int8:
+            case uint8:
                 byteLen = 1;
                 break;
-            case Int16:
-            case UInt16:
+            case int16:
+            case uint16:
                 byteLen = 2;
                 break;
-            case Int32:
-            case UInt32:
+            case int32:
+            case uint32:
                 byteLen = 4;
                 break;
-            case Int64:
-            case UInt64:
+            case int64:
+            case uint64:
                 byteLen = 8;
                 break;
             default:

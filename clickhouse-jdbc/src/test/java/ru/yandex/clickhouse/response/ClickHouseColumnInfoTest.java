@@ -24,14 +24,14 @@ public class ClickHouseColumnInfoTest {
     public void testDateTimeWithoutTimeZone() {
         ClickHouseColumnInfo info = ClickHouseColumnInfo.parse(
             "DateTime", "column", null);
-        assertEquals(info.getClickHouseDataType(), ClickHouseDataType.DateTime);
+        assertEquals(info.getClickHouseDataType(), ClickHouseDataType.datetime);
     }
 
     @Test(groups = "unit")
     public void testDateTimeWithEmptyTimeZone() {
         ClickHouseColumnInfo info = ClickHouseColumnInfo.parse(
             "DateTime()", "column", null);
-        assertEquals(info.getClickHouseDataType(), ClickHouseDataType.DateTime);
+        assertEquals(info.getClickHouseDataType(), ClickHouseDataType.datetime);
     }
 
     @Test(groups = "unit")
@@ -67,7 +67,7 @@ public class ClickHouseColumnInfoTest {
         assertEquals(info.getColumnName(), "columnName");
         assertEquals(
             info.getEffectiveClickHouseDataType(),
-            dataType == ClickHouseDataType.Array ? arrayBaseType : dataType);
+            dataType == ClickHouseDataType.array ? arrayBaseType : dataType);
     }
 
     @SuppressWarnings("boxing")
@@ -75,29 +75,29 @@ public class ClickHouseColumnInfoTest {
     public Object[][] provideRegularParsingTestData() {
         return new Object[][] {
             { "Array(String)",
-               ClickHouseDataType.Array, ClickHouseDataType.String, false, false, 0, 0, null, 1 },
+               ClickHouseDataType.array, ClickHouseDataType.string, false, false, 0, 0, null, 1 },
             { "Array(Array(String))",
-               ClickHouseDataType.Array, ClickHouseDataType.String, false, false, 0, 0, null, 2 },
+               ClickHouseDataType.array, ClickHouseDataType.string, false, false, 0, 0, null, 2 },
             { "Array(Array(LowCardinality(Nullable(String))))",
-               ClickHouseDataType.Array, ClickHouseDataType.String, true, true, 0, 0, null, 2 },
+               ClickHouseDataType.array, ClickHouseDataType.string, true, true, 0, 0, null, 2 },
             { "Array(Decimal(12, 3))",
-               ClickHouseDataType.Array, ClickHouseDataType.Decimal, false, false, 12, 3, null, 1 },
+               ClickHouseDataType.array, ClickHouseDataType.decimal, false, false, 12, 3, null, 1 },
             { "Decimal(12, 3)",
-               ClickHouseDataType.Decimal, null, false, false, 12, 3, null, 0 },
+               ClickHouseDataType.decimal, null, false, false, 12, 3, null, 0 },
             { "Decimal32(3)",
-               ClickHouseDataType.Decimal32, null, false, false, 9, 3, null, 0 },
+               ClickHouseDataType.decimal32, null, false, false, 9, 3, null, 0 },
             { "Decimal64(3)",
-               ClickHouseDataType.Decimal64, null, false, false, 18, 3, null, 0 },
+               ClickHouseDataType.decimal64, null, false, false, 18, 3, null, 0 },
             { "Decimal128(3)",
-               ClickHouseDataType.Decimal128, null, false, false, 38, 3, null, 0 },
+               ClickHouseDataType.decimal128, null, false, false, 38, 3, null, 0 },
             { "DateTime('Europe/Berlin')",
-               ClickHouseDataType.DateTime, null, false, false, 19, 0, TimeZone.getTimeZone("Europe/Berlin"), 0 },
+               ClickHouseDataType.datetime, null, false, false, 19, 0, TimeZone.getTimeZone("Europe/Berlin"), 0 },
             { "DateTime(Europe/Amsterdam)",
-               ClickHouseDataType.DateTime, null, false, false, 19, 0, TimeZone.getTimeZone("Europe/Amsterdam"), 0 },
+               ClickHouseDataType.datetime, null, false, false, 19, 0, TimeZone.getTimeZone("Europe/Amsterdam"), 0 },
             { "FixedString(42)",
-               ClickHouseDataType.FixedString, null, false, false, 42, 0, null, 0 },
+               ClickHouseDataType.fixed_string, null, false, false, 42, 0, null, 0 },
             { "LowCardinality(Nullable(Int64))", // issue #325
-               ClickHouseDataType.Int64, null, true, true, 20, 0, null, 0 }
+               ClickHouseDataType.int64, null, true, true, 20, 0, null, 0 }
         };
     }
 
@@ -106,7 +106,7 @@ public class ClickHouseColumnInfoTest {
         boolean lowCardinality)
     {
         ClickHouseColumnInfo info = ClickHouseColumnInfo.parse(input, "columnName", null);
-        assertEquals(info.getClickHouseDataType(), ClickHouseDataType.Unknown);
+        assertEquals(info.getClickHouseDataType(), ClickHouseDataType.unknown);
         assertEquals(info.isNullable(), nullable);
         assertEquals(info.isLowCardinality(), lowCardinality);
     }
@@ -117,8 +117,8 @@ public class ClickHouseColumnInfoTest {
     {
         ClickHouseColumnInfo info = ClickHouseColumnInfo.parse(
             "Array(" + input + ")", "columnName", null);
-        assertEquals(info.getClickHouseDataType(), ClickHouseDataType.Array);
-        assertEquals(info.getArrayBaseType(), ClickHouseDataType.Unknown);
+        assertEquals(info.getClickHouseDataType(), ClickHouseDataType.array);
+        assertEquals(info.getArrayBaseType(), ClickHouseDataType.unknown);
         assertEquals(info.isNullable(), nullable);
         assertEquals(info.isLowCardinality(), lowCardinality);
     }

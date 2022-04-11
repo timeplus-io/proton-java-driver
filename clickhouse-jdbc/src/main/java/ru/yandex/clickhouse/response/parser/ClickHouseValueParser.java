@@ -65,7 +65,7 @@ public abstract class ClickHouseValueParser<T> {
 
     public static long normalizeTime(ClickHouseColumnInfo info, long time) {
         if (info == null ||
-            (info.getClickHouseDataType() != ClickHouseDataType.DateTime64 && info.getScale() == 0)) {
+            (info.getClickHouseDataType() != ClickHouseDataType.datetime64 && info.getScale() == 0)) {
             time -= time % 1000; // FIXME fix this after switching to RowBinary format
         }
         return (time + MILLISECONDS_A_DAY) % MILLISECONDS_A_DAY;

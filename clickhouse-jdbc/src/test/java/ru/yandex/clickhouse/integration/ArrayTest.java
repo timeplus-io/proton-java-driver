@@ -130,10 +130,10 @@ public class ArrayTest extends JdbcIntegrationTest {
 
         PreparedStatement statement = connection.prepareStatement(insertSql);
 
-        statement.setArray(1, new ClickHouseArray(ClickHouseDataType.UInt64, new long[]{4294967286L, 4294967287L}));
-        statement.setArray(2, new ClickHouseArray(ClickHouseDataType.UInt64, new BigInteger[]{new BigInteger("18446744073709551606"), new BigInteger("18446744073709551607")}));
-        statement.setArray(3, new ClickHouseArray(ClickHouseDataType.Float64, new double[]{1.23, 4.56}));
-        statement.setArray(4, new ClickHouseArray(ClickHouseDataType.Int32, new int[]{-2147483648, 2147483647}));
+        statement.setArray(1, new ClickHouseArray(ClickHouseDataType.uint64, new long[]{4294967286L, 4294967287L}));
+        statement.setArray(2, new ClickHouseArray(ClickHouseDataType.uint64, new BigInteger[]{new BigInteger("18446744073709551606"), new BigInteger("18446744073709551607")}));
+        statement.setArray(3, new ClickHouseArray(ClickHouseDataType.float64, new double[]{1.23, 4.56}));
+        statement.setArray(4, new ClickHouseArray(ClickHouseDataType.int32, new int[]{-2147483648, 2147483647}));
         statement.execute();
 
         statement = connection.prepareStatement(insertSql);
@@ -222,7 +222,7 @@ public class ArrayTest extends JdbcIntegrationTest {
 
         String insertSQL = "INSERT INTO int8_array (foo) VALUES (?)";
         PreparedStatement statement = connection.prepareStatement(insertSQL);
-        statement.setArray(1, new ClickHouseArray(ClickHouseDataType.Int8, new byte[]{12,34}));
+        statement.setArray(1, new ClickHouseArray(ClickHouseDataType.int8, new byte[]{12,34}));
         statement.executeUpdate();
 
         ResultSet r = connection.createStatement().executeQuery(

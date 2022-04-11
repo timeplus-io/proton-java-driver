@@ -8,9 +8,9 @@ import ru.yandex.clickhouse.domain.ClickHouseDataType;
  */
 public final class ClickHouseColumnInfo {
 
-    private static final String KEYWORD_NULLABLE = "Nullable";
-    private static final String KEYWORD_LOW_CARDINALITY = "LowCardinality";
-    private static final String KEYWORD_ARRAY = "Array";
+    private static final String KEYWORD_NULLABLE = "nullable";
+    private static final String KEYWORD_LOW_CARDINALITY = "low_cardinality";
+    private static final String KEYWORD_ARRAY = "array";
 
     private ClickHouseDataType clickHouseDataType;
     private final String originalTypeName;
@@ -44,7 +44,7 @@ public final class ClickHouseColumnInfo {
         int currIdx = 0;
         while (typeInfo.startsWith(KEYWORD_ARRAY, currIdx)) {
             column.arrayLevel++;
-            column.clickHouseDataType = ClickHouseDataType.Array;
+            column.clickHouseDataType = ClickHouseDataType.array;
             currIdx += KEYWORD_ARRAY.length() + 1; // opening parenthesis
         }
         if (typeInfo.startsWith(KEYWORD_LOW_CARDINALITY, currIdx)) {
@@ -77,15 +77,15 @@ public final class ClickHouseColumnInfo {
         }
 
         switch (dataType) {
-        case AggregateFunction :
+        case aggregate_function:
             String[] argsAf = splitArgs(typeInfo, currIdx);
             column.functionName = argsAf[0];
-            column.arrayBaseType = ClickHouseDataType.Unknown;
+            column.arrayBaseType = ClickHouseDataType.unknown;
             if (argsAf.length == 2) {
                 column.arrayBaseType = ClickHouseDataType.fromTypeString(argsAf[1]);
             }
             break;
-        case DateTime :
+        case datetime:
             String[] argsDt = splitArgs(typeInfo, currIdx);
             if (argsDt.length == 2) { // same as DateTime64
                 column.scale = Integer.parseInt(argsDt[0]);
@@ -97,7 +97,7 @@ public final class ClickHouseColumnInfo {
                 column.timeZone = tz;
             }
             break;
-        case DateTime32:
+        case datetime32:
             String[] argsD32 = splitArgs(typeInfo, currIdx);
             if (argsD32.length == 1) {
                 // unfortunately this will fall back to GMT if the time zone
@@ -106,32 +106,32 @@ public final class ClickHouseColumnInfo {
                 column.timeZone = tz;
             }
             break;
-        case DateTime64:
+        case datetime64:
             String[] argsD64 = splitArgs(typeInfo, currIdx);
             if (argsD64.length == 2) {
                 column.scale = Integer.parseInt(argsD64[0]);
                 column.timeZone = TimeZone.getTimeZone(argsD64[1].replace("'", ""));
             }
             break;
-        case Decimal :
+        case decimal:
             String[] argsDecimal = splitArgs(typeInfo, currIdx);
             if (argsDecimal.length == 2) {
                 column.precision = Integer.parseInt(argsDecimal[0]);
                 column.scale = Integer.parseInt(argsDecimal[1]);
             }
             break;
-        case Decimal32 :
-        case Decimal64 :
-        case Decimal128 :
-        case Decimal256 :
+        case decimal32:
+        case decimal64:
+        case decimal128:
+        case decimal256:
             String[] argsScale = splitArgs(typeInfo, currIdx);
             column.scale = Integer.parseInt(argsScale[0]);
             break;
-        case FixedString :
+        case fixed_string:
             String[] argsPrecision = splitArgs(typeInfo, currIdx);
             column.precision = Integer.parseInt(argsPrecision[0]);
             break;
-        case Map:
+        case map:
             String[] argsMap = splitArgs(typeInfo, currIdx);
             if (argsMap.length == 2) {
                 column.keyInfo = ClickHouseColumnInfo.parse(argsMap[0], columnName + "Key", serverTimeZone);

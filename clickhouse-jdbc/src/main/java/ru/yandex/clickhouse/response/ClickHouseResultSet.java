@@ -313,7 +313,7 @@ public class ClickHouseResultSet extends AbstractResultSet {
     private TimeZone getEffectiveTimeZone(ClickHouseColumnInfo columnInfo) {
         TimeZone tz = null;
 
-        if (columnInfo.getClickHouseDataType() == ClickHouseDataType.Date) {
+        if (columnInfo.getClickHouseDataType() == ClickHouseDataType.date) {
             tz = dateTimeZone;
         } else {
             tz = properties.isUseServerTimeZone() ? null : dateTimeTimeZone;
@@ -350,13 +350,13 @@ public class ClickHouseResultSet extends AbstractResultSet {
     @Override
     public Array getArray(int columnIndex) throws SQLException {
         ClickHouseColumnInfo colInfo = getColumnInfo(columnIndex);
-        if (colInfo.getClickHouseDataType() != ClickHouseDataType.Array) {
+        if (colInfo.getClickHouseDataType() != ClickHouseDataType.array) {
             throw new SQLException("Column not an array");
         }
 
         final Object array;
         switch (colInfo.getArrayBaseType()) {
-        case Date :
+        case date:
             array = ClickHouseArrayUtil.parseArray(
                 getValue(columnIndex),
                 properties.isUseObjectsInArrays(),
@@ -421,9 +421,9 @@ public class ClickHouseResultSet extends AbstractResultSet {
         // timezone. The behaviour may change when
         // https://github.com/ClickHouse/ClickHouse/issues/4548 is addressed  
         if (!properties.isUseServerTimeZone() && (
-                dataType == ClickHouseDataType.DateTime
-                || dataType == ClickHouseDataType.DateTime32
-                || dataType == ClickHouseDataType.DateTime64)) {
+                dataType == ClickHouseDataType.datetime
+                || dataType == ClickHouseDataType.datetime32
+                || dataType == ClickHouseDataType.datetime64)) {
             TimeZone serverTimeZone = columnInfo.getTimeZone();
             if (serverTimeZone == null) {
                 serverTimeZone = ((ClickHouseConnection) getStatement().getConnection()).getServerTimeZone();
@@ -589,7 +589,7 @@ public class ClickHouseResultSet extends AbstractResultSet {
             ClickHouseDataType chType = columnInfo.getClickHouseDataType();
             switch (chType.getSqlType()) {
             case Types.BIGINT:
-                if (chType == ClickHouseDataType.UInt64) {
+                if (chType == ClickHouseDataType.uint64) {
                     return getObject(columnIndex, BigInteger.class);
                 }
                 return getObject(columnIndex, Long.class);
@@ -617,28 +617,28 @@ public class ClickHouseResultSet extends AbstractResultSet {
             switch (chType) {
             // case Array:
             // case Tuple:
-            case AggregateFunction:
+            case aggregate_function:
                 // TODO support more functions
                 if ("groupBitmap".equals(columnInfo.getFunctionName())) {
                     ClickHouseDataType innerType = columnInfo.getArrayBaseType();
                     switch (innerType) {
                     // seems signed integers are not supported in ClickHouse
-                    case Int8:
-                    case Int16:
-                    case Int32:
-                    case Int64:
-                    case UInt8:
-                    case UInt16:
-                    case UInt32:
-                    case UInt64:
+                    case int8:
+                    case int16:
+                    case int32:
+                    case int64:
+                    case uint8:
+                    case uint16:
+                    case uint32:
+                    case uint64:
                         return getObject(columnIndex, ClickHouseBitmap.class);
                     default:
                         break;
                     }
                 }
                 return getString(columnIndex);
-            case Map:
-            case UUID :
+            case map:
+            case uuid:
                 return getObject(columnIndex, chType.getJavaClass());
             default :
                 return getString(columnIndex);

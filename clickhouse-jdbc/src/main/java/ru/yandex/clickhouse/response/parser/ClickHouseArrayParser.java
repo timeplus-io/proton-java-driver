@@ -28,7 +28,7 @@ final class ClickHouseArrayParser extends ClickHouseValueParser<Array> {
     @Override
     public Array parse(ByteFragment value, ClickHouseColumnInfo columnInfo, TimeZone resultTimeZone)
             throws SQLException {
-        if (columnInfo.getClickHouseDataType() != ClickHouseDataType.Array) {
+        if (columnInfo.getClickHouseDataType() != ClickHouseDataType.array) {
             throw new SQLException("Column not an array");
         }
 
@@ -38,7 +38,7 @@ final class ClickHouseArrayParser extends ClickHouseValueParser<Array> {
 
         final Object array;
         switch (columnInfo.getArrayBaseType()) {
-            case Date:
+            case date:
                 // FIXME: properties.isUseObjectsInArrays()
                 array = ClickHouseArrayUtil.parseArray(value, false, resultTimeZone, columnInfo);
                 break;

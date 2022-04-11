@@ -143,16 +143,16 @@ public class RowBinaryStreamTest extends JdbcIntegrationTest {
     private void writeValues(ClickHouseRowBinaryStream stream, int[] values, ClickHouseDataType innerType)
             throws IOException {
         switch (innerType) {
-            case Int8:
-            case UInt8:
+            case int8:
+            case uint8:
                 stream.writeUInt8Array(values);
                 break;
-            case Int16:
-            case UInt16:
+            case int16:
+            case uint16:
                 stream.writeUInt16Array(values);
                 break;
-            case Int32:
-            case UInt32:
+            case int32:
+            case uint32:
                 stream.writeInt32Array(values);
                 break;
             default:
@@ -199,7 +199,7 @@ public class RowBinaryStreamTest extends JdbcIntegrationTest {
     }
 
     private void testBitmap64(int valueLength, long base, long step) throws Exception {
-        ClickHouseDataType innerType = ClickHouseDataType.UInt64;
+        ClickHouseDataType innerType = ClickHouseDataType.uint64;
         try (ClickHouseStatement statement = connection.createStatement()) {
             String tableName = createtestBitmapTable(innerType);
             long[] values = gen64BitmapValues(valueLength, base, step);
@@ -209,11 +209,11 @@ public class RowBinaryStreamTest extends JdbcIntegrationTest {
                     stream.writeByte((byte) 1);
                     stream.writeUInt64Array(values);
                     stream.writeBitmap(
-                            ClickHouseBitmap.wrap(Roaring64NavigableMap.bitmapOf(values), ClickHouseDataType.UInt64));
+                            ClickHouseBitmap.wrap(Roaring64NavigableMap.bitmapOf(values), ClickHouseDataType.uint64));
                     stream.writeByte((byte) 2);
                     stream.writeUInt64Array(values);
                     stream.writeBitmap(
-                            ClickHouseBitmap.wrap(Roaring64Bitmap.bitmapOf(values), ClickHouseDataType.UInt64));
+                            ClickHouseBitmap.wrap(Roaring64Bitmap.bitmapOf(values), ClickHouseDataType.uint64));
                 }
             });
 
@@ -239,12 +239,12 @@ public class RowBinaryStreamTest extends JdbcIntegrationTest {
     @Test(groups = "integration")
     public void testBitmap() throws Exception {
         // TODO seems Int8, Int16 and Int32 are still not supported in ClickHouse
-        testBitmap(ClickHouseDataType.UInt8, 32);
-        testBitmap(ClickHouseDataType.UInt8, 256);
-        testBitmap(ClickHouseDataType.UInt16, 32);
-        testBitmap(ClickHouseDataType.UInt16, 65536);
-        testBitmap(ClickHouseDataType.UInt32, 32);
-        testBitmap(ClickHouseDataType.UInt32, 65537);
+        testBitmap(ClickHouseDataType.uint8, 32);
+        testBitmap(ClickHouseDataType.uint8, 256);
+        testBitmap(ClickHouseDataType.uint16, 32);
+        testBitmap(ClickHouseDataType.uint16, 65536);
+        testBitmap(ClickHouseDataType.uint32, 32);
+        testBitmap(ClickHouseDataType.uint32, 65537);
 
         testBitmap64(32, 0L, 1L);
         testBitmap64(32, Long.MAX_VALUE, -1L);

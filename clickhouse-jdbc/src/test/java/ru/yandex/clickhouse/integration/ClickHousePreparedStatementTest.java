@@ -60,11 +60,11 @@ public class ClickHousePreparedStatementTest extends JdbcIntegrationTest {
         PreparedStatement statement = connection.prepareStatement("INSERT INTO array_test (i, a) VALUES (?, ?)");
 
         statement.setInt(1, 1);
-        statement.setArray(2, new ClickHouseArray(ClickHouseDataType.Int32, new int[]{1, 2, 3}));
+        statement.setArray(2, new ClickHouseArray(ClickHouseDataType.int32, new int[]{1, 2, 3}));
         statement.addBatch();
 
         statement.setInt(1, 2);
-        statement.setArray(2, new ClickHouseArray(ClickHouseDataType.Int32, new int[]{2, 3, 4, 5}));
+        statement.setArray(2, new ClickHouseArray(ClickHouseDataType.int32, new int[]{2, 3, 4, 5}));
         statement.addBatch();
         statement.executeBatch();
 
@@ -93,7 +93,7 @@ public class ClickHousePreparedStatementTest extends JdbcIntegrationTest {
         statement.setObject(1, null);
         statement.setObject(2, null);
         statement.setObject(3, new String[]{"a", null, "c"});
-        statement.setArray(4, new ClickHouseArray(ClickHouseDataType.Int32, new Integer[]{1, null, 3}));
+        statement.setArray(4, new ClickHouseArray(ClickHouseDataType.int32, new Integer[]{1, null, 3}));
         statement.addBatch();
         statement.executeBatch();
 
@@ -130,11 +130,11 @@ public class ClickHousePreparedStatementTest extends JdbcIntegrationTest {
         PreparedStatement statement = connection.prepareStatement("INSERT INTO array_fixed_string_test (i, a) VALUES (?, ?)");
 
         statement.setInt(1, 1);
-        statement.setArray(2, new ClickHouseArray(ClickHouseDataType.FixedString, new byte[][]{randomEncodedUUID(), randomEncodedUUID()}));
+        statement.setArray(2, new ClickHouseArray(ClickHouseDataType.fixed_string, new byte[][]{randomEncodedUUID(), randomEncodedUUID()}));
         statement.addBatch();
 
         statement.setInt(1, 2);
-        statement.setArray(2, new ClickHouseArray(ClickHouseDataType.FixedString, new byte[][]{randomEncodedUUID(), randomEncodedUUID()}));
+        statement.setArray(2, new ClickHouseArray(ClickHouseDataType.fixed_string, new byte[][]{randomEncodedUUID(), randomEncodedUUID()}));
         statement.addBatch();
         statement.executeBatch();
 

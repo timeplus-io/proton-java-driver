@@ -52,7 +52,7 @@ final class ClickHouseMapParser extends ClickHouseValueParser<Map> {
                             stack.push(lastChar);
                         }
                         lastChar = ch;
-                        if (type != ClickHouseDataType.String) {
+                        if (type != ClickHouseDataType.string) {
                             sb.append(ch);
                         }
                         break;
@@ -84,7 +84,7 @@ final class ClickHouseMapParser extends ClickHouseValueParser<Map> {
                         break;
                 }
             } else if (lastChar == '\'') { // quoted
-                if (ch != '\'' || type != ClickHouseDataType.String) {
+                if (ch != '\'' || type != ClickHouseDataType.string) {
                     sb.append(ch);
                 }
                 if (i + 1 < len) {

@@ -12,7 +12,7 @@ Java 8 or higher is required in order to use Java client([clickhouse-client](htt
 
 Maven groupId `ru.yandex.clickhouse` and legacy JDBC driver `ru.yandex.clickhouse.ClickHouseDriver` are deprecated.
 
-Please use new groupId `com.clickhouse` and driver `com.clickhouse.jdbc.ClickHouseDriver` instead. It's highly recommended to upgrade to 0.3.2+ and start to integrate the new JDBC driver for improved performance and stability.
+Please use new groupId `com.clickhouse` and driver `ClickHouseDriver` instead. It's highly recommended to upgrade to 0.3.2+ and start to integrate the new JDBC driver for improved performance and stability.
 
 ![image](https://user-images.githubusercontent.com/4270380/154429324-631f718d-9277-4522-b60d-13f87b2e6c31.png)
 Note: in general, the new driver(v0.3.2) is a few times faster with less memory usage. More information can be found at [here](https://github.com/ClickHouse/clickhouse-jdbc/issues/768).
@@ -80,7 +80,7 @@ Note: in general, the new driver(v0.3.2) is a few times faster with less memory 
 
 - JDBC configuration
 
-  **Driver Class**: `com.clickhouse.jdbc.ClickHouseDriver`
+  **Driver Class**: `ClickHouseDriver`
 
   Note: `ru.yandex.clickhouse.ClickHouseDriver` and everything under `ru.yandex.clickhouse` will be removed starting from 0.4.0.
 

@@ -17,7 +17,7 @@ Keep in mind that `clickhouse-jdbc` is synchronous, and in general it has more o
 
 ## Configuration
 
-**Driver Class**: `com.clickhouse.jdbc.ClickHouseDriver`
+**Driver Class**: `ClickHouseDriver`
 
 Note: `ru.yandex.clickhouse.ClickHouseDriver` and everything under `ru.yandex.clickhouse` will be removed starting from 0.4.0.
 

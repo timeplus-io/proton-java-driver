@@ -83,7 +83,7 @@ abstract class ClickHouseDateValueParser<T> extends ClickHouseValueParser<T> {
         }
 
         switch (columnInfo.getEffectiveClickHouseDataType()) {
-        case Date:
+        case date:
             try {
                 return parseDate(s, columnInfo, timeZone);
             } catch (Exception e) {
@@ -93,9 +93,9 @@ abstract class ClickHouseDateValueParser<T> extends ClickHouseValueParser<T> {
                         + "' as " + clazz.getName(),
                     e);
             }
-        case DateTime:
-        case DateTime32:
-        case DateTime64:
+        case datetime:
+        case datetime32:
+        case datetime64:
             try {
                 return parseDateTime(s, columnInfo, timeZone);
             } catch (Exception e) {
@@ -105,13 +105,13 @@ abstract class ClickHouseDateValueParser<T> extends ClickHouseValueParser<T> {
                         + "' as " + clazz.getName(),
                     e);
             }
-        case Int8:
-        case Int16:
-        case Int32:
-        case Int64:
-        case UInt8:
-        case UInt16:
-        case UInt32:
+        case int8:
+        case int16:
+        case int32:
+        case int64:
+        case uint8:
+        case uint16:
+        case uint32:
             try {
                 long l = Long.parseLong(s);
                 return parseNumber(l, columnInfo, timeZone);
@@ -122,7 +122,7 @@ abstract class ClickHouseDateValueParser<T> extends ClickHouseValueParser<T> {
                         + "' as " + clazz.getName(),
                     e);
             }
-        case UInt64:
+        case uint64:
             // If we have a large nanos value, we trim to millis
             try {
                 BigInteger bi = new BigInteger(s);
@@ -140,8 +140,8 @@ abstract class ClickHouseDateValueParser<T> extends ClickHouseValueParser<T> {
                         + "' as " + clazz.getName(),
                     e);
             }
-        case String:
-        case Unknown:
+        case string:
+        case unknown:
             try {
                 return parseOther(s, columnInfo, timeZone);
             } catch (Exception e) {

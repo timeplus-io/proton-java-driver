@@ -14,9 +14,9 @@ public class ClickHouseBitmapTest {
     public void testEmptyRoaringBitmap() {
         byte[] expectedBytes = new byte[] { 0, 0 };
 
-        ClickHouseDataType[] types = new ClickHouseDataType[] { ClickHouseDataType.Int8, ClickHouseDataType.UInt8,
-                ClickHouseDataType.Int16, ClickHouseDataType.UInt16, ClickHouseDataType.Int32,
-                ClickHouseDataType.UInt32 };
+        ClickHouseDataType[] types = new ClickHouseDataType[] { ClickHouseDataType.int8, ClickHouseDataType.uint8,
+                ClickHouseDataType.int16, ClickHouseDataType.uint16, ClickHouseDataType.int32,
+                ClickHouseDataType.uint32 };
         Object[] bitmaps = new Object[] { RoaringBitmap.bitmapOf(), MutableRoaringBitmap.bitmapOf(),
                 ImmutableRoaringBitmap.bitmapOf() };
 

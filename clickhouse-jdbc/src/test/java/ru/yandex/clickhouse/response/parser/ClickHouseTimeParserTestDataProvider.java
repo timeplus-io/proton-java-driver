@@ -11,12 +11,12 @@ final class ClickHouseTimeParserTestDataProvider {
     @DataProvider(name = OTHER_DATA_TYPES)
     static Object[][] provideNumberAndSimilarClickHouseDataTypes() {
         return new ClickHouseDataType[][] {
-            {ClickHouseDataType.Int32},
-            {ClickHouseDataType.Int64},
-            {ClickHouseDataType.UInt32},
-            {ClickHouseDataType.UInt64},
-            {ClickHouseDataType.String},
-            {ClickHouseDataType.Unknown}
+            {ClickHouseDataType.int32},
+            {ClickHouseDataType.int64},
+            {ClickHouseDataType.uint32},
+            {ClickHouseDataType.uint64},
+            {ClickHouseDataType.string},
+            {ClickHouseDataType.unknown}
         };
     }
 

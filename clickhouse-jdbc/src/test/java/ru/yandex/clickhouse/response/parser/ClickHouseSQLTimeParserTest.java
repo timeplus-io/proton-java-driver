@@ -123,7 +123,7 @@ public class ClickHouseSQLTimeParserTest {
     @Test(groups = "unit")
     public void testParseOffsetTimeString() throws Exception {
         ClickHouseColumnInfo columnInfo =
-            ClickHouseColumnInfo.parse(ClickHouseDataType.String.name(), "col", null);
+            ClickHouseColumnInfo.parse(ClickHouseDataType.string.name(), "col", null);
         assertEquals(
             parser.parse(
                 ByteFragment.fromString("22:23:24"), columnInfo, null),

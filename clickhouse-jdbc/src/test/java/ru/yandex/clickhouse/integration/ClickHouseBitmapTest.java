@@ -88,7 +88,7 @@ public class ClickHouseBitmapTest extends JdbcIntegrationTest {
         }
 
         String testQuery = "select *, base64Encode(toString(rb)) as x from test_roaring_bitmap order by i";
-        ClickHouseBitmap empty = ClickHouseBitmap.wrap(RoaringBitmap.bitmapOf(), ClickHouseDataType.UInt32);
+        ClickHouseBitmap empty = ClickHouseBitmap.wrap(RoaringBitmap.bitmapOf(), ClickHouseDataType.uint32);
         ClickHouseBitmap small = ClickHouseBitmap.wrap(smallSet);
         ClickHouseBitmap large = ClickHouseBitmap.wrap(largeSet);
         try (Statement s = conn.createStatement()) {
@@ -132,13 +132,13 @@ public class ClickHouseBitmapTest extends JdbcIntegrationTest {
 
         try (PreparedStatement s = conn.prepareStatement("insert into test_roaring_bitmap values(?,?)")) {
             s.setObject(1, 0L);
-            s.setObject(2, ClickHouseBitmap.wrap(MutableRoaringBitmap.bitmapOf(), ClickHouseDataType.UInt32));
+            s.setObject(2, ClickHouseBitmap.wrap(MutableRoaringBitmap.bitmapOf(), ClickHouseDataType.uint32));
             s.execute();
             s.setObject(1, 1L);
-            s.setObject(2, ClickHouseBitmap.wrap(MutableRoaringBitmap.bitmapOf(smallSet), ClickHouseDataType.UInt32));
+            s.setObject(2, ClickHouseBitmap.wrap(MutableRoaringBitmap.bitmapOf(smallSet), ClickHouseDataType.uint32));
             s.execute();
             s.setObject(1, 2L);
-            s.setObject(2, ClickHouseBitmap.wrap(MutableRoaringBitmap.bitmapOf(largeSet), ClickHouseDataType.UInt32));
+            s.setObject(2, ClickHouseBitmap.wrap(MutableRoaringBitmap.bitmapOf(largeSet), ClickHouseDataType.uint32));
             s.execute();
         }
 
@@ -152,13 +152,13 @@ public class ClickHouseBitmapTest extends JdbcIntegrationTest {
 
         try (PreparedStatement s = conn.prepareStatement("insert into test_roaring_bitmap values(?,?)")) {
             s.setObject(1, 0L);
-            s.setObject(2, ClickHouseBitmap.wrap(ImmutableRoaringBitmap.bitmapOf(), ClickHouseDataType.UInt32));
+            s.setObject(2, ClickHouseBitmap.wrap(ImmutableRoaringBitmap.bitmapOf(), ClickHouseDataType.uint32));
             s.execute();
             s.setObject(1, 1L);
-            s.setObject(2, ClickHouseBitmap.wrap(ImmutableRoaringBitmap.bitmapOf(smallSet), ClickHouseDataType.UInt32));
+            s.setObject(2, ClickHouseBitmap.wrap(ImmutableRoaringBitmap.bitmapOf(smallSet), ClickHouseDataType.uint32));
             s.execute();
             s.setObject(1, 2L);
-            s.setObject(2, ClickHouseBitmap.wrap(ImmutableRoaringBitmap.bitmapOf(largeSet), ClickHouseDataType.UInt32));
+            s.setObject(2, ClickHouseBitmap.wrap(ImmutableRoaringBitmap.bitmapOf(largeSet), ClickHouseDataType.uint32));
             s.execute();
         }
 

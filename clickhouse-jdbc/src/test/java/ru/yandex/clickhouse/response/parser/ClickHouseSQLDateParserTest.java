@@ -255,7 +255,7 @@ public class ClickHouseSQLDateParserTest {
     @Test(groups = "unit")
     public void testParseSQLDateNumberNegative() throws Exception {
         ClickHouseColumnInfo columnInfo =
-            ClickHouseColumnInfo.parse(ClickHouseDataType.Int64.name(), "col", null);
+            ClickHouseColumnInfo.parse(ClickHouseDataType.int64.name(), "col", null);
         assertEquals(
             parser.parse(
                 ByteFragment.fromString(
@@ -272,7 +272,7 @@ public class ClickHouseSQLDateParserTest {
     @Test(groups = "unit")
     public void testParseSQLDateOtherLikeDate() throws Exception {
         ClickHouseColumnInfo columnInfo =
-            ClickHouseColumnInfo.parse(ClickHouseDataType.Unknown.name(), "col", null);
+            ClickHouseColumnInfo.parse(ClickHouseDataType.unknown.name(), "col", null);
         assertEquals(
             parser.parse(
                 ByteFragment.fromString("2020-01-13"), columnInfo, null),
@@ -300,7 +300,7 @@ public class ClickHouseSQLDateParserTest {
     @Test(groups = "unit")
     public void testParseSQLDateOtherLikeDateTime() throws Exception {
         ClickHouseColumnInfo columnInfo =
-            ClickHouseColumnInfo.parse(ClickHouseDataType.Unknown.name(), "col", null);
+            ClickHouseColumnInfo.parse(ClickHouseDataType.unknown.name(), "col", null);
         assertEquals(
             parser.parse(
                 ByteFragment.fromString("2020-01-13 22:23:24"), columnInfo, null),

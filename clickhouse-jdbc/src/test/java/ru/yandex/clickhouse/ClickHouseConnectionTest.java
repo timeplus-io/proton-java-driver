@@ -147,7 +147,7 @@ public class ClickHouseConnectionTest extends JdbcIntegrationTest {
         ClickHouseDataSource dataSource = newDataSource("default");
         ClickHouseConnectionImpl connection = (ClickHouseConnectionImpl) dataSource.getConnection();
         for (ClickHouseDataType dataType : ClickHouseDataType.values()) {
-            if (dataType == ClickHouseDataType.Array) {
+            if (dataType == ClickHouseDataType.array) {
                 continue;
             }
             Array a = connection.createArrayOf(dataType.name(), new Object[0]);
