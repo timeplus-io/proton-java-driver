@@ -197,10 +197,10 @@ public class BinaryStreamUtilsTest {
         Assert.assertEquals(getWrittenBytes(o -> BinaryStreamUtils.writeBitmap(o, ClickHouseBitmap.empty())),
                 generateBytes(0, 0));
 
-        for (ClickHouseDataType t : new ClickHouseDataType[] { ClickHouseDataType.Int8,
-                ClickHouseDataType.UInt8,
-                ClickHouseDataType.Int16, ClickHouseDataType.UInt16, ClickHouseDataType.Int32,
-                ClickHouseDataType.UInt32, ClickHouseDataType.Int64, ClickHouseDataType.UInt64 }) {
+        for (ClickHouseDataType t : new ClickHouseDataType[] { ClickHouseDataType.int8,
+                ClickHouseDataType.uint8,
+                ClickHouseDataType.int16, ClickHouseDataType.uint16, ClickHouseDataType.int32,
+                ClickHouseDataType.uint32, ClickHouseDataType.int64, ClickHouseDataType.uint64}) {
             Assert.assertEquals(getWrittenBytes(
                     o -> BinaryStreamUtils.writeBitmap(o, ClickHouseBitmap.empty(t))),
                     generateBytes(0, 0));
@@ -210,10 +210,10 @@ public class BinaryStreamUtilsTest {
     @Test(groups = { "unit" })
     public void testWriteBitmap32() throws IOException {
         // cardinality <= 32
-        for (ClickHouseDataType t : new ClickHouseDataType[] { ClickHouseDataType.Int8,
-                ClickHouseDataType.UInt8,
-                ClickHouseDataType.Int16, ClickHouseDataType.UInt16, ClickHouseDataType.Int32,
-                ClickHouseDataType.UInt32 }) {
+        for (ClickHouseDataType t : new ClickHouseDataType[] { ClickHouseDataType.int8,
+                ClickHouseDataType.uint8,
+                ClickHouseDataType.int16, ClickHouseDataType.uint16, ClickHouseDataType.int32,
+                ClickHouseDataType.uint32}) {
             int[] values = newBitmapValues(t, 32);
             byte[] expected = getWrittenBytes(o -> {
                 BinaryStreamUtils.writeInt8(o, 0);
@@ -241,10 +241,10 @@ public class BinaryStreamUtilsTest {
 
         // cardinality > 32
         int i = 0;
-        for (ClickHouseDataType t : new ClickHouseDataType[] { ClickHouseDataType.Int8,
-                ClickHouseDataType.UInt8,
-                ClickHouseDataType.Int16, ClickHouseDataType.UInt16, ClickHouseDataType.Int32,
-                ClickHouseDataType.UInt32 }) {
+        for (ClickHouseDataType t : new ClickHouseDataType[] { ClickHouseDataType.int8,
+                ClickHouseDataType.uint8,
+                ClickHouseDataType.int16, ClickHouseDataType.uint16, ClickHouseDataType.int32,
+                ClickHouseDataType.uint32}) {
             int[] values = newBitmapValues(t, 33);
             byte[][] expected = new byte[][] {
                     generateBytes(0x01, 0x5A, 0x3A, 0x30, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00,
@@ -334,8 +334,8 @@ public class BinaryStreamUtilsTest {
     @Test(groups = { "unit" })
     public void testWriteBitmap64() throws IOException {
         // cardinality <= 32
-        for (ClickHouseDataType t : new ClickHouseDataType[] { ClickHouseDataType.Int64,
-                ClickHouseDataType.UInt64 }) {
+        for (ClickHouseDataType t : new ClickHouseDataType[] { ClickHouseDataType.int64,
+                ClickHouseDataType.uint64}) {
             long[] values = newBitmap64Values(t, 32);
             byte[] expected = getWrittenBytes(o -> {
                 BinaryStreamUtils.writeInt8(o, 0);

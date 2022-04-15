@@ -27,7 +27,7 @@ public class ClickHouseStreamResponse implements ClickHouseResponse {
     private static final long serialVersionUID = 2271296998310082447L;
 
     protected static final List<ClickHouseColumn> defaultTypes = Collections
-            .singletonList(ClickHouseColumn.of("results", "Nullable(String)"));
+            .singletonList(ClickHouseColumn.of("results", "nullable(string)"));
 
     public static ClickHouseResponse of(ClickHouseConfig config, ClickHouseInputStream input) throws IOException {
         return of(config, input, null, null, null);

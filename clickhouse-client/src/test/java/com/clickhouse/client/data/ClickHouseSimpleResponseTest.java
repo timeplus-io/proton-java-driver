@@ -37,7 +37,7 @@ public class ClickHouseSimpleResponseTest {
     @Test(groups = { "unit" })
     public void testMismatchedColumnsAndRecords() {
         ClickHouseResponse resp = ClickHouseSimpleResponse
-                .of(config, ClickHouseColumn.parse("a Nullable(String), b UInt8, c Array(UInt32)"),
+                .of(config, ClickHouseColumn.parse("a nullable(string), b uint8, c array(uint32)"),
                         new Object[][] { new Object[0], null, new Object[] { 's' },
                                 new Object[] { null, null, null, null },
                                 new Object[] { "123", 1, new int[] { 3, 2, 1 } } });
@@ -72,7 +72,7 @@ public class ClickHouseSimpleResponseTest {
     @Test(groups = { "unit" })
     public void testFirstRecord() {
         ClickHouseResponse resp = ClickHouseSimpleResponse.of(config,
-                ClickHouseColumn.parse("a Nullable(String), b UInt8, c String"),
+                ClickHouseColumn.parse("a nullable(string), b uint8, c string"),
                 new Object[][] { new Object[] { "aaa", 2, "ccc" }, null });
         ClickHouseRecord record = resp.firstRecord();
         Assert.assertEquals(record.getValue("A"), ClickHouseStringValue.of("aaa"));
@@ -86,7 +86,7 @@ public class ClickHouseSimpleResponseTest {
     @Test(groups = { "unit" })
     public void testRecords() {
         ClickHouseResponse resp = ClickHouseSimpleResponse.of(config,
-                ClickHouseColumn.parse("a Nullable(String), b UInt8, c String"),
+                ClickHouseColumn.parse("a nullable(string), b uint8, c string"),
                 new Object[][] { new Object[] { "aaa1", null, "ccc1" }, new Object[] { "aaa2", 2, "ccc2" },
                         new Object[] { null, 3L, null } });
         int i = 0;

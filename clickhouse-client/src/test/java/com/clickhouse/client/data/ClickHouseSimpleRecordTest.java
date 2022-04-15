@@ -26,19 +26,19 @@ public class ClickHouseSimpleRecordTest {
     @Test(groups = { "unit" })
     public void testMismatchedColumnsAndValues() {
         Assert.assertThrows(IllegalArgumentException.class, () -> ClickHouseSimpleRecord
-                .of(Arrays.asList(ClickHouseColumn.of("a", "String")), new ClickHouseValue[0]));
+                .of(Arrays.asList(ClickHouseColumn.of("a", "string")), new ClickHouseValue[0]));
 
-        ClickHouseSimpleRecord record = new ClickHouseSimpleRecord(Arrays.asList(ClickHouseColumn.of("a", "String")),
+        ClickHouseSimpleRecord record = new ClickHouseSimpleRecord(Arrays.asList(ClickHouseColumn.of("a", "string")),
                 new ClickHouseValue[0]);
-        Assert.assertEquals(record.getColumns(), Arrays.asList(ClickHouseColumn.of("a", "String")));
+        Assert.assertEquals(record.getColumns(), Arrays.asList(ClickHouseColumn.of("a", "string")));
         Assert.assertEquals(record.getValues(), new ClickHouseValue[0]);
     }
 
     @Test(groups = { "unit" })
     public void testGetValueByIndex() {
-        ClickHouseSimpleRecord record = new ClickHouseSimpleRecord(ClickHouseColumn.parse("a String, b UInt32"),
+        ClickHouseSimpleRecord record = new ClickHouseSimpleRecord(ClickHouseColumn.parse("a string, b uint32"),
                 new ClickHouseValue[] { ClickHouseStringValue.of("123"), ClickHouseLongValue.of(1L, true) });
-        Assert.assertEquals(record.getColumns(), ClickHouseColumn.parse("a String, b UInt32"));
+        Assert.assertEquals(record.getColumns(), ClickHouseColumn.parse("a string, b uint32"));
         Assert.assertEquals(record.getValues(),
                 new ClickHouseValue[] { ClickHouseStringValue.of("123"), ClickHouseLongValue.of(1L, true) });
 
@@ -61,11 +61,11 @@ public class ClickHouseSimpleRecordTest {
     @Test(groups = { "unit" })
     public void testGetValueByName() {
         ClickHouseSimpleRecord record = new ClickHouseSimpleRecord(
-                ClickHouseColumn.parse("`a One` String, `x木哈哈x` UInt32, test Nullable(String)"),
+               ClickHouseColumn.parse("`a One` string, `x木哈哈x` uint32, test nullable(string)"),
                 new ClickHouseValue[] { ClickHouseStringValue.of("123"), ClickHouseLongValue.of(1L, true),
                         ClickHouseStringValue.ofNull() });
         Assert.assertEquals(record.getColumns(),
-                ClickHouseColumn.parse("`a One` String, `x木哈哈x` UInt32, test Nullable(String)"));
+                ClickHouseColumn.parse("`a One` string, `x木哈哈x` uint32, test nullable(string)"));
         Assert.assertEquals(record.getValues(), new ClickHouseValue[] { ClickHouseStringValue.of("123"),
                 ClickHouseLongValue.of(1L, true), ClickHouseStringValue.ofNull() });
 

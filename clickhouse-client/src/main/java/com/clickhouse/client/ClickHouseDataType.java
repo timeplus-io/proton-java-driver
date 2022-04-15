@@ -25,71 +25,63 @@ import java.util.UUID;
  * {@code SELECT * FROM system.data_type_families}
  *
  * <p>
- * {@code LowCardinality} and {@code Nullable} are technically data types in
+ * {@code low_cardinality} and {@code nullable} are technically data types in
  * ClickHouse, but for the sake of this driver, we treat these data types as
  * modifiers for the underlying base data types.
  */
 @SuppressWarnings("squid:S115")
 public enum ClickHouseDataType {
-    IntervalYear(Long.class, false, true, true, 8, 19, 0, 0, 0),
-    IntervalQuarter(Long.class, false, true, true, 8, 19, 0, 0, 0),
-    IntervalMonth(Long.class, false, true, true, 8, 19, 0, 0, 0),
-    IntervalWeek(Long.class, false, true, true, 8, 19, 0, 0, 0),
-    IntervalDay(Long.class, false, true, true, 8, 19, 0, 0, 0),
-    IntervalHour(Long.class, false, true, true, 8, 19, 0, 0, 0),
-    IntervalMinute(Long.class, false, true, true, 8, 19, 0, 0, 0),
-    IntervalSecond(Long.class, false, true, true, 8, 19, 0, 0, 0),
-    UInt8(Short.class, false, true, false, 1, 3, 0, 0, 0, "INT1 UNSIGNED", "TINYINT UNSIGNED"),
-    UInt16(Integer.class, false, true, false, 2, 5, 0, 0, 0, "SMALLINT UNSIGNED"),
-    UInt32(Long.class, false, true, false, 4, 10, 0, 0, 0, "INT UNSIGNED", "INTEGER UNSIGNED", "MEDIUMINT UNSIGNED"),
-    UInt64(Long.class, false, true, false, 8, 20, 0, 0, 0, "BIGINT UNSIGNED"),
-    UInt128(BigInteger.class, false, true, false, 16, 39, 0, 0, 0),
-    UInt256(BigInteger.class, false, true, false, 32, 78, 0, 0, 0),
-    Int8(Byte.class, false, true, true, 1, 3, 0, 0, 0, "BYTE", "INT1", "INT1 SIGNED", "TINYINT", "TINYINT SIGNED"),
-    Int16(Short.class, false, true, true, 2, 5, 0, 0, 0, "SMALLINT", "SMALLINT SIGNED"),
-    Int32(Integer.class, false, true, true, 4, 10, 0, 0, 0, "INT", "INTEGER", "MEDIUMINT", "INT SIGNED",
-            "INTEGER SIGNED", "MEDIUMINT SIGNED"),
-    Int64(Long.class, false, true, true, 8, 19, 0, 0, 0, "BIGINT", "BIGINT SIGNED"),
-    Int128(BigInteger.class, false, true, true, 16, 39, 0, 0, 0),
-    Int256(BigInteger.class, false, true, true, 32, 77, 0, 0, 0),
-    Bool(Boolean.class, false, false, true, 1, 1, 0, 0, 0, "BOOLEAN"),
-    Date(LocalDate.class, false, false, false, 2, 10, 0, 0, 0),
-    Date32(LocalDate.class, false, false, false, 4, 10, 0, 0, 0),
-    DateTime(LocalDateTime.class, true, false, false, 0, 29, 0, 0, 9, "TIMESTAMP"),
-    DateTime32(LocalDateTime.class, true, false, false, 4, 19, 0, 0, 0),
-    DateTime64(LocalDateTime.class, true, false, false, 8, 29, 3, 0, 9),
-    Decimal(BigDecimal.class, true, false, true, 0, 76, 0, 0, 76, "DEC", "NUMERIC", "FIXED"),
-    Decimal32(BigDecimal.class, true, false, true, 4, 9, 9, 0, 9),
-    Decimal64(BigDecimal.class, true, false, true, 8, 18, 18, 0, 18),
-    Decimal128(BigDecimal.class, true, false, true, 16, 38, 38, 0, 38),
-    Decimal256(BigDecimal.class, true, false, true, 32, 76, 20, 0, 76),
-    UUID(UUID.class, false, true, false, 16, 69, 0, 0, 0),
-    @Deprecated
-    Enum(String.class, true, true, false, 1, 0, 0, 0, 0),
-    Enum8(String.class, true, true, false, 1, 0, 0, 0, 0), // "ENUM"),
-    Enum16(String.class, true, true, false, 2, 0, 0, 0, 0),
-    Float32(Float.class, false, true, true, 4, 12, 0, 0, 38, "FLOAT", "REAL", "SINGLE"),
-    Float64(Double.class, false, true, true, 16, 22, 0, 0, 308, "DOUBLE", "DOUBLE PRECISION"),
-    IPv4(Inet4Address.class, false, true, false, 4, 10, 0, 0, 0, "INET4"),
-    IPv6(Inet6Address.class, false, true, false, 16, 39, 0, 0, 0, "INET6"),
-    FixedString(String.class, true, true, false, 0, 0, 0, 0, 0, "BINARY"),
-    String(String.class, false, true, false, 0, 0, 0, 0, 0, "BINARY LARGE OBJECT", "BINARY VARYING", "BLOB", "BYTEA",
-            "CHAR", "CHARACTER", "CHARACTER LARGE OBJECT", "CHARACTER VARYING", "CHAR LARGE OBJECT", "CHAR VARYING",
-            "CLOB", "LONGBLOB", "LONGTEXT", "MEDIUMBLOB", "MEDIUMTEXT", "NATIONAL CHAR", "NATIONAL CHARACTER",
-            "NATIONAL CHARACTER LARGE OBJECT", "NATIONAL CHARACTER VARYING", "NATIONAL CHAR VARYING", "NCHAR",
-            "NCHAR LARGE OBJECT", "NCHAR VARYING", "NVARCHAR", "TEXT", "TINYBLOB", "TINYTEXT", "VARBINARY", "VARCHAR",
-            "VARCHAR2"),
-    AggregateFunction(String.class, true, true, false, 0, 0, 0, 0, 0), // implementation-defined intermediate state
-    SimpleAggregateFunction(String.class, true, true, false, 0, 0, 0, 0, 0),
-    Array(Object.class, true, true, false, 0, 0, 0, 0, 0),
-    Map(Map.class, true, true, false, 0, 0, 0, 0, 0),
-    Nested(Object.class, true, true, false, 0, 0, 0, 0, 0),
-    Tuple(List.class, true, true, false, 0, 0, 0, 0, 0),
-    Point(Object.class, false, true, true, 33, 0, 0, 0, 0), // same as Tuple(Float64, Float64)
-    Polygon(Object.class, false, true, true, 0, 0, 0, 0, 0), // same as Array(Ring)
-    MultiPolygon(Object.class, false, true, true, 0, 0, 0, 0, 0), // same as Array(Polygon)
-    Ring(Object.class, false, true, true, 0, 0, 0, 0, 0), // same as Array(Point)
-    Nothing(Object.class, false, true, false, 0, 0, 0, 0, 0);
+    interval_year(Long.class, false, true, true, 8, 19, 0, 0, 0),
+    interval_quarter(Long.class, false, true, true, 8, 19, 0, 0, 0),
+    interval_month(Long.class, false, true, true, 8, 19, 0, 0, 0),
+    interval_week(Long.class, false, true, true, 8, 19, 0, 0, 0),
+    interval_day(Long.class, false, true, true, 8, 19, 0, 0, 0),
+    interval_hour(Long.class, false, true, true, 8, 19, 0, 0, 0),
+    interval_minute(Long.class, false, true, true, 8, 19, 0, 0, 0),
+    interval_second(Long.class, false, true, true, 8, 19, 0, 0, 0),
+    uint8(Short.class, false, true, false, 1, 3, 0, 0, 0),
+    uint16(Integer.class, false, true, false, 2, 5, 0, 0, 0),
+    uint32(Long.class, false, true, false, 4, 10, 0, 0, 0),
+    uint64(Long.class, false, true, false, 8, 20, 0, 0, 0),
+    uint128(BigInteger.class, false, true, false, 16, 39, 0, 0, 0),
+    uint256(BigInteger.class, false, true, false, 32, 78, 0, 0, 0),
+    int8(Byte.class, false, true, true, 1, 3, 0, 0, 0, "byte"),
+    int16(Short.class, false, true, true, 2, 5, 0, 0, 0, "smallint"),
+    int32(Integer.class, false, true, true, 4, 10, 0, 0, 0, "integer"),
+    int64(Long.class, false, true, true, 8, 19, 0, 0, 0, "bigint"),
+    int128(BigInteger.class, false, true, true, 16, 39, 0, 0, 0),
+    int256(BigInteger.class, false, true, true, 32, 77, 0, 0, 0),
+    bool(Boolean.class, false, false, true, 1, 1, 0, 0, 0, "boolean"),
+    date(LocalDate.class, false, false, false, 2, 10, 0, 0, 0),
+    date32(LocalDate.class, false, false, false, 4, 10, 0, 0, 0),
+    datetime(LocalDateTime.class, true, false, false, 0, 29, 0, 0, 9),
+    datetime32(LocalDateTime.class, true, false, false, 4, 19, 0, 0, 0),
+    datetime64(LocalDateTime.class, true, false, false, 8, 29, 3, 0, 9),
+    decimal(BigDecimal.class, true, false, true, 0, 76, 0, 0, 76),
+    decimal32(BigDecimal.class, true, false, true, 4, 9, 9, 0, 9),
+    decimal64(BigDecimal.class, true, false, true, 8, 18, 18, 0, 18),
+    decimal128(BigDecimal.class, true, false, true, 16, 38, 38, 0, 38),
+    decimal256(BigDecimal.class, true, false, true, 32, 76, 20, 0, 76),
+    uuid(UUID.class, false, true, false, 16, 69, 0, 0, 0),
+    enum8(String.class, true, true, false, 1, 0, 0, 0, 0, "enum"),
+    enum16(String.class, true, true, false, 2, 0, 0, 0, 0),
+    float32(Float.class, false, true, true, 4, 12, 0, 0, 38, "float"),
+    float64(Double.class, false, true, true, 16, 22, 0, 0, 308, "double"),
+    ipv4(Inet4Address.class, false, true, false, 4, 10, 0, 0, 0),
+    ipv6(Inet6Address.class, false, true, false, 16, 39, 0, 0, 0),
+    fixed_string(String.class, true, true, false, 0, 0, 0, 0, 0),
+    string(String.class, false, true, false, 0, 0, 0, 0, 0),
+    aggregate_function(String.class, true, true, false, 0, 0, 0, 0, 0), // implementation-defined intermediate state
+    simple_aggregate_function(String.class, true, true, false, 0, 0, 0, 0, 0),
+    array(Object.class, true, true, false, 0, 0, 0, 0, 0),
+    map(Map.class, true, true, false, 0, 0, 0, 0, 0),
+    nested(Object.class, true, true, false, 0, 0, 0, 0, 0),
+    tuple(List.class, true, true, false, 0, 0, 0, 0, 0),
+    point(Object.class, false, true, true, 33, 0, 0, 0, 0), // same as Tuple(Float64, Float64)
+    polygon(Object.class, false, true, true, 0, 0, 0, 0, 0), // same as Array(Ring)
+    multi_polygon(Object.class, false, true, true, 0, 0, 0, 0, 0), // same as Array(Polygon)
+    ring(Object.class, false, true, true, 0, 0, 0, 0, 0), // same as Array(Point)
+    nothing(Object.class, false, true, false, 0, 0, 0, 0, 0);
 
     /**
      * Immutable set(sorted) for all aliases.
@@ -108,9 +100,10 @@ public enum ClickHouseDataType {
         ClickHouseDataType used = null;
         for (ClickHouseDataType t : ClickHouseDataType.values()) {
             String name = t.name();
-            if (!t.isCaseSensitive()) {
-                name = name.toUpperCase();
-            }
+            // if (!t.isCaseSensitive()) {
+            //    name = name.toUpperCase();
+            // }
+
             used = map.put(name, t);
             if (used != null) {
                 throw new IllegalStateException(java.lang.String.format(Locale.ROOT, errorMsg, name, used.name()));
@@ -118,9 +111,9 @@ public enum ClickHouseDataType {
 
             // aliases are all case-insensitive
             for (String alias : t.aliases) {
-                String aliasInUpperCase = alias.toUpperCase();
-                set.add(aliasInUpperCase);
-                used = map.put(aliasInUpperCase, t);
+                String aliasInLowerCase = alias.toLowerCase();
+                set.add(aliasInLowerCase);
+                used = map.put(aliasInLowerCase, t);
                 if (used != null) {
                     throw new IllegalStateException(java.lang.String.format(Locale.ROOT, errorMsg, alias, used.name()));
                 }
@@ -138,7 +131,7 @@ public enum ClickHouseDataType {
      * @return true if the type name is an alias; false otherwise
      */
     public static boolean isAlias(String typeName) {
-        return typeName != null && !typeName.isEmpty() && allAliases.contains(typeName.trim().toUpperCase());
+        return typeName != null && !typeName.isEmpty() && allAliases.contains(typeName.trim().toLowerCase());
     }
 
     public static List<String> match(String part) {
@@ -159,7 +152,7 @@ public enum ClickHouseDataType {
         }
 
         if (types.isEmpty()) {
-            part = part.toUpperCase();
+            part = part.toLowerCase();
             String prefix = part + ' ';
             for (String alias : allAliases) {
                 if (alias.length() == part.length() && alias.equals(part)) {
@@ -186,7 +179,7 @@ public enum ClickHouseDataType {
 
         ClickHouseDataType type = name2type.get(typeName);
         if (type == null) {
-            type = name2type.get(typeName.toUpperCase()); // case-insensitive or just an alias
+            type = name2type.get(typeName.toLowerCase()); // case-insensitive or just an alias
         }
 
         if (type == null) {
@@ -324,7 +317,7 @@ public enum ClickHouseDataType {
      * @return true if it could be a nested structure; false otherwise
      */
     public boolean isNested() {
-        return this == AggregateFunction || this == Array || this == Map || this == Nested || this == Tuple;
+        return this == aggregate_function || this == array || this == map || this == nested || this == tuple;
     }
 
     /**

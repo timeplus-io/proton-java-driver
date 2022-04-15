@@ -51,18 +51,18 @@ public class HttpClientConnectionImpl extends ClickHouseHttpConnection {
 
     private ClickHouseHttpResponse buildResponse(HttpResponse<InputStream> r) throws IOException {
         HttpHeaders headers = r.headers();
-        String displayName = headers.firstValue("X-ClickHouse-Server-Display-Name").orElse(server.getHost());
-        String queryId = headers.firstValue("X-ClickHouse-Query-Id").orElse("");
-        String summary = headers.firstValue("X-ClickHouse-Summary").orElse("{}");
+        String displayName = headers.firstValue("x-proton-server-display-name").orElse(server.getHost());
+        String queryId = headers.firstValue("x-proton-query-id").orElse("");
+        String summary = headers.firstValue("x-proton-summary").orElse("{}");
 
         ClickHouseFormat format = config.getFormat();
         TimeZone timeZone = config.getServerTimeZone();
         // queryId, format and timeZone are only available for queries
         if (!ClickHouseChecker.isNullOrEmpty(queryId)) {
-            String value = headers.firstValue("X-ClickHouse-Format").orElse("");
+            String value = headers.firstValue("x-proton-format").orElse("");
             format = !ClickHouseChecker.isNullOrEmpty(value) ? ClickHouseFormat.valueOf(value)
                     : format;
-            value = headers.firstValue("X-ClickHouse-Timezone").orElse("");
+            value = headers.firstValue("x-proton-timezone").orElse("");
             timeZone = !ClickHouseChecker.isNullOrEmpty(value) ? TimeZone.getTimeZone(value)
                     : timeZone;
         }
@@ -74,7 +74,7 @@ public class HttpClientConnectionImpl extends ClickHouseHttpConnection {
     private HttpResponse<InputStream> checkResponse(HttpResponse<InputStream> r) throws IOException {
         if (r.statusCode() != HttpURLConnection.HTTP_OK) {
             // TODO get exception from response header, for example:
-            // X-ClickHouse-Exception-Code: 47
+            // x-proton-exception-code: 47
             StringBuilder builder = new StringBuilder();
             try (Reader reader = new InputStreamReader(getResponseInputStream(r.body()), StandardCharsets.UTF_8)) {
                 int c = 0;

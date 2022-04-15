@@ -161,7 +161,7 @@ public class ClickHouseRequestTest {
         Assert.assertEquals(request.getQuery(), sql);
         Assert.assertEquals(request.getStatements(false).size(), 1);
         Assert.assertEquals(request.getStatements(false).get(0),
-                "select -128 as one, NULL as two, * from my_table where key=NULL and arr[NULL] in numbers(NULL)");
+                "select -128 as one, null as two, * from my_table where key=null and arr[null] in numbers(null)");
 
         request.params(ClickHouseStringValue.of(""),
                 ClickHouseDateTimeValue.of("2012-12-12 12:23:34.56789", 2, ClickHouseValues.UTC_TIMEZONE),
@@ -178,7 +178,7 @@ public class ClickHouseRequestTest {
         Assert.assertEquals(request.getQuery(), sql);
         Assert.assertEquals(request.getStatements(false).size(), 1);
         Assert.assertEquals(request.getStatements(false).get(0),
-                "select 1.0 as one, NULL as two, * from my_table where key=NULL and arr[NULL] in numbers(NULL)");
+                "select 1.0 as one, null as two, * from my_table where key=null and arr[null] in numbers(null)");
 
         params.put("one", ClickHouseStringValue.of("").toSqlExpression());
         params.put("two", ClickHouseDateTimeValue.of("2012-12-12 12:23:34.56789", 2, ClickHouseValues.UTC_TIMEZONE)

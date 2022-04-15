@@ -147,7 +147,7 @@ public class ClickHouseTabSeparatedProcessor extends ClickHouseDataProcessor {
         List<ClickHouseColumn> list = new ArrayList<>(cols.length);
 
         for (int i = 0; i < cols.length; i++) {
-            list.add(ClickHouseColumn.of(cols[i], types == null ? "Nullable(String)" : types[i]));
+            list.add(ClickHouseColumn.of(cols[i], types == null ? "nullable(string)" : types[i]));
         }
 
         return list;

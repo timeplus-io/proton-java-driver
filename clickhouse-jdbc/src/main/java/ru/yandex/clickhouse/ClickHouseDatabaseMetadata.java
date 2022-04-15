@@ -660,15 +660,15 @@ public class ClickHouseDatabaseMetadata implements DatabaseMetaData {
         );
 
         builder.types(
-                "String",
-                "String",
-                "String",
-                "String",
-                "String",
-                "String",
-                "String",
-                "UInt8",
-                "String"
+                "string",
+                "string",
+                "string",
+                "string",
+                "string",
+                "string",
+                "string",
+                "uint8",
+                "string"
         );
 
         return builder.build();
@@ -679,7 +679,7 @@ public class ClickHouseDatabaseMetadata implements DatabaseMetaData {
         ClickHouseResultBuilder builder = ClickHouseResultBuilder.builder(20);
         builder.names("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20");
 
-        builder.types("UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32", "UInt32");
+        builder.types("uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32", "uint32");
 
         return builder.build();
     }
@@ -713,7 +713,7 @@ public class ClickHouseDatabaseMetadata implements DatabaseMetaData {
 
         ClickHouseResultBuilder builder = ClickHouseResultBuilder.builder(10);
         builder.names("TABLE_CAT", "TABLE_SCHEM", "TABLE_NAME", "TABLE_TYPE", "REMARKS", "TYPE_CAT", "TYPE_SCHEM", "TYPE_NAME", "SELF_REFERENCING_COL_NAME", "REF_GENERATION");
-        builder.types("String", "String", "String", "String", "String", "String", "String", "String", "String", "String");
+        builder.types("string", "string", "string", "string", "string", "string", "string", "string", "string", "string");
 
         List typeList = types != null ? Arrays.asList(types) : null;
         while (result.next()) {
@@ -768,7 +768,7 @@ public class ClickHouseDatabaseMetadata implements DatabaseMetaData {
     public ResultSet getCatalogs() throws SQLException {
         ClickHouseResultBuilder builder = ClickHouseResultBuilder.builder(1);
         builder.names("TABLE_CAT");
-        builder.types("String");
+        builder.types("string");
 
         builder.addRow(DEFAULT_CAT);
         return builder.build();
@@ -778,7 +778,7 @@ public class ClickHouseDatabaseMetadata implements DatabaseMetaData {
     public ResultSet getTableTypes() throws SQLException {
         ClickHouseResultBuilder builder = ClickHouseResultBuilder.builder(1);
         builder.names("TABLE_TYPE");
-        builder.types("String");
+        builder.types("string");
 
         builder.addRow("TABLE");
         builder.addRow("VIEW");
@@ -932,36 +932,36 @@ public class ClickHouseDatabaseMetadata implements DatabaseMetaData {
                 "IS_GENERATEDCOLUMN"
         );
         builder.types(
-                "String",
-                "String",
-                "String",
-                "String",
-                "Int32",
-                "String",
-                "Int32",
-                "Int32",
-                "Int32",
-                "Int32",
-                "Int32",
-                "String",
-                "String",
-                "Int32",
-                "Int32",
-                "Int32",
-                "Int32",
-                "String",
-                "String",
-                "String",
-                "String",
-                "Int32",
-                "String",
-                "String"
+                "string",
+                "string",
+                "string",
+                "string",
+                "int32",
+                "string",
+                "int32",
+                "int32",
+                "int32",
+                "int32",
+                "int32",
+                "string",
+                "string",
+                "int32",
+                "int32",
+                "int32",
+                "int32",
+                "string",
+                "string",
+                "string",
+                "string",
+                "int32",
+                "string",
+                "string"
         );
         return builder;
     }
 
     private ResultSet getEmptyResultSet() {
-        return ClickHouseResultBuilder.builder(1).names("some").types("String").build();
+        return ClickHouseResultBuilder.builder(1).names("some").types("string").build();
     }
 
     @Override
@@ -1028,27 +1028,27 @@ public class ClickHouseDatabaseMetadata implements DatabaseMetaData {
                 "NUM_PREC_RADIX"
         );
         builder.types(
-                "String",
-                "Int32",
-                "Int32",
-                "String",
-                "String",
-                "String",
-                "Int32",
-                "Int8",
-                "Int32",
-                "Int8",
-                "Int8",
-                "Int8",
-                "String",
-                "Int32",
-                "Int32",
-                "Int32",
-                "Int32",
-                "Int32"
+                "string",
+                "int32",
+                "int32",
+                "string",
+                "string",
+                "string",
+                "int32",
+                "int8",
+                "int32",
+                "int8",
+                "int8",
+                "int8",
+                "string",
+                "int32",
+                "int32",
+                "int32",
+                "int32",
+                "int32"
         );
         builder.addRow(
-                "String", Types.VARCHAR,
+                "string", Types.VARCHAR,
                 null, // precision - todo
                 '\'', '\'', null,
                 typeNoNulls, true, typeSearchable,
@@ -1064,7 +1064,7 @@ public class ClickHouseDatabaseMetadata implements DatabaseMetaData {
         boolean[] signed = { true, false };
         for (int size : sizes) {
             for (boolean b: signed) {
-                String name = (b ? "" : "U") + "Int" + size;
+                String name = (b ? "" : "u") + "int" + size;
                 builder.addRow(
                         name, (size <= 16 ? Types.INTEGER : Types.BIGINT),
                         null, // precision - todo
@@ -1082,7 +1082,7 @@ public class ClickHouseDatabaseMetadata implements DatabaseMetaData {
         }
         int[] floatSizes = { 32, 64 };
         for (int floatSize : floatSizes) {
-            String name = "Float" + floatSize;
+            String name = "float" + floatSize;
             builder.addRow(
                     name, Types.FLOAT,
                     null, // precision - todo
@@ -1098,7 +1098,7 @@ public class ClickHouseDatabaseMetadata implements DatabaseMetaData {
             );
         }
         builder.addRow(
-                "Date", Types.DATE,
+                "date", Types.DATE,
                 null, // precision - todo
                 null, null, null,
                 typeNoNulls, true, typePredBasic,
@@ -1111,7 +1111,7 @@ public class ClickHouseDatabaseMetadata implements DatabaseMetaData {
                 10
         );
         builder.addRow(
-                "DateTime", Types.TIMESTAMP,
+                "datetime", Types.TIMESTAMP,
                 null, // precision - todo
                 null, null, null,
                 typeNoNulls, true, typePredBasic,

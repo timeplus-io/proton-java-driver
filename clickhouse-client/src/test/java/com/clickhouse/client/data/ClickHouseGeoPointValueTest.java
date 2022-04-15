@@ -28,6 +28,6 @@ public class ClickHouseGeoPointValueTest {
         Assert.assertThrows(UnsupportedOperationException.class, () -> v.update(Enum.class));
         Assert.assertThrows(UnsupportedOperationException.class, () -> v.update(3));
         Assert.assertThrows(UnsupportedOperationException.class, () -> v.update("1"));
-        Assert.assertThrows(UnsupportedOperationException.class, () -> v.update(ClickHouseDataType.Array));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> v.update(ClickHouseDataType.array));
     }
 }

@@ -180,7 +180,7 @@ public class ClickHouseRowBinaryProcessor extends ClickHouseDataProcessor {
                     (r, f, c, i) -> ClickHouseBitmapValue
                             .of(BinaryStreamUtils.readBitmap(i, c.getNestedColumns().get(0).getDataType())),
                     (v, f, c, o) -> BinaryStreamUtils.writeBitmap(o, v.asObject(ClickHouseBitmap.class)),
-                    ClickHouseAggregateFunction.groupBitmap);
+                    ClickHouseAggregateFunction.group_bitmap);
 
             // now the data type
             buildMappings(deserializers, serializers, (r, f, c, i) -> aggDeserializers
@@ -189,69 +189,68 @@ public class ClickHouseRowBinaryProcessor extends ClickHouseDataProcessor {
                     (v, f, c, o) -> aggSerializers
                             .getOrDefault(c.getAggregateFunction(), ClickHouseSerializer.NOT_SUPPORTED)
                             .serialize(v, f, c, o),
-                    ClickHouseDataType.AggregateFunction);
+                    ClickHouseDataType.aggregate_function);
         }
 
         private void buildMappingsForDataTypes() {
             // enums
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseEnumValue.of(r, c.getEnumConstants(), BinaryStreamUtils.readInt8(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeInt8(o, v.asByte()), ClickHouseDataType.Enum,
-                    ClickHouseDataType.Enum8);
+                    (v, f, c, o) -> BinaryStreamUtils.writeInt8(o, v.asByte()), ClickHouseDataType.enum8);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseEnumValue.of(r, c.getEnumConstants(), BinaryStreamUtils.readInt16(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeInt16(o, v.asShort()), ClickHouseDataType.Enum16);
+                    (v, f, c, o) -> BinaryStreamUtils.writeInt16(o, v.asShort()), ClickHouseDataType.enum16);
             // bool and numbers
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseBoolValue.of(r, BinaryStreamUtils.readBoolean(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeBoolean(o, v.asBoolean()), ClickHouseDataType.Bool);
+                    (v, f, c, o) -> BinaryStreamUtils.writeBoolean(o, v.asBoolean()), ClickHouseDataType.bool);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseByteValue.of(r, BinaryStreamUtils.readInt8(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeInt8(o, v.asByte()), ClickHouseDataType.Int8);
+                    (v, f, c, o) -> BinaryStreamUtils.writeInt8(o, v.asByte()), ClickHouseDataType.int8);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseShortValue.of(r, BinaryStreamUtils.readUnsignedInt8(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeUnsignedInt8(o, v.asInteger()), ClickHouseDataType.UInt8);
+                    (v, f, c, o) -> BinaryStreamUtils.writeUnsignedInt8(o, v.asInteger()), ClickHouseDataType.uint8);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseShortValue.of(r, BinaryStreamUtils.readInt16(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeInt16(o, v.asShort()), ClickHouseDataType.Int16);
+                    (v, f, c, o) -> BinaryStreamUtils.writeInt16(o, v.asShort()), ClickHouseDataType.int16);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseIntegerValue.of(r, BinaryStreamUtils.readUnsignedInt16(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeUnsignedInt16(o, v.asInteger()), ClickHouseDataType.UInt16);
+                    (v, f, c, o) -> BinaryStreamUtils.writeUnsignedInt16(o, v.asInteger()), ClickHouseDataType.uint16);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseIntegerValue.of(r, BinaryStreamUtils.readInt32(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeInt32(o, v.asInteger()), ClickHouseDataType.Int32);
+                    (v, f, c, o) -> BinaryStreamUtils.writeInt32(o, v.asInteger()), ClickHouseDataType.int32);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseLongValue.of(r, false, BinaryStreamUtils.readUnsignedInt32(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeUnsignedInt32(o, v.asLong()), ClickHouseDataType.UInt32);
+                    (v, f, c, o) -> BinaryStreamUtils.writeUnsignedInt32(o, v.asLong()), ClickHouseDataType.uint32);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseLongValue.of(r, false, BinaryStreamUtils.readInt64(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeInt64(o, v.asLong()), ClickHouseDataType.IntervalYear,
-                    ClickHouseDataType.IntervalQuarter, ClickHouseDataType.IntervalMonth,
-                    ClickHouseDataType.IntervalWeek, ClickHouseDataType.IntervalDay, ClickHouseDataType.IntervalHour,
-                    ClickHouseDataType.IntervalMinute, ClickHouseDataType.IntervalSecond, ClickHouseDataType.Int64);
+                    (v, f, c, o) -> BinaryStreamUtils.writeInt64(o, v.asLong()), ClickHouseDataType.interval_year,
+                    ClickHouseDataType.interval_quarter, ClickHouseDataType.interval_month,
+                    ClickHouseDataType.interval_week, ClickHouseDataType.interval_day, ClickHouseDataType.interval_hour,
+                    ClickHouseDataType.interval_minute, ClickHouseDataType.interval_second, ClickHouseDataType.int64);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseLongValue.of(r, true, BinaryStreamUtils.readInt64(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeInt64(o, v.asLong()), ClickHouseDataType.UInt64);
+                    (v, f, c, o) -> BinaryStreamUtils.writeInt64(o, v.asLong()), ClickHouseDataType.uint64);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseBigIntegerValue.of(r, BinaryStreamUtils.readInt128(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeInt128(o, v.asBigInteger()), ClickHouseDataType.Int128);
+                    (v, f, c, o) -> BinaryStreamUtils.writeInt128(o, v.asBigInteger()), ClickHouseDataType.int128);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseBigIntegerValue.of(r, BinaryStreamUtils.readUnsignedInt128(i)),
                     (v, f, c, o) -> BinaryStreamUtils.writeUnsignedInt128(o, v.asBigInteger()),
-                    ClickHouseDataType.UInt128);
+                    ClickHouseDataType.uint128);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseBigIntegerValue.of(r, BinaryStreamUtils.readInt256(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeInt256(o, v.asBigInteger()), ClickHouseDataType.Int256);
+                    (v, f, c, o) -> BinaryStreamUtils.writeInt256(o, v.asBigInteger()), ClickHouseDataType.int256);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseBigIntegerValue.of(r, BinaryStreamUtils.readUnsignedInt256(i)),
                     (v, f, c, o) -> BinaryStreamUtils.writeUnsignedInt256(o, v.asBigInteger()),
-                    ClickHouseDataType.UInt256);
+                    ClickHouseDataType.uint256);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseFloatValue.of(r, BinaryStreamUtils.readFloat32(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeFloat32(o, v.asFloat()), ClickHouseDataType.Float32);
+                    (v, f, c, o) -> BinaryStreamUtils.writeFloat32(o, v.asFloat()), ClickHouseDataType.float32);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseDoubleValue.of(r, BinaryStreamUtils.readFloat64(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeFloat64(o, v.asDouble()), ClickHouseDataType.Float64);
+                    (v, f, c, o) -> BinaryStreamUtils.writeFloat64(o, v.asDouble()), ClickHouseDataType.float64);
 
             // decimals
             buildMappings(deserializers, serializers,
@@ -259,35 +258,35 @@ public class ClickHouseRowBinaryProcessor extends ClickHouseDataProcessor {
                             BinaryStreamUtils.readDecimal(i, c.getPrecision(), c.getScale())),
                     (v, f, c, o) -> BinaryStreamUtils.writeDecimal(o, v.asBigDecimal(c.getScale()), c.getPrecision(),
                             c.getScale()),
-                    ClickHouseDataType.Decimal);
+                    ClickHouseDataType.decimal);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseBigDecimalValue.of(r, BinaryStreamUtils.readDecimal32(i, c.getScale())),
                     (v, f, c, o) -> BinaryStreamUtils.writeDecimal32(o, v.asBigDecimal(c.getScale()), c.getScale()),
-                    ClickHouseDataType.Decimal32);
+                    ClickHouseDataType.decimal32);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseBigDecimalValue.of(r, BinaryStreamUtils.readDecimal64(i, c.getScale())),
                     (v, f, c, o) -> BinaryStreamUtils.writeDecimal64(o, v.asBigDecimal(c.getScale()), c.getScale()),
-                    ClickHouseDataType.Decimal64);
+                    ClickHouseDataType.decimal64);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseBigDecimalValue.of(r, BinaryStreamUtils.readDecimal128(i, c.getScale())),
                     (v, f, c, o) -> BinaryStreamUtils.writeDecimal128(o, v.asBigDecimal(c.getScale()), c.getScale()),
-                    ClickHouseDataType.Decimal128);
+                    ClickHouseDataType.decimal128);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseBigDecimalValue.of(r, BinaryStreamUtils.readDecimal256(i, c.getScale())),
                     (v, f, c, o) -> BinaryStreamUtils.writeDecimal256(o, v.asBigDecimal(c.getScale()), c.getScale()),
-                    ClickHouseDataType.Decimal256);
+                    ClickHouseDataType.decimal256);
 
             // date, time, datetime and IPs
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseDateValue.of(r,
                             BinaryStreamUtils.readDate(i, f.getTimeZoneForDate())),
                     (v, f, c, o) -> BinaryStreamUtils.writeDate(o, v.asDate(), f.getTimeZoneForDate()),
-                    ClickHouseDataType.Date);
+                    ClickHouseDataType.date);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseDateValue.of(r,
                             BinaryStreamUtils.readDate32(i, f.getTimeZoneForDate())),
                     (v, f, c, o) -> BinaryStreamUtils.writeDate32(o, v.asDate(), f.getTimeZoneForDate()),
-                    ClickHouseDataType.Date32);
+                    ClickHouseDataType.date32);
             buildMappings(deserializers, serializers, (r, f, c, i) -> c.getTimeZone() == null
                     ? ClickHouseDateTimeValue.of(r,
                             (c.getScale() > 0 ? BinaryStreamUtils.readDateTime64(i, c.getScale(), f.getUseTimeZone())
@@ -299,7 +298,7 @@ public class ClickHouseRowBinaryProcessor extends ClickHouseDataProcessor {
                             c.getScale(), c.getTimeZone()),
                     (v, f, c, o) -> BinaryStreamUtils.writeDateTime(o, v.asDateTime(), c.getScale(),
                             c.getTimeZoneOrDefault(f.getUseTimeZone())),
-                    ClickHouseDataType.DateTime);
+                    ClickHouseDataType.datetime);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> c.getTimeZone() == null
                             ? ClickHouseDateTimeValue.of(r, BinaryStreamUtils.readDateTime(i, f.getUseTimeZone()), 0,
@@ -308,7 +307,7 @@ public class ClickHouseRowBinaryProcessor extends ClickHouseDataProcessor {
                                     c.getTimeZone()),
                     (v, f, c, o) -> BinaryStreamUtils.writeDateTime32(o, v.asDateTime(),
                             c.getTimeZoneOrDefault(f.getUseTimeZone())),
-                    ClickHouseDataType.DateTime32);
+                    ClickHouseDataType.datetime32);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> c.getTimeZone() == null ? ClickHouseDateTimeValue.of(r,
                             BinaryStreamUtils.readDateTime64(i, c.getScale(), f.getUseTimeZone()), c.getScale(),
@@ -318,45 +317,45 @@ public class ClickHouseRowBinaryProcessor extends ClickHouseDataProcessor {
                                     c.getTimeZone()),
                     (v, f, c, o) -> BinaryStreamUtils.writeDateTime64(o, v.asDateTime(), c.getScale(),
                             c.getTimeZoneOrDefault(f.getUseTimeZone())),
-                    ClickHouseDataType.DateTime64);
+                    ClickHouseDataType.datetime64);
 
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseIpv4Value.of(r, BinaryStreamUtils.readInet4Address(i)),
                     (v, f, c, o) -> BinaryStreamUtils.writeInet4Address(o, v.asInet4Address()),
-                    ClickHouseDataType.IPv4);
+                    ClickHouseDataType.ipv4);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseIpv6Value.of(r, BinaryStreamUtils.readInet6Address(i)),
                     (v, f, c, o) -> BinaryStreamUtils.writeInet6Address(o, v.asInet6Address()),
-                    ClickHouseDataType.IPv6);
+                    ClickHouseDataType.ipv6);
 
             // string and uuid
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseStringValue.of(r, i.readBytes(c.getPrecision())),
-                    (v, f, c, o) -> o.write(v.asBinary(c.getPrecision())), ClickHouseDataType.FixedString);
+                    (v, f, c, o) -> o.write(v.asBinary(c.getPrecision())), ClickHouseDataType.fixed_string);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseStringValue.of(r, i.readBytes(i.readVarInt())),
-                    (v, f, c, o) -> BinaryStreamUtils.writeString(o, v.asBinary()), ClickHouseDataType.String);
+                    (v, f, c, o) -> BinaryStreamUtils.writeString(o, v.asBinary()), ClickHouseDataType.string);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseUuidValue.of(r, BinaryStreamUtils.readUuid(i)),
-                    (v, f, c, o) -> BinaryStreamUtils.writeUuid(o, v.asUuid()), ClickHouseDataType.UUID);
+                    (v, f, c, o) -> BinaryStreamUtils.writeUuid(o, v.asUuid()), ClickHouseDataType.uuid);
 
             // geo types
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseGeoPointValue.of(r, BinaryStreamUtils.readGeoPoint(i)),
                     (v, f, c, o) -> BinaryStreamUtils.writeGeoPoint(o, v.asObject(double[].class)),
-                    ClickHouseDataType.Point);
+                    ClickHouseDataType.point);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseGeoRingValue.of(r, BinaryStreamUtils.readGeoRing(i)),
                     (v, f, c, o) -> BinaryStreamUtils.writeGeoRing(o, v.asObject(double[][].class)),
-                    ClickHouseDataType.Ring);
+                    ClickHouseDataType.ring);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseGeoPolygonValue.of(r, BinaryStreamUtils.readGeoPolygon(i)),
                     (v, f, c, o) -> BinaryStreamUtils.writeGeoPolygon(o, v.asObject(double[][][].class)),
-                    ClickHouseDataType.Polygon);
+                    ClickHouseDataType.polygon);
             buildMappings(deserializers, serializers,
                     (r, f, c, i) -> ClickHouseGeoMultiPolygonValue.of(r, BinaryStreamUtils.readGeoMultiPolygon(i)),
                     (v, f, c, o) -> BinaryStreamUtils.writeGeoMultiPolygon(o, v.asObject(double[][][][].class)),
-                    ClickHouseDataType.MultiPolygon);
+                    ClickHouseDataType.multi_polygon);
 
             // advanced types
             buildMappings(deserializers, serializers, (r, f, c, i) -> {
@@ -366,7 +365,7 @@ public class ClickHouseRowBinaryProcessor extends ClickHouseDataProcessor {
                 }
                 return readArray(r, f, c.getNestedColumns().get(0), c.getArrayBaseColumn(), i, length,
                         c.getArrayNestedLevel());
-            }, this::writeArray, ClickHouseDataType.Array);
+            }, this::writeArray, ClickHouseDataType.array);
             buildMappings(deserializers, serializers, (r, f, c, i) -> {
                 Map<Object, Object> map = new LinkedHashMap<>();
                 ClickHouseColumn keyCol = c.getKeyInfo();
@@ -389,7 +388,7 @@ public class ClickHouseRowBinaryProcessor extends ClickHouseDataProcessor {
                         serialize(vVal.update(e.getValue()), f, valCol, o);
                     }
                 }
-            }, ClickHouseDataType.Map);
+            }, ClickHouseDataType.map);
             buildMappings(deserializers, serializers, (r, f, c, i) -> {
                 int count = c.getNestedColumns().size();
                 String[] names = new String[count];
@@ -417,7 +416,7 @@ public class ClickHouseRowBinaryProcessor extends ClickHouseDataProcessor {
                         serialize(nv.update(nvalues[j]), f, col, o);
                     }
                 }
-            }, ClickHouseDataType.Nested);
+            }, ClickHouseDataType.nested);
             buildMappings(deserializers, serializers, (r, f, c, i) -> {
                 List<Object> tupleValues = new ArrayList<>(c.getNestedColumns().size());
                 for (ClickHouseColumn col : c.getNestedColumns()) {
@@ -436,7 +435,7 @@ public class ClickHouseRowBinaryProcessor extends ClickHouseDataProcessor {
                         serialize(tv, f, col, o);
                     }
                 }
-            }, ClickHouseDataType.Tuple);
+            }, ClickHouseDataType.tuple);
         }
 
         private MappedFunctions() {

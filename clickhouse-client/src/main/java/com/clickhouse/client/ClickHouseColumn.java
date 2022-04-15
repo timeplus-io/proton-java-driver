@@ -16,14 +16,14 @@ public final class ClickHouseColumn implements Serializable {
     private static final long serialVersionUID = 8228660689532259640L;
 
     private static final String ERROR_MISSING_NESTED_TYPE = "Missing nested data type";
-    private static final String KEYWORD_NULLABLE = "Nullable";
-    private static final String KEYWORD_LOW_CARDINALITY = "LowCardinality";
-    private static final String KEYWORD_AGGREGATE_FUNCTION = ClickHouseDataType.AggregateFunction.name();
-    private static final String KEYWORD_SIMPLE_AGGREGATE_FUNCTION = ClickHouseDataType.SimpleAggregateFunction.name();
-    private static final String KEYWORD_ARRAY = ClickHouseDataType.Array.name();
-    private static final String KEYWORD_TUPLE = ClickHouseDataType.Tuple.name();
-    private static final String KEYWORD_MAP = ClickHouseDataType.Map.name();
-    private static final String KEYWORD_NESTED = ClickHouseDataType.Nested.name();
+    private static final String KEYWORD_NULLABLE = "nullable";
+    private static final String KEYWORD_LOW_CARDINALITY = "low_cardinality";
+    private static final String KEYWORD_AGGREGATE_FUNCTION = ClickHouseDataType.aggregate_function.name();
+    private static final String KEYWORD_SIMPLE_AGGREGATE_FUNCTION = ClickHouseDataType.simple_aggregate_function.name();
+    private static final String KEYWORD_ARRAY = ClickHouseDataType.array.name();
+    private static final String KEYWORD_TUPLE = ClickHouseDataType.tuple.name();
+    private static final String KEYWORD_MAP = ClickHouseDataType.map.name();
+    private static final String KEYWORD_NESTED = ClickHouseDataType.nested.name();
 
     private String originalTypeName;
     private String columnName;
@@ -50,12 +50,12 @@ public final class ClickHouseColumn implements Serializable {
         int size = column.parameters.size();
         column.precision = column.dataType.getMaxPrecision();
         switch (column.dataType) {
-            case Array:
+            case array:
                 if (!column.nested.isEmpty()) {
                     column.arrayLevel = 1;
                     column.arrayBaseColumn = column.nested.get(0);
                     while (column.arrayLevel < 255) {
-                        if (column.arrayBaseColumn.dataType == ClickHouseDataType.Array) {
+                        if (column.arrayBaseColumn.dataType == ClickHouseDataType.array) {
                             column.arrayLevel++;
                             column.arrayBaseColumn = column.arrayBaseColumn.nested.get(0);
                         } else {
@@ -64,17 +64,16 @@ public final class ClickHouseColumn implements Serializable {
                     }
                 }
                 break;
-            case Enum:
-            case Enum8:
-            case Enum16:
+            case enum8:
+            case enum16:
                 column.enumConstants = new ClickHouseEnum(column.parameters);
                 break;
-            case DateTime:
+            case datetime:
                 if (size >= 2) { // same as DateTime64
                     column.scale = Integer.parseInt(column.parameters.get(0));
                     column.timeZone = TimeZone.getTimeZone(column.parameters.get(1).replace("'", ""));
                     if (!column.nullable) {
-                        column.estimatedByteLength += ClickHouseDataType.DateTime64.getByteLength();
+                        column.estimatedByteLength += ClickHouseDataType.datetime64.getByteLength();
                     }
                 } else if (size == 1) { // same as DateTime32
                     // unfortunately this will fall back to GMT if the time zone
@@ -82,11 +81,11 @@ public final class ClickHouseColumn implements Serializable {
                     TimeZone tz = TimeZone.getTimeZone(column.parameters.get(0).replace("'", ""));
                     column.timeZone = tz;
                     if (!column.nullable) {
-                        column.estimatedByteLength += ClickHouseDataType.DateTime32.getByteLength();
+                        column.estimatedByteLength += ClickHouseDataType.datetime32.getByteLength();
                     }
                 }
                 break;
-            case DateTime32:
+            case datetime32:
                 if (size > 0) {
                     // unfortunately this will fall back to GMT if the time zone
                     // cannot be resolved
@@ -94,7 +93,7 @@ public final class ClickHouseColumn implements Serializable {
                     column.timeZone = tz;
                 }
                 break;
-            case DateTime64:
+            case datetime64:
                 if (size > 0) {
                     column.scale = Integer.parseInt(column.parameters.get(0));
                 }
@@ -102,33 +101,33 @@ public final class ClickHouseColumn implements Serializable {
                     column.timeZone = TimeZone.getTimeZone(column.parameters.get(1).replace("'", ""));
                 }
                 break;
-            case Decimal:
+            case decimal:
                 if (size >= 2) {
                     column.precision = Integer.parseInt(column.parameters.get(0));
                     column.scale = Integer.parseInt(column.parameters.get(1));
 
                     if (!column.nullable) {
-                        if (column.precision > ClickHouseDataType.Decimal128.getMaxScale()) {
-                            column.estimatedByteLength += ClickHouseDataType.Decimal256.getByteLength();
-                        } else if (column.precision > ClickHouseDataType.Decimal64.getMaxScale()) {
-                            column.estimatedByteLength += ClickHouseDataType.Decimal128.getByteLength();
-                        } else if (column.precision > ClickHouseDataType.Decimal32.getMaxScale()) {
-                            column.estimatedByteLength += ClickHouseDataType.Decimal64.getByteLength();
+                        if (column.precision > ClickHouseDataType.decimal128.getMaxScale()) {
+                            column.estimatedByteLength += ClickHouseDataType.decimal256.getByteLength();
+                        } else if (column.precision > ClickHouseDataType.decimal64.getMaxScale()) {
+                            column.estimatedByteLength += ClickHouseDataType.decimal128.getByteLength();
+                        } else if (column.precision > ClickHouseDataType.decimal32.getMaxScale()) {
+                            column.estimatedByteLength += ClickHouseDataType.decimal64.getByteLength();
                         } else {
-                            column.estimatedByteLength += ClickHouseDataType.Decimal32.getByteLength();
+                            column.estimatedByteLength += ClickHouseDataType.decimal32.getByteLength();
                         }
                     }
                 }
                 break;
-            case Decimal32:
-            case Decimal64:
-            case Decimal128:
-            case Decimal256:
+            case decimal32:
+            case decimal64:
+            case decimal128:
+            case decimal256:
                 if (size > 0) {
                     column.scale = Integer.parseInt(column.parameters.get(0));
                 }
                 break;
-            case FixedString:
+            case fixed_string:
                 if (size > 0) {
                     column.precision = Integer.parseInt(column.parameters.get(0));
                     if (!column.nullable) {
@@ -136,7 +135,7 @@ public final class ClickHouseColumn implements Serializable {
                     }
                 }
                 break;
-            case String:
+            case string:
                 column.fixedByteLength = false;
                 if (!column.nullable) {
                     column.estimatedByteLength += 1;
@@ -220,7 +219,7 @@ public final class ClickHouseColumn implements Serializable {
                 throw new IllegalArgumentException(
                         "Array can have one and only one nested column, but we got: " + nestedColumns.size());
             }
-            column = new ClickHouseColumn(ClickHouseDataType.Array, name, args.substring(startIndex, endIndex),
+            column = new ClickHouseColumn(ClickHouseDataType.array, name, args.substring(startIndex, endIndex),
                     nullable, lowCardinality, null, nestedColumns);
             i = endIndex;
             fixedLength = false;
@@ -244,7 +243,7 @@ public final class ClickHouseColumn implements Serializable {
                 throw new IllegalArgumentException(
                         "Map should have two nested columns(key and value), but we got: " + nestedColumns.size());
             }
-            column = new ClickHouseColumn(ClickHouseDataType.Map, name, args.substring(startIndex, endIndex), nullable,
+            column = new ClickHouseColumn(ClickHouseDataType.map, name, args.substring(startIndex, endIndex), nullable,
                     lowCardinality, null, nestedColumns);
             i = endIndex;
             fixedLength = false;
@@ -260,7 +259,7 @@ public final class ClickHouseColumn implements Serializable {
             if (nestedColumns.isEmpty()) {
                 throw new IllegalArgumentException("Nested should have at least one nested column");
             }
-            column = new ClickHouseColumn(ClickHouseDataType.Nested, name, originalTypeName, nullable, lowCardinality,
+            column = new ClickHouseColumn(ClickHouseDataType.nested, name, originalTypeName, nullable, lowCardinality,
                     null, nestedColumns);
             fixedLength = false;
             estimatedLength++;
@@ -282,7 +281,7 @@ public final class ClickHouseColumn implements Serializable {
             if (nestedColumns.isEmpty()) {
                 throw new IllegalArgumentException("Tuple should have at least one nested column");
             }
-            column = new ClickHouseColumn(ClickHouseDataType.Tuple, name, args.substring(startIndex, endIndex),
+            column = new ClickHouseColumn(ClickHouseDataType.tuple, name, args.substring(startIndex, endIndex),
                     nullable, lowCardinality, null, nestedColumns);
             for (ClickHouseColumn n : nestedColumns) {
                 estimatedLength += n.estimatedByteLength;
@@ -322,7 +321,7 @@ public final class ClickHouseColumn implements Serializable {
 
                     if ("null".equalsIgnoreCase(modifier)) {
                         if (nullable) {
-                            throw new IllegalArgumentException("Nullable and NULL cannot be used together");
+                            throw new IllegalArgumentException("nullable and null cannot be used together");
                         }
                         nullable = !startsWithNot;
                         i = ClickHouseUtils.skipContentsUntil(args, i, len, ',') - 1;
@@ -462,17 +461,17 @@ public final class ClickHouseColumn implements Serializable {
 
     public boolean isAggregateFunction() {
         // || dataType == ClickHouseDataType.SimpleAggregateFunction;
-        return dataType == ClickHouseDataType.AggregateFunction;
+        return dataType == ClickHouseDataType.aggregate_function;
 
     }
 
     public boolean isArray() {
-        return dataType == ClickHouseDataType.Array;
+        return dataType == ClickHouseDataType.array;
     }
 
     public boolean isEnum() {
-        return dataType == ClickHouseDataType.Enum || dataType == ClickHouseDataType.Enum8
-                || dataType == ClickHouseDataType.Enum16;
+        return dataType == ClickHouseDataType.enum8
+                || dataType == ClickHouseDataType.enum16;
     }
 
     public boolean isFixedLength() {
@@ -480,15 +479,15 @@ public final class ClickHouseColumn implements Serializable {
     }
 
     public boolean isMap() {
-        return dataType == ClickHouseDataType.Map;
+        return dataType == ClickHouseDataType.map;
     }
 
     public boolean isNested() {
-        return dataType == ClickHouseDataType.Nested;
+        return dataType == ClickHouseDataType.nested;
     }
 
     public boolean isTuple() {
-        return dataType == ClickHouseDataType.Tuple;
+        return dataType == ClickHouseDataType.tuple;
     }
 
     public int getArrayNestedLevel() {
@@ -556,28 +555,28 @@ public final class ClickHouseColumn implements Serializable {
     }
 
     public ClickHouseColumn getKeyInfo() {
-        return dataType == ClickHouseDataType.Map && nested.size() == 2 ? nested.get(0) : null;
+        return dataType == ClickHouseDataType.map && nested.size() == 2 ? nested.get(0) : null;
     }
 
     public ClickHouseColumn getValueInfo() {
-        return dataType == ClickHouseDataType.Map && nested.size() == 2 ? nested.get(1) : null;
+        return dataType == ClickHouseDataType.map && nested.size() == 2 ? nested.get(1) : null;
     }
 
     /**
      * Gets function when column type is
-     * {@link ClickHouseDataType#AggregateFunction}. So it will return
+     * {@link ClickHouseDataType#aggregate_function}. So it will return
      * {@code quantiles(0.5, 0.9)} when the column type is
      * {@code AggregateFunction(quantiles(0.5, 0.9), UInt64)}.
      *
      * @return function, null when column type is not AggregateFunction
      */
     public String getFunction() {
-        return dataType == ClickHouseDataType.AggregateFunction ? parameters.get(0) : null;
+        return dataType == ClickHouseDataType.aggregate_function ? parameters.get(0) : null;
     }
 
     /**
      * Gets aggregate function when column type is
-     * {@link ClickHouseDataType#AggregateFunction}. So it will return
+     * {@link ClickHouseDataType#aggregate_function}. So it will return
      * {@link ClickHouseAggregateFunction#quantile} when the column type is
      * {@code AggregateFunction(quantiles(0.5, 0.9), UInt64)}.
      *

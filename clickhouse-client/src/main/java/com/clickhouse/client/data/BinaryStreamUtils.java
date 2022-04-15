@@ -1074,11 +1074,11 @@ public final class BinaryStreamUtils {
     public static BigDecimal readDecimal(ClickHouseInputStream input, int precision, int scale) throws IOException {
         BigDecimal v;
 
-        if (precision <= ClickHouseDataType.Decimal32.getMaxScale()) {
+        if (precision <= ClickHouseDataType.decimal32.getMaxScale()) {
             v = readDecimal32(input, scale);
-        } else if (precision <= ClickHouseDataType.Decimal64.getMaxScale()) {
+        } else if (precision <= ClickHouseDataType.decimal64.getMaxScale()) {
             v = readDecimal64(input, scale);
-        } else if (precision <= ClickHouseDataType.Decimal128.getMaxScale()) {
+        } else if (precision <= ClickHouseDataType.decimal128.getMaxScale()) {
             v = readDecimal128(input, scale);
         } else {
             v = readDecimal256(input, scale);
@@ -1100,11 +1100,11 @@ public final class BinaryStreamUtils {
      */
     public static void writeDecimal(OutputStream output, BigDecimal value, int precision, int scale)
             throws IOException {
-        if (precision > ClickHouseDataType.Decimal128.getMaxScale()) {
+        if (precision > ClickHouseDataType.decimal128.getMaxScale()) {
             writeDecimal256(output, value, scale);
-        } else if (precision > ClickHouseDataType.Decimal64.getMaxScale()) {
+        } else if (precision > ClickHouseDataType.decimal64.getMaxScale()) {
             writeDecimal128(output, value, scale);
-        } else if (precision > ClickHouseDataType.Decimal32.getMaxScale()) {
+        } else if (precision > ClickHouseDataType.decimal32.getMaxScale()) {
             writeDecimal64(output, value, scale);
         } else {
             writeDecimal32(output, value, scale);
@@ -1122,7 +1122,7 @@ public final class BinaryStreamUtils {
      */
     public static BigDecimal readDecimal32(ClickHouseInputStream input, int scale) throws IOException {
         return BigDecimal.valueOf(readInt32(input), ClickHouseChecker.between(scale, ClickHouseValues.PARAM_SCALE, 0,
-                ClickHouseDataType.Decimal32.getMaxScale()));
+                ClickHouseDataType.decimal32.getMaxScale()));
     }
 
     /**
@@ -1139,7 +1139,7 @@ public final class BinaryStreamUtils {
         writeInt32(output,
                 ClickHouseChecker.between(
                         value.multiply(BigDecimal.TEN.pow(ClickHouseChecker.between(scale, ClickHouseValues.PARAM_SCALE,
-                                0, ClickHouseDataType.Decimal32.getMaxScale()))),
+                                0, ClickHouseDataType.decimal32.getMaxScale()))),
                         ClickHouseValues.TYPE_BIG_DECIMAL, DECIMAL32_MIN, DECIMAL32_MAX).intValue());
     }
 
@@ -1154,7 +1154,7 @@ public final class BinaryStreamUtils {
      */
     public static BigDecimal readDecimal64(ClickHouseInputStream input, int scale) throws IOException {
         return BigDecimal.valueOf(readInt64(input), ClickHouseChecker.between(scale, ClickHouseValues.PARAM_SCALE, 0,
-                ClickHouseDataType.Decimal64.getMaxScale()));
+                ClickHouseDataType.decimal64.getMaxScale()));
     }
 
     /**
@@ -1171,7 +1171,7 @@ public final class BinaryStreamUtils {
         writeInt64(output,
                 ClickHouseChecker.between(
                         ClickHouseChecker.between(scale, ClickHouseValues.PARAM_SCALE, 0,
-                                ClickHouseDataType.Decimal64.getMaxScale()) == 0 ? value
+                                ClickHouseDataType.decimal64.getMaxScale()) == 0 ? value
                                         : value.multiply(BigDecimal.TEN.pow(scale)),
                         ClickHouseValues.TYPE_BIG_DECIMAL, DECIMAL64_MIN, DECIMAL64_MAX).longValue());
     }
@@ -1187,7 +1187,7 @@ public final class BinaryStreamUtils {
      */
     public static BigDecimal readDecimal128(ClickHouseInputStream input, int scale) throws IOException {
         return new BigDecimal(readInt128(input), ClickHouseChecker.between(scale, ClickHouseValues.PARAM_SCALE, 0,
-                ClickHouseDataType.Decimal128.getMaxScale()));
+                ClickHouseDataType.decimal128.getMaxScale()));
     }
 
     /**
@@ -1204,7 +1204,7 @@ public final class BinaryStreamUtils {
         writeInt128(output,
                 ClickHouseChecker.between(
                         ClickHouseChecker.between(scale, ClickHouseValues.PARAM_SCALE, 0,
-                                ClickHouseDataType.Decimal128.getMaxScale()) == 0 ? value
+                                ClickHouseDataType.decimal128.getMaxScale()) == 0 ? value
                                         : value.multiply(BigDecimal.TEN.pow(scale)),
                         ClickHouseValues.TYPE_BIG_DECIMAL, DECIMAL128_MIN, DECIMAL128_MAX).toBigInteger());
     }
@@ -1220,7 +1220,7 @@ public final class BinaryStreamUtils {
      */
     public static BigDecimal readDecimal256(ClickHouseInputStream input, int scale) throws IOException {
         return new BigDecimal(readInt256(input), ClickHouseChecker.between(scale, ClickHouseValues.PARAM_SCALE, 0,
-                ClickHouseDataType.Decimal256.getMaxScale()));
+                ClickHouseDataType.decimal256.getMaxScale()));
     }
 
     /**
@@ -1237,7 +1237,7 @@ public final class BinaryStreamUtils {
         writeInt256(output,
                 ClickHouseChecker.between(
                         ClickHouseChecker.between(scale, ClickHouseValues.PARAM_SCALE, 0,
-                                ClickHouseDataType.Decimal256.getMaxScale()) == 0 ? value
+                                ClickHouseDataType.decimal256.getMaxScale()) == 0 ? value
                                         : value.multiply(BigDecimal.TEN.pow(scale)),
                         ClickHouseValues.TYPE_BIG_DECIMAL, DECIMAL256_MIN, DECIMAL256_MAX).toBigInteger());
     }
@@ -1391,7 +1391,7 @@ public final class BinaryStreamUtils {
      */
     public static LocalDateTime readDateTime(ClickHouseInputStream input, int scale, TimeZone tz) throws IOException {
         return ClickHouseChecker.between(scale, ClickHouseValues.PARAM_SCALE, 0,
-                ClickHouseDataType.DateTime64.getMaxScale()) == 0 ? readDateTime32(input, tz)
+                ClickHouseDataType.datetime64.getMaxScale()) == 0 ? readDateTime32(input, tz)
                         : readDateTime64(input, scale, tz);
     }
 
@@ -1421,7 +1421,7 @@ public final class BinaryStreamUtils {
     public static void writeDateTime(OutputStream output, LocalDateTime value, int scale, TimeZone tz)
             throws IOException {
         if (ClickHouseChecker.between(scale, ClickHouseValues.PARAM_SCALE, 0,
-                ClickHouseDataType.DateTime64.getMaxScale()) == 0) {
+                ClickHouseDataType.datetime64.getMaxScale()) == 0) {
             writeDateTime32(output, value, tz);
         } else {
             writeDateTime64(output, value, scale, tz);

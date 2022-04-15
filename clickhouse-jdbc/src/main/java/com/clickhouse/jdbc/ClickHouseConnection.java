@@ -37,7 +37,7 @@ public interface ClickHouseConnection extends Connection {
     @Override
     default ClickHouseArray createArrayOf(String typeName, Object[] elements) throws SQLException {
         ClickHouseConfig config = getConfig();
-        ClickHouseColumn column = ClickHouseColumn.of("", ClickHouseDataType.Array, false,
+        ClickHouseColumn column = ClickHouseColumn.of("", ClickHouseDataType.array, false,
                 ClickHouseColumn.of("", typeName));
         ClickHouseValue v = ClickHouseValues.newValue(config, column).update(elements);
         ClickHouseResultSet rs = new ClickHouseResultSet("", "", createStatement(),
