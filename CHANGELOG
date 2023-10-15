@@ -6,7 +6,7 @@
 0.3.1
   * BREAKING CHANGE - move query from url to request body
   * BREAKING CHANGE - always parse SQL(use extended API to skip that)
-  * BREAKING CHANGE - remove keepAliveTimeout and useNewParser from ClickHouseProperties
+  * BREAKING CHANGE - remove keepAliveTimeout and useNewParser from ProtonProperties
   * BREAKING CHANGE - exclude RoaringBitmap from shaded jar
   * add new connection setting useSharedCookieStore for load balancing
   * add new query parameters: allow_experimental_bigint_types, allow_experimental_map_type, and join_algorithm
@@ -21,12 +21,12 @@
   * BREAKING CHANGE - removed Guava dependency(and so is UnsignedLong)
   * JDBC 4.2 support
   * add connection setting client_name for load-balancing and troubleshooting
-  * add writeBytes & writeUUIDArray and remove UnsignedLong related methods in ClickHouseRowBinaryStream
+  * add writeBytes & writeUUIDArray and remove UnsignedLong related methods in ProtonRowBinaryStream
   * support more data types: IPv4, IPv6, Int128, UInt128, Int256, UInt256, Decimal256, DateTime*, and Map
   * support ORC/Parquet streaming
   * support read/write Bitmap from/into AggregateFunction(groupBitmap, UInt[8-64]) column
-  * throw SQLException instead of RuntimeException when instantiating ClickHouseConnectionImpl
-  * fix error when using ClickHouseCompression.none against 19.16
+  * throw SQLException instead of RuntimeException when instantiating ProtonConnectionImpl
+  * fix error when using ProtonCompression.none against 19.16
   * fix NegativeArraySizeException when dealing with large array
   * fix datetime/date display issue caused by timezone differences(between client and column/server)
 
@@ -36,14 +36,14 @@
   * restore String[] getColumnNames() method for backward compatibility
   * retry idempotent operation up to 3 times when server closed connection - set connection setting maxRetries to zero to disable
   * return inserted rows(not accurate) when query parameter send_progress_in_http_headers is set to true
-  * set socket timeout in ClickHouseConnectionImpl.isValid()
+  * set socket timeout in ProtonConnectionImpl.isValid()
   * upgrade to lz4-java and improve performance of LZ4 stream
   * use HTTP Basic Auth for credentials instead of query parameters
   * use static version instead of property-based revision in pom.xml
 
 0.2.5
   * bump dependencies and include lz4 in shaded jar
-  * new API: ClickHouseRowBinaryStream.writeUInt64Array(UnsignedLong[])
+  * new API: ProtonRowBinaryStream.writeUInt64Array(UnsignedLong[])
   * support column comments
   * support explain queries
   * fix keep-alive timeout issue by reusing validated connection
@@ -68,12 +68,12 @@
 
 0.2
   * new API for writing streams of data
-  * deprecation of send* methods in ClickHouseStatement interface
+  * deprecation of send* methods in ProtonStatement interface
 
 0.1.55
-NOTE: behavior for byte[] parameters changed. See https://github.com/yandex/clickhouse-jdbc/pull/352
+NOTE: behavior for byte[] parameters changed. See https://github.com/yandex/proton-jdbc/pull/352
   * support for sending stream of CSV data
-  * support for 307 redirects and paths in url (when ClickHouse is behind balancer)
+  * support for 307 redirects and paths in url (when Proton is behind balancer)
   * query parameters and types handling improved
   * strict ssl fixed
   * support for array of decimals
@@ -84,7 +84,7 @@ NOTE: behavior for byte[] parameters changed. See https://github.com/yandex/clic
   * correct class names for arrays
   * prepared statements with functions fixed
   * max_partitions_per_insert_block, max_insert_block_size, insert_deduplicate, insert_distributed_sync added
-  * BalancedClickHouseDatasource parameters handling fixed
+  * BalancedProtonDatasource parameters handling fixed
   * DateTime with timezone type support. NOTE: zones in values parsing are not handled
   * prepared statements with back quotes fixed
 
@@ -135,7 +135,7 @@ NOTE: behavior for byte[] parameters changed. See https://github.com/yandex/clic
   * setTime implementation
 
 0.1.44
-  * add public methods to BalancedClickhouseDataSource
+  * add public methods to BalancedProtonDataSource
   * TYPE_NAME without Nullable
   * sendRowBinaryStream with additional parameters
   * support constant NULL values in prepared statements
@@ -147,7 +147,7 @@ NOTE: behavior for byte[] parameters changed. See https://github.com/yandex/clic
   * fix parameters copy
   * support for writing UUIDs in binary stream
   * removed joda-time dependency
-    migration node for users of ClickHouseRowBinaryStream:
+    migration node for users of ProtonRowBinaryStream:
         manually calculate daysSinceEpoch and use method writeUInt16():
             for joda-time: Days.daysBetween(LocalDate.parse("1970-01-01"), date).getDays()
             for java 8: LocalDate.toEpochDay())
@@ -198,12 +198,12 @@ NOTE: behavior for byte[] parameters changed. See https://github.com/yandex/clic
 
 0.1.34
   * support for select queries starting with "WITH ... SELECT"
-  * add executeQueryClickhouseResponse
+  * add executeQueryProtonResponse
   * add session query parameters
 
 0.1.33
   * json parse optitimzation
-  * BalancedClickHouseDataSource url pattern fix
+  * BalancedProtonDataSource url pattern fix
 
 0.1.32
   * fix getObject() for DOUBLE
@@ -227,7 +227,7 @@ NOTE: behavior for byte[] parameters changed. See https://github.com/yandex/clic
 
 0.1.27
   * setCatalog/getCatalog
-  * fix `ClickHousePreparedStatement.setObject(int, List<?>)` for Number
+  * fix `ProtonPreparedStatement.setObject(int, List<?>)` for Number
 
 0.1.26
   NOTE: starting from this release local application timezone is used by default for Date conversions.
@@ -246,8 +246,8 @@ NOTE: behavior for byte[] parameters changed. See https://github.com/yandex/clic
   * max_query_size property
 
 0.1.23
-  NOTE: default connection timeout had changed to conform with ClickHouse core and support IDEs in default settings.
-  The setting may be overridden by passing ClickHouseProperties or Properties on connection init.
+  NOTE: default connection timeout had changed to conform with Proton core and support IDEs in default settings.
+  The setting may be overridden by passing ProtonProperties or Properties on connection init.
   * default connection timeout 50ms -> 10s
   * fixed metadata on mixed-case identifiers
 
@@ -290,7 +290,7 @@ NOTE: behavior for byte[] parameters changed. See https://github.com/yandex/clic
 
 0.1.16
   * fix use Property class for configuration
-  * Add settings to ClickHouseQueryParam
+  * Add settings to ProtonQueryParam
 
 0.1.15
   * lz4 support
@@ -345,7 +345,7 @@ NOTE: behavior for byte[] parameters changed. See https://github.com/yandex/clic
 
 0.1.5
   * Nan and inf values support for double
-  * Fix ClickHouseException
+  * Fix ProtonException
   * Database from properties priority over url
 
 0.1.4

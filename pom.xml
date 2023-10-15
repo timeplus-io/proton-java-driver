@@ -2,19 +2,19 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.clickhouse</groupId>
-    <artifactId>clickhouse-java</artifactId>
+    <groupId>com.proton</groupId>
+    <artifactId>proton-java</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
-    <name>clickhouse-java</name>
-    <description>Java Client and JDBC driver for ClickHouse</description>
-    <url>https://github.com/ClickHouse/clickhouse-jdbc</url>
+    <name>proton-java</name>
+    <description>Java Client and JDBC driver for Proton</description>
+    <url>https://github.com/timeplus-io/proton</url>
     <inceptionYear>2015</inceptionYear>
 
     <organization>
-        <name>ClickHouse, Inc.</name>
-        <url>https://clickhouse.com/</url>
+        <name>Proton, Inc.</name>
+        <url>https://proton.com/</url>
     </organization>
 
     <licenses>
@@ -35,28 +35,28 @@
     </developers>
 
     <modules>
-        <module>clickhouse-client</module>
-        <module>clickhouse-grpc-client</module>
-        <module>clickhouse-http-client</module>
-        <module>clickhouse-tcp-client</module>
-        <module>clickhouse-jdbc</module>
+        <module>proton-client</module>
+        <module>proton-grpc-client</module>
+        <module>proton-http-client</module>
+        <module>proton-tcp-client</module>
+        <module>proton-jdbc</module>
     </modules>
 
     <scm>
-        <url>https://github.com/ClickHouse/clickhouse-jdbc</url>
-        <connection>scm:git@github.com:ClickHouse/clickhouse-jdbc.git</connection>
-        <developerConnection>scm:git@github.com:ClickHouse/clickhouse-jdbc.git</developerConnection>
+        <url>https://github.com/timeplus-io/proton</url>
+        <connection>scm:git@github.com:timeplus-io/proton.git</connection>
+        <developerConnection>scm:git@github.com:timeplus-io/proton.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/ClickHouse/clickhouse-jdbc/issues</url>
+        <url>https://github.com/timeplus-io/proton/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Github</system>
-        <url>https://github.com/ClickHouse/clickhouse-jdbc/actions</url>
+        <url>https://github.com/timeplus-io/proton/actions</url>
     </ciManagement>
 
     <distributionManagement>
@@ -126,9 +126,9 @@
         <skipITs>${skipTests}</skipITs>
         <skipUTs>${skipTests}</skipUTs>
 
-        <sonar.projectKey>clickhouse_clickhouse-jdbc</sonar.projectKey>
+        <sonar.projectKey>proton_proton-jdbc</sonar.projectKey>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
-        <sonar.organization>clickhouse</sonar.organization>
+        <sonar.organization>proton</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.projectVersion>0.3.3</sonar.projectVersion>
     </properties>

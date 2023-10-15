@@ -34,9 +34,9 @@ target/
 .flattened-pom.xml
 dependency-reduced-pom.xml
 **/parser/*CharStream.java
-**/parser/ClickHouseSqlParser.java
-**/parser/ClickHouseSqlParserConstants.java
-**/parser/ClickHouseSqlParserTokenManager.java
+**/parser/ProtonSqlParser.java
+**/parser/ProtonSqlParserConstants.java
+**/parser/ProtonSqlParserTokenManager.java
 **/parser/Token*.java
 **/parser/ParseException.java
 java.prof

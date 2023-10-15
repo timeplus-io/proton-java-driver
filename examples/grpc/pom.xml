@@ -2,19 +2,19 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.clickhouse</groupId>
+    <groupId>com.proton</groupId>
     <artifactId>grpc-examples</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>grpc-examples</name>
     <description>gRPC Examples</description>
-    <url>https://github.com/ClickHouse/clickhouse-jdbc</url>
+    <url>https://github.com/timeplus-io/proton</url>
     <inceptionYear>2022</inceptionYear>
 
     <organization>
-        <name>ClickHouse, Inc.</name>
-        <url>https://clickhouse.com/</url>
+        <name>Proton, Inc.</name>
+        <url>https://proton.com/</url>
     </organization>
 
     <licenses>
@@ -35,20 +35,20 @@
     </developers>
 
     <scm>
-        <url>https://github.com/ClickHouse/clickhouse-jdbc</url>
-        <connection>scm:git@github.com:ClickHouse/clickhouse-jdbc.git</connection>
-        <developerConnection>scm:git@github.com:ClickHouse/clickhouse-jdbc.git</developerConnection>
+        <url>https://github.com/timeplus-io/proton</url>
+        <connection>scm:git@github.com:timeplus-io/proton.git</connection>
+        <developerConnection>scm:git@github.com:timeplus-io/proton.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/ClickHouse/clickhouse-jdbc/issues</url>
+        <url>https://github.com/timeplus-io/proton/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Github</system>
-        <url>https://github.com/ClickHouse/clickhouse-jdbc/actions</url>
+        <url>https://github.com/timeplus-io/proton/actions</url>
     </ciManagement>
 
     <properties>
@@ -56,7 +56,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <clickhouse-grpc.version>0.3.2-patch7</clickhouse-grpc.version>
+        <proton-grpc.version>0.3.2-patch7</proton-grpc.version>
 
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
 
@@ -65,9 +65,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.clickhouse</groupId>
-            <artifactId>clickhouse-grpc-client</artifactId>
-            <version>${clickhouse-grpc.version}</version>
+            <groupId>com.proton</groupId>
+            <artifactId>proton-grpc-client</artifactId>
+            <version>${proton-grpc.version}</version>
             <classifier>shaded</classifier>
             <exclusions>
                 <exclusion>

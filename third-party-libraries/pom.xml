@@ -2,19 +2,19 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.clickhouse</groupId>
+    <groupId>com.proton</groupId>
     <artifactId>third-party-libraries</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
     <description>Repackaged third party libraries for JPMS compatibility</description>
-    <url>https://github.com/ClickHouse/clickhouse-jdbc/tree/master/third-party-libraries</url>
+    <url>https://github.com/timeplus-io/proton/tree/master/third-party-libraries</url>
     <inceptionYear>2022</inceptionYear>
 
     <organization>
-        <name>ClickHouse, Inc.</name>
-        <url>https://clickhouse.com/</url>
+        <name>Proton, Inc.</name>
+        <url>https://proton.com/</url>
     </organization>
 
     <licenses>
@@ -40,20 +40,20 @@
     </modules>
 
     <scm>
-        <url>https://github.com/ClickHouse/clickhouse-jdbc</url>
-        <connection>scm:git@github.com:ClickHouse/clickhouse-jdbc.git</connection>
-        <developerConnection>scm:git@github.com:ClickHouse/clickhouse-jdbc.git</developerConnection>
+        <url>https://github.com/timeplus-io/proton</url>
+        <connection>scm:git@github.com:timeplus-io/proton.git</connection>
+        <developerConnection>scm:git@github.com:timeplus-io/proton.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/ClickHouse/clickhouse-jdbc/issues</url>
+        <url>https://github.com/timeplus-io/proton/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Github</system>
-        <url>https://github.com/ClickHouse/clickhouse-jdbc/actions</url>
+        <url>https://github.com/timeplus-io/proton/actions</url>
     </ciManagement>
 
     <distributionManagement>
