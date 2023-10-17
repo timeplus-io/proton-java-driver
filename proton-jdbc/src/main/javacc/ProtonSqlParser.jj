@@ -6,7 +6,7 @@
  * 3) extract cluster, database, table, format, outfile, macros and parameters from a statement
  * 4) check if specific keywords like "WITH TOTALS" or so exist in the statement or not
  *
- * The ANTLR4 grammar at https://github.com/Proton/Proton/blob/master/src/Parsers/New is incomplete.
+ * The ANTLR4 grammar at https://github.com/Clickhouse/Clickhouse/blob/master/src/Parsers/New is incomplete.
  * Also using it will introduce 300KB runtime and we'll have to deal with many parsing errors, 
  * which is too much for a JDBC driver. On the other hand, if we write a parser from scratch, 
  * we'll end up with one like Druid, which is more complex than the JDBC driver itself.
@@ -384,7 +384,7 @@ void stmt(): {} {
     | watchStmt()    { token_source.stmtType = StatementType.WATCH;    }
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/alter/
+// https://clickhouse.tech/docs/en/sql-reference/statements/alter/
 void alterStmt(): {} {
     <ALTER>
     (
@@ -402,7 +402,7 @@ void clusterClause(): { Token t; } {
     { token_source.cluster = ProtonSqlUtils.unescape(t.image); }
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/attach/
+// https://clickhouse.tech/docs/en/sql-reference/statements/attach/
 void attachStmt(): { Token t; } {
     <ATTACH> (
         LOOKAHEAD(2)
@@ -421,12 +421,12 @@ void attachStmt(): { Token t; } {
     anyExprList() // not interested
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/check-table/
+// https://clickhouse.tech/docs/en/sql-reference/statements/check-table/
 void checkStmt(): {} { // not interested
     <CHECK> anyExprList()
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/create/
+// https://clickhouse.tech/docs/en/sql-reference/statements/create/
 void createStmt(): {} {
     <CREATE> (
         LOOKAHEAD(2)
@@ -445,19 +445,19 @@ void createStmt(): {} {
     anyExprList() // not interested
 }
 
-// upcoming lightweight mutation - see https://github.com/Proton/Proton/issues/19627
+// upcoming lightweight mutation - see https://github.com/Clickhouse/Clickhouse/issues/19627
 void deleteStmt(): {} {
     <DELETE> { token_source.addPosition(token); } <FROM> { token_source.addPosition(token); } tableIdentifier(true)
     (LOOKAHEAD({ getToken(1).kind == WHERE })<WHERE> { token_source.addPosition(token); })? (anyExprList())?
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/describe-table/
+// https://clickhouse.tech/docs/en/sql-reference/statements/describe-table/
 void describeStmt(): {} {
     (<DESCRIBE> | <DESC>) { token_source.table = "columns"; }
     (LOOKAHEAD({ getToken(1).kind == TABLE }) <TABLE>)? tableIdentifier(true) (anyExprList())?
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/detach/
+// https://clickhouse.tech/docs/en/sql-reference/statements/detach/
 void detachStmt(): {} {
     <DETACH> (
         LOOKAHEAD(2)
@@ -473,7 +473,7 @@ void detachStmt(): {} {
     anyExprList() // not interested
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/drop/
+// https://clickhouse.tech/docs/en/sql-reference/statements/drop/
 void dropStmt(): {} {
     <DROP> (
         LOOKAHEAD(2)
@@ -490,22 +490,22 @@ void dropStmt(): {} {
     anyExprList() // not interested
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/exists/
+// https://clickhouse.tech/docs/en/sql-reference/statements/exists/
 void existsStmt(): {} { // not interested
     <EXISTS> anyExprList()
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/explain/
+// https://clickhouse.tech/docs/en/sql-reference/statements/explain/
 void explainStmt(): {} { // not interested
     <EXPLAIN> anyExprList()
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/grant/
+// https://clickhouse.tech/docs/en/sql-reference/statements/grant/
 void grantStmt(): {} { // not interested
     <GRANT> anyExprList()
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/insert-into/
+// https://clickhouse.tech/docs/en/sql-reference/statements/insert-into/
 void insertStmt(): {} {
     <INSERT> <INTO>
     (
@@ -541,27 +541,27 @@ void dataClause(): {} {
     }
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/kill/
+// https://clickhouse.tech/docs/en/sql-reference/statements/kill/
 void killStmt(): {} { // not interested
     <KILL> anyExprList()
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/optimize/
+// https://clickhouse.tech/docs/en/sql-reference/statements/optimize/
 void optimizeStmt(): {} { // not interested
     <OPTIMIZE> anyExprList()
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/rename/
+// https://clickhouse.tech/docs/en/sql-reference/statements/rename/
 void renameStmt(): {} { // not interested
     <RENAME> anyExprList()
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/revoke/
+// https://clickhouse.tech/docs/en/sql-reference/statements/revoke/
 void revokeStmt(): {} { // not interested
     <REVOKE> anyExprList()
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/select/
+// https://clickhouse.tech/docs/en/sql-reference/statements/select/
 void selectStmt(): {} {
     // FIXME with (select 1), (select 2), 3 select *
     (withClause())?
@@ -586,13 +586,13 @@ void tableClause(boolean record): { Token t; } {
     )?
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/set/
-// https://proton.tech/docs/en/sql-reference/statements/set-role/
+// https://clickhouse.tech/docs/en/sql-reference/statements/set/
+// https://clickhouse.tech/docs/en/sql-reference/statements/set-role/
 void setStmt(): {} { // not interested
     <SET> (LOOKAHEAD(2) settingExprList() | anyExprList())
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/show/
+// https://clickhouse.tech/docs/en/sql-reference/statements/show/
 void showStmt(): {} {
     <SHOW>
     (
@@ -614,24 +614,24 @@ void showStmt(): {} {
     (LOOKAHEAD(2) anyExprList())?
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/system/
+// https://clickhouse.tech/docs/en/sql-reference/statements/system/
 void systemStmt(): {} { // not interested
     <SYSTEM> anyExprList()
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/truncate/
+// https://clickhouse.tech/docs/en/sql-reference/statements/truncate/
 void truncateStmt(): {} {
     <TRUNCATE> (LOOKAHEAD(2) <TEMPORARY>)? (LOOKAHEAD(2) <TABLE>)? (LOOKAHEAD(2) <IF> <EXISTS>)?
     tableIdentifier(true) (clusterClause())?
 }
 
-// upcoming lightweight mutation - see https://github.com/Proton/Proton/issues/19627
+// upcoming lightweight mutation - see https://github.com/Clickhouse/Clickhouse/issues/19627
 void updateStmt(): {} {
     <UPDATE> { token_source.addPosition(token); } tableIdentifier(true)
     <SET> { token_source.addPosition(token); } anyExprList()
 }
 
-// https://proton.tech/docs/en/sql-reference/statements/use/
+// https://clickhouse.tech/docs/en/sql-reference/statements/use/
 void useStmt(): {} {
     <USE> databaseIdentifier(true)
 }
@@ -723,7 +723,7 @@ void betweenExpr(): {} {
 
 void functionExpr(): {} {
     anyIdentifier() <LPAREN> (anyExprList())? <RPAREN>
-    // https://proton.tech/docs/en/sql-reference/aggregate-functions/parametric-functions/
+    // https://clickhouse.tech/docs/en/sql-reference/aggregate-functions/parametric-functions/
     (LOOKAHEAD(2) <LPAREN> (anyExprList())? <RPAREN>)?
 }
 

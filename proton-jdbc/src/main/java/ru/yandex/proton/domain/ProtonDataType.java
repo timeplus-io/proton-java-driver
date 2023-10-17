@@ -24,13 +24,13 @@ import java.util.UUID;
  */
 public enum ProtonDataType {
     // aliases:
-    // https://proton.tech/docs/en/sql-reference/data-types/multiword-types/
-    // https://github.com/Proton/Proton/blob/master/src/DataTypes/DataTypeCustomIPv4AndIPv6.cpp
-    // https://github.com/Proton/Proton/blob/master/src/DataTypes/registerDataTypeDateTime.cpp
-    // https://github.com/Proton/Proton/blob/master/src/DataTypes/DataTypesDecimal.cpp
-    // https://github.com/Proton/Proton/blob/master/src/DataTypes/DataTypeFixedString.cpp
-    // https://github.com/Proton/Proton/blob/master/src/DataTypes/DataTypesNumber.cpp
-    // https://github.com/Proton/Proton/blob/master/src/DataTypes/DataTypeString.cpp
+    // https://clickhouse.tech/docs/en/sql-reference/data-types/multiword-types/
+    // https://github.com/timeplus-io/proton/blob/develop/src/DataTypes/DataTypeCustomIPv4AndIPv6.cpp
+    // https://github.com/timeplus-io/proton/blob/develop/src/DataTypes/registerDataTypeDateTime.cpp
+    // https://github.com/timeplus-io/proton/blob/develop/src/DataTypes/DataTypesDecimal.cpp
+    // https://github.com/timeplus-io/proton/blob/develop/src/DataTypes/DataTypeFixedString.cpp
+    // https://github.com/timeplus-io/proton/blob/develop/src/DataTypes/DataTypesNumber.cpp
+    // https://github.com/timeplus-io/proton/blob/develop/src/DataTypes/DataTypeString.cpp
     IntervalYear(JDBCType.INTEGER, Integer.class, true, 19, 0),
     IntervalQuarter(JDBCType.INTEGER, Integer.class, true, 19, 0),
     IntervalMonth(JDBCType.INTEGER, Integer.class, true, 19, 0),

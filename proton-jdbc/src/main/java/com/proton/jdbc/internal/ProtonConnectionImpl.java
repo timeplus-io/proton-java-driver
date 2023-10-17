@@ -247,7 +247,7 @@ public class ProtonConnectionImpl extends JdbcWrapper implements ProtonConnectio
             String tz = r.getValue(1).asString();
             String ver = r.getValue(2).asString();
             version = ProtonVersion.of(ver);
-            // https://github.com/Proton/Proton/commit/486d63864bcc6e15695cd3e9f9a3f83a84ec4009
+            // https://github.com/Clickhouse/Clickhouse/commit/486d63864bcc6e15695cd3e9f9a3f83a84ec4009
             /*if (version.check("(,20.7)")) {
                 throw SqlExceptionUtils
                         .unsupportedError("Sorry this driver only supports Proton server 20.7 or above");

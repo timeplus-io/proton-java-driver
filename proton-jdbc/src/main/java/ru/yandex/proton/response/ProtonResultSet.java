@@ -419,7 +419,7 @@ public class ProtonResultSet extends AbstractResultSet {
         // Date is time-zone netural so let's skip that.
         // DateTime string returned from Server however is always formatted using server/column
         // timezone. The behaviour may change when
-        // https://github.com/Proton/Proton/issues/4548 is addressed  
+        // https://github.com/Clickhouse/Clickhouse/issues/4548 is addressed
         if (!properties.isUseServerTimeZone() && (
                 dataType == ProtonDataType.DateTime
                 || dataType == ProtonDataType.DateTime32

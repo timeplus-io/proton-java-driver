@@ -302,7 +302,7 @@ public abstract class ProtonOutputStream extends OutputStream {
      *                     to sent all bytes, or opereate on a closed stream
      */
     public ProtonOutputStream writeUnsignedVarInt(long value) throws IOException {
-        // https://github.com/Proton/Proton/blob/abe314feecd1647d7c2b952a25da7abf5c19f352/src/IO/VarInt.h#L187
+        // https://github.com/Clickhouse/Clickhouse/blob/abe314feecd1647d7c2b952a25da7abf5c19f352/src/IO/VarInt.h#L187
         int i = 0;
         for (; i < 9; i++) {
             byte b = (byte) (value & 0x7F);

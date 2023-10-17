@@ -1144,7 +1144,7 @@ public class BinaryStreamUtilsTest {
                 LocalDateTime.ofEpochSecond(-2L, 900000000, ZoneOffset.UTC));
         // Actually query "select toDateTime64(-1.000000001::Decimal64(9), 9)" returns:
         // 1969-12-31 23:59:59.000000001
-        // see https://github.com/Proton/Proton/issues/29386
+        // see https://github.com/Clickhouse/Clickhouse/issues/29386
         Assert.assertEquals(BinaryStreamUtils
                 .readDateTime64(generateInput(0xFF, 0x35, 0x65, 0xC4, 0xFF, 0xFF, 0xFF, 0xFF), 9, null),
                 LocalDateTime.ofEpochSecond(-2L, 999999999, ZoneOffset.UTC));
@@ -1176,7 +1176,7 @@ public class BinaryStreamUtilsTest {
                         .atZoneSameInstant(tz.toZoneId()).toLocalDateTime());
         // Actually query "select toDateTime64(-1.000000001::Decimal64(9), 9)" returns:
         // 1969-12-31 23:59:59.000000001
-        // see https://github.com/Proton/Proton/issues/29386
+        // see https://github.com/Clickhouse/Clickhouse/issues/29386
         Assert.assertEquals(
                 BinaryStreamUtils.readDateTime64(
                         generateInput(0xFF, 0x35, 0x65, 0xC4, 0xFF, 0xFF, 0xFF, 0xFF), 9, tz),

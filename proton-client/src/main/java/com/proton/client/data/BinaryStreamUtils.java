@@ -1671,7 +1671,7 @@ public final class BinaryStreamUtils {
      *                     end of the stream
      */
     public static int readVarInt(InputStream input) throws IOException {
-        // https://github.com/Proton/Proton/blob/abe314feecd1647d7c2b952a25da7abf5c19f352/src/IO/VarInt.h#L126
+        // https://github.com/Clickhouse/Clickhouse/blob/abe314feecd1647d7c2b952a25da7abf5c19f352/src/IO/VarInt.h#L126
         long result = 0L;
         int shift = 0;
         for (int i = 0; i < 9; i++) {
@@ -1726,7 +1726,7 @@ public final class BinaryStreamUtils {
      *                     end of the stream
      */
     public static void writeVarInt(OutputStream output, long value) throws IOException {
-        // https://github.com/Proton/Proton/blob/abe314feecd1647d7c2b952a25da7abf5c19f352/src/IO/VarInt.h#L187
+        // https://github.com/Clickhouse/Clickhouse/blob/abe314feecd1647d7c2b952a25da7abf5c19f352/src/IO/VarInt.h#L187
         for (int i = 0; i < 9; i++) {
             byte b = (byte) (value & 0x7F);
 

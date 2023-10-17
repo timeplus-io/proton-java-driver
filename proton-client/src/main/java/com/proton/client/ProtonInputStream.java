@@ -782,7 +782,7 @@ public abstract class ProtonInputStream extends InputStream {
      *                     end of the stream
      */
     public int readVarInt() throws IOException {
-        // https://github.com/Proton/Proton/blob/abe314feecd1647d7c2b952a25da7abf5c19f352/src/IO/VarInt.h#L126
+        // https://github.com/Clickhouse/Clickhouse/blob/abe314feecd1647d7c2b952a25da7abf5c19f352/src/IO/VarInt.h#L126
         long result = 0L;
         int shift = 0;
         for (int i = 0; i < 9; i++) {

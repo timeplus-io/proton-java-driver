@@ -1154,7 +1154,7 @@ public class ProtonRequest<SelfT extends ProtonRequest<SelfT>> implements Serial
 
     /**
      * Sets a setting. See
-     * https://proton.tech/docs/en/operations/settings/settings/ for more
+     * https://clickhouse.tech/docs/en/operations/settings/settings/ for more
      * information.
      *
      * @param setting non-empty setting to set
@@ -1176,7 +1176,7 @@ public class ProtonRequest<SelfT extends ProtonRequest<SelfT>> implements Serial
 
     /**
      * Sets a setting. See
-     * https://proton.tech/docs/en/operations/settings/settings/ for more
+     * https://clickhouse.tech/docs/en/operations/settings/settings/ for more
      * information.
      *
      * @param setting non-empty setting to set

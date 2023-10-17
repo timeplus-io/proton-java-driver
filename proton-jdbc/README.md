@@ -70,7 +70,7 @@ try (Connection conn = dataSource.getConnection("default", "password");
 Tips:
 
 1. Use `PreparedStatement` instead of `Statement`
-2. Use [input function](https://proton.com/docs/en/sql-reference/table-functions/input/) whenever possible
+2. Use [input function](https://Clickhouse.com/docs/en/sql-reference/table-functions/input/) whenever possible
 
 ```java
 // create table mytable(id String, timestamp DateTime64(3), description Nullable(String)) engine=Memory

@@ -229,31 +229,31 @@ public class ProtonDatabaseMetaData extends JdbcWrapper implements DatabaseMetaD
     @Override
     public String getNumericFunctions() throws SQLException {
         // took from below URLs(not from system.functions):
-        // https://proton.com/docs/en/sql-reference/functions/arithmetic-functions/
-        // https://proton.com/docs/en/sql-reference/functions/math-functions/
+        // https://Clickhouse.com/docs/en/sql-reference/functions/arithmetic-functions/
+        // https://Clickhouse.com/docs/en/sql-reference/functions/math-functions/
         return "abs,acos,acosh,asin,asinh,atan,atan2,atanh,cbrt,cos,cosh,divide,e,erf,erfc,exp,exp10,exp2,gcd,hypot,int_div,int_div_or_zero,int_exp10,int_exp2,lcm,lgamma,ln,log,log10,log1p,log2,minus,modulo,modulo_or_zero,multiply,negate,pi,plus,pow,power,sign,sin,sinh,sqrt,tan,tgamma";
     }
 
     @Override
     public String getStringFunctions() throws SQLException {
         // took from below URLs(not from system.functions):
-        // https://proton.com/docs/en/sql-reference/functions/string-functions/
-        // https://proton.com/docs/en/sql-reference/functions/string-search-functions/
-        // https://proton.com/docs/en/sql-reference/functions/string-replace-functions/
+        // https://Clickhouse.com/docs/en/sql-reference/functions/string-functions/
+        // https://Clickhouse.com/docs/en/sql-reference/functions/string-search-functions/
+        // https://Clickhouse.com/docs/en/sql-reference/functions/string-replace-functions/
         return "append_trailing_char_if_absent,base64_decode,base64_encode,char_length,CHAR_LENGTH,character_length,CHARACTER_LENGTH,concat,concat_assume_injective,convert_charset,count_matches,count_substrings,count_substrings_case_insensitive,count_substrings_case_insensitive_utf8,crc32,crc32ieee,crc64,decode_xml_component,empty,encode_xml_component,ends_with,extract,extract_all,extract_all_groups_horizontal,extract_all_groups_vertical,extract_text_from_html ,format,ilike,is_valid_utf8,lcase,left_pad,left_pad_utf8,length,length_utf8,like,locate,lower,lower_utf8,match,mid,multi_fuzzy_match_all_indices,multi_fuzzy_match_any,multi_fuzzy_match_any_index,multi_match_all_indices,multi_match_any,multi_match_any_index,multi_search_all_positions,multi_search_all_positions_utf8,multi_search_any,multi_search_first_index,multi_search_first_position,ngram_distance,ngram_search,normalized_query_hash,normalize_query,not_empty,not_like,position,position_case_insensitive,position_case_insensitive_utf8,position_utf8,regexp_quote_meta,repeat,replace,replace_all,replace_one,replace_regexp_all,replace_regexp_one,reverse,reverse_utf8,right_pad,right_pad_utf8,starts_with,substr,substring,substring_utf8,tokens,to_valid_utf8,trim,trim_both,trim_left,trim_right,try_base64_decode,ucase,upper,upper_utf8";
     }
 
     @Override
     public String getSystemFunctions() throws SQLException {
         // took from below URL(not from system.functions):
-        // https://proton.com/docs/en/sql-reference/functions/other-functions/
+        // https://Clickhouse.com/docs/en/sql-reference/functions/other-functions/
         return "bar,basename,block_number,block_serialized_size,block_size,build_id,byte_size,count_digits,current_database,current_profiles,current_roles,current_user,default_profiles,default_roles,default_value_of_argument_type,default_value_of_typeName,dump_column_structure,enabled_profiles,enabled_roles,error_code_to_name,filesystem_available,filesystem_capacity,filesystem_free,finalize_aggregation,format_readable_quantity,format_readable_size,format_readable_time_delta,fqdn,get_macro,get_server_port,get_setting,get_size_of_enum_type,greatest,has_column_in_table,hostname,identity,if_not_finite,ignore,index_hint,initialize_aggregation,initial_query_id,is_constant,is_decimal_overflow,is_finite,is_infinite,is_nan,join_get,least,mac_num_to_string,mac_string_to_num,mac_string_to_oui,materialize,model_evaluate,neighbor,query_id,random_fixed_string,random_printable_ascii,random_string,random_string_utf8,replicate,row_number_in_all_blocks,row_number_in_block,running_accumulate,running_concurrency,running_difference,running_difference_starting_with_first_value,shard_count ,shard_num,sleep,sleep_each_row,tcp_port,throw_if,to_column_type_name,to_type_name,transform,uptime,version,visible_width";
     }
 
     @Override
     public String getTimeDateFunctions() throws SQLException {
         // took from below URL(not from system.functions):
-        // https://proton.com/docs/en/sql-reference/functions/date-time-functions/
+        // https://Clickhouse.com/docs/en/sql-reference/functions/date-time-functions/
         return "add_days,add_hours,add_minutes,add_months,add_quarters,add_seconds,add_weeks,add_years,date_add,date_diff,date_sub,date_trunc,date_name,format_date_time,from_unixtime,from_modified_julian_day,from_modified_julian_day_or_null,now,subtract_days,subtract_hours,subtract_minutes,subtract_months,subtract_quarters,subtract_seconds,subtract_weeks,subtract_years,time_slot,time_slots,timestamp_add,timestamp_sub,timeZone,time_zone_of,time_zone_offset,today,to_day_of_month,weekday,to_day_of_year,to_hour,to_iso_week,to_iso_year,to_minute,to_modified_julian_day,to_modified_julian_day_or_null,to_monday,to_month,to_quarter,to_relative_day_num,to_relative_hour_num,to_relative_minute_num,to_relative_month_num,to_relative_quarter_num,to_relative_second_num,to_relative_week_num,to_relative_year_num,to_second,to_start_of_day,to_start_of_fifteen_minutes,to_start_of_five_minute,to_start_of_hour,to_start_of_interval,to_start_of_iso_year,to_start_of_minute,to_start_of_month,to_start_of_quarter,to_start_of_second,to_start_of_ten_minutes,to_start_of_week,to_start_of_year,to_time,to_time_zone,to_unix_timestamp,to_week,to_year,to_year_week,to_YYYYMM,to_YYYYMMDD,to_YYYYMMDDhhmmss,yesterday";
     }
 

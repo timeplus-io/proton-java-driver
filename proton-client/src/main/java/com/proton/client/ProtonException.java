@@ -6,7 +6,7 @@ import java.util.concurrent.TimeoutException;
 
 /**
  * Exception thrown from Proton server. See full list at
- * https://github.com/Proton/Proton/blob/master/src/Common/ErrorCodes.cpp.
+ * https://github.com/timeplus-io/proton/blob/develop/src/Common/ErrorCodes.cpp.
  */
 public class ProtonException extends Exception {
     /**

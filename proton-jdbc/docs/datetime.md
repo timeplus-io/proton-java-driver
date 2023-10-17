@@ -1,6 +1,6 @@
 # Proton Server
 
-Proton has dedicated data types for [Date](https://proton.tech/docs/en/data_types/date) and [DateTime](https://proton.tech/docs/en/data_types/datetime). A DateTime value is usually to be interpreted in the server time zone, but a DateTime value may also be formatted for a different time zone. Note that the explicit time zone per column only affects inserting and displaying values, _not_ the predicates (see one example [here](https://github.com/Proton/Proton/issues/5206)).
+Proton has dedicated data types for [Date](https://clickhouse.tech/docs/en/data_types/date) and [DateTime](https://clickhouse.tech/docs/en/data_types/datetime). A DateTime value is usually to be interpreted in the server time zone, but a DateTime value may also be formatted for a different time zone. Note that the explicit time zone per column only affects inserting and displaying values, _not_ the predicates (see one example [here](https://github.com/Clickhouse/Clickhouse/issues/5206)).
 
 
 # Setting Values
@@ -19,7 +19,7 @@ Two regular time zones are initialized like this:
 
 The JDBC driver supports all explicit methods, e.g. setDate, setTimestamp etc. with their optional Calendar argument. Providing hints via target SQL type does not have any effect.
 
-The following table illustrates the serialization format for some popular date time data types, which we consider the most convenient. Clients are of course free to take care of serialization themselves by supplying a String or an Integer parameter, optionally using one of the server's utility methods (e.g. [parseDateTimeBestEffort](https://proton.tech/docs/en/query_language/functions/type_conversion_functions/#type_conversion_functions-parsedatetimebesteffort)).
+The following table illustrates the serialization format for some popular date time data types, which we consider the most convenient. Clients are of course free to take care of serialization themselves by supplying a String or an Integer parameter, optionally using one of the server's utility methods (e.g. [parseDateTimeBestEffort](https://clickhouse.tech/docs/en/query_language/functions/type_conversion_functions/#type_conversion_functions-parsedatetimebesteffort)).
 
  Method | Format | Relevant time zone |
  ------ | ------ | -------------------

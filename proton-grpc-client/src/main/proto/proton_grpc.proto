@@ -12,7 +12,7 @@
  * while executing a query, which is suitable for inserting many rows.
  */
 
-// based on https://github.com/Proton/Proton/blob/9a40ce87e98a1c494dde0ddc19b6520b26dfe0b6/src/Server/grpc_protos/proton_grpc.proto
+// based on https://github.com/Clickhouse/Clickhouse/blob/9a40ce87e98a1c494dde0ddc19b6520b26dfe0b6/src/Server/grpc_protos/proton_grpc.proto
 
 syntax = "proto3";
 

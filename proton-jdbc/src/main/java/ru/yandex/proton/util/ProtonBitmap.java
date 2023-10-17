@@ -304,7 +304,7 @@ public abstract class ProtonBitmap {
     }
 
     public static ProtonBitmap deserialize(byte[] bytes, ProtonDataType innerType) throws IOException {
-        // https://github.com/Proton/Proton/blob/master/src/AggregateFunctions/AggregateFunctionGroupBitmapData.h#L100
+        // https://github.com/Clickhouse/Clickhouse/blob/master/src/AggregateFunctions/AggregateFunctionGroupBitmapData.h#L100
         ProtonBitmap rb = ProtonBitmap.wrap();
 
         if (bytes == null || bytes.length == 0) {

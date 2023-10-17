@@ -47,7 +47,7 @@ public enum ProtonQueryParam implements DriverPropertyCreator {
 
     ENABLE_HTTP_COMPRESSION("enable_http_compression", false, Boolean.class, ""),
     /**
-     * https://proton.yandex/reference_en.html#Extreme values
+     * https://Clickhouse.yandex/reference_en.html#Extreme values
      */
     EXTREMES("extremes", false, Boolean.class, "Whether to include extreme values."),
 
@@ -94,7 +94,7 @@ public enum ProtonQueryParam implements DriverPropertyCreator {
 
     MARK_CACHE_MIN_LIFETIME("mark_cache_min_lifetime", null, Long.class, ""),
     /**
-     * https://proton.yandex/reference_en.html#max_block_size
+     * https://Clickhouse.yandex/reference_en.html#max_block_size
      */
     MAX_BLOCK_SIZE("max_block_size", null, Integer.class, "Recommendation for what size of block (in number of rows) to load from tables"),
 
@@ -110,24 +110,24 @@ public enum ProtonQueryParam implements DriverPropertyCreator {
 
     MAX_DISTRIBUTED_PROCESSING_THREADS("max_distributed_processing_threads", null, Long.class, ""),
     /**
-     * https://proton.yandex/reference_en.html#max_execution_time
+     * https://Clickhouse.yandex/reference_en.html#max_execution_time
      */
     MAX_EXECUTION_TIME("max_execution_time", null, Integer.class, "Maximum query execution time in seconds."),
 
     MAX_INSERT_BLOCK_SIZE("max_insert_block_size", null, Long.class, ""),
 
     /**
-     * @see <a href="https://proton.yandex/reference_en.html#max_memory_usage">max_memory_usage</a>
+     * @see <a href="https://Clickhouse.yandex/reference_en.html#max_memory_usage">max_memory_usage</a>
      */
     MAX_MEMORY_USAGE("max_memory_usage", null, Long.class, "The maximum amount of memory consumption when running a query on a single server."),
 
     /**
-     * @see <a href="https://proton.yandex/docs/en/operations/settings/query_complexity/#max-memory-usage-for-user">max_memory_usage_for_user</a>
+     * @see <a href="https://Clickhouse.yandex/docs/en/operations/settings/query_complexity/#max-memory-usage-for-user">max_memory_usage_for_user</a>
      */
     MAX_MEMORY_USAGE_FOR_USER("max_memory_usage_for_user", null, Long.class, "The maximum amount of RAM to use for running a user's queries on a single server."),
 
     /**
-     * @see <a href="https://proton.yandex/docs/en/operations/settings/query_complexity/#max-memory-usage-for-all-queries">max_memory_usage_for_all_queries</a>
+     * @see <a href="https://Clickhouse.yandex/docs/en/operations/settings/query_complexity/#max-memory-usage-for-all-queries">max_memory_usage_for_all_queries</a>
      */
     MAX_MEMORY_USAGE_FOR_ALL_QUERIES("max_memory_usage_for_all_queries", null, Long.class, "The maximum amount of RAM to use for running all queries on a single server."),
 
@@ -140,14 +140,14 @@ public enum ProtonQueryParam implements DriverPropertyCreator {
 
     MAX_RESULT_ROWS("max_result_rows", null, Integer.class, "Limit on the number of rows in the result. Also checked for subqueries, and on remote servers when running parts of a distributed query."),
     /**
-     * https://proton.yandex/reference_en.html#max_rows_to_group_by
+     * https://Clickhouse.yandex/reference_en.html#max_rows_to_group_by
      */
     MAX_ROWS_TO_GROUP_BY("max_rows_to_group_by", null, Integer.class,
             "Maximum number of unique keys received from aggregation. This setting lets you limit memory consumption when aggregating."),
 
     MAX_STREAMS_TO_MAX_THREADS_RATIO("max_streams_to_max_threads_ratio", null, Double.class, ""),
     /**
-     * https://proton.yandex/reference_en.html#max_threads
+     * https://Clickhouse.yandex/reference_en.html#max_threads
      */
     MAX_THREADS("max_threads", null, Integer.class, "The maximum number of query processing threads"),
 
@@ -201,7 +201,7 @@ public enum ProtonQueryParam implements DriverPropertyCreator {
 
     PRIORITY("priority", null, Integer.class, "The lower the value the bigger the priority."),
     /**
-     * https://proton.yandex/reference_en.html#Settings profiles
+     * https://Clickhouse.yandex/reference_en.html#Settings profiles
      */
     PROFILE("profile", null, String.class, "Settings profile: a collection of settings grouped under the same name"),
 
@@ -245,7 +245,7 @@ public enum ProtonQueryParam implements DriverPropertyCreator {
 
     TOTALS_AUTO_THRESHOLD("totals_auto_threshold", null, Double.class, ""),
     /**
-     * https://proton.yandex/reference_en.html#WITH TOTALS modifier
+     * https://Clickhouse.yandex/reference_en.html#WITH TOTALS modifier
      */
     TOTALS_MODE("totals_mode", null, String.class, "How to calculate TOTALS when HAVING is present, as well as when max_rows_to_group_by and group_by_overflow_mode = 'any' are present."),
 
