@@ -9,7 +9,7 @@
 
     <name>${project.artifactId}</name>
     <description>Repackaged third party libraries for JPMS compatibility</description>
-    <url>https://github.com/timeplus-io/proton/tree/master/third-party-libraries</url>
+    <url>https://github.com/timeplus-io/proton-java-driver/tree/master/third-party-libraries</url>
     <inceptionYear>2022</inceptionYear>
 
     <organization>
@@ -40,20 +40,20 @@
     </modules>
 
     <scm>
-        <url>https://github.com/timeplus-io/proton</url>
-        <connection>scm:git@github.com:timeplus-io/proton.git</connection>
-        <developerConnection>scm:git@github.com:timeplus-io/proton.git</developerConnection>
+        <url>https://github.com/timeplus-io/proton-java-driver</url>
+        <connection>scm:git@github.com:timeplus-io/proton-java-driver.git</connection>
+        <developerConnection>scm:git@github.com:timeplus-io/proton-java-driver.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/timeplus-io/proton/issues</url>
+        <url>https://github.com/timeplus-io/proton-java-driver/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Github</system>
-        <url>https://github.com/timeplus-io/proton/actions</url>
+        <url>https://github.com/timeplus-io/proton-java-driver/actions</url>
     </ciManagement>
 
     <distributionManagement>

@@ -13,7 +13,7 @@
 
     <name>${project.artifactId}</name>
     <description>Unified Java client for Proton</description>
-    <url>https://github.com/timeplus-io/proton/tree/master/proton-client</url>
+    <url>https://github.com/timeplus-io/proton-java-driver/tree/master/proton-client</url>
 
     <dependencies>
         <dependency>
