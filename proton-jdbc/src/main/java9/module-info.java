@@ -1,15 +1,15 @@
 /**
- * Declares ru.yandex.proton module.
+ * Declares com.timeplus.proton module.
  */
 module com.proton.jdbc {
     exports com.proton.jdbc;
     
-    exports ru.yandex.proton;
-    exports ru.yandex.proton.domain;
-    exports ru.yandex.proton.except;
-    exports ru.yandex.proton.response;
-    exports ru.yandex.proton.settings;
-    exports ru.yandex.proton.util;
+    exports com.timeplus.proton;
+    exports com.timeplus.proton.domain;
+    exports com.timeplus.proton.except;
+    exports com.timeplus.proton.response;
+    exports com.timeplus.proton.settings;
+    exports com.timeplus.proton.util;
 
     requires transitive com.proton.client;
     requires transitive com.google.gson;
