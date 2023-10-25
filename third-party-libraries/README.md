@@ -6,12 +6,12 @@ Repacked third party libraries(gRPC and RoaringBitmap) for JPMS support.
 
 ```xml
 <dependency>
-    <groupId>com.clickhouse</groupId>
+    <groupId>com.proton</groupId>
     <artifactId>io.grpc</artifactId>
     <version>1.1.2</version>
 </dependency>
 <dependency>
-    <groupId>com.clickhouse</groupId>
+    <groupId>com.proton</groupId>
     <artifactId>org.roaringbitmap</artifactId>
     <version>1.1.2</version>
 </dependency>
