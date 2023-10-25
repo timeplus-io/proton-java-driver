@@ -13,9 +13,9 @@ If the client supplies a valid  `Calendar` object as optional argument, the driv
 
 Two regular time zones are initialized like this:
 
-* `tz_datetime`: value from `ru.yandex.proton.settings.ProtonConnectionSettings.USE_TIME_ZONE`. If null, either Proton server time zone (`ru.yandex.proton.settings.ProtonConnectionSettings.USE_SERVER_TIME_ZONE` is `true`) or JVM time zone (else)
+* `tz_datetime`: value from `settings.com.timeplus.proton.ProtonConnectionSettings.USE_TIME_ZONE`. If null, either Proton server time zone (`settings.com.timeplus.proton.ProtonConnectionSettings.USE_SERVER_TIME_ZONE` is `true`) or JVM time zone (else)
 
-* `tz_date`: same as `tz_datetime` if `ru.yandex.proton.settings.ProtonConnectionSettings.USE_SERVER_TIME_ZONE_FOR_DATES` is `true`, JVM time zone else
+* `tz_date`: same as `tz_datetime` if `settings.com.timeplus.proton.ProtonConnectionSettings.USE_SERVER_TIME_ZONE_FOR_DATES` is `true`, JVM time zone else
 
 The JDBC driver supports all explicit methods, e.g. setDate, setTimestamp etc. with their optional Calendar argument. Providing hints via target SQL type does not have any effect.
 

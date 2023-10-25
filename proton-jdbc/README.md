@@ -8,7 +8,7 @@ Keep in mind that `proton-jdbc` is synchronous, and in general it has more overh
 
 ```xml
 <dependency>
-    <!-- will stop using ru.yandex.proton starting from 0.4.0 -->
+    <!-- will stop using com.timeplus.proton starting from 0.4.0 -->
     <groupId>com.proton</groupId>
     <artifactId>proton-jdbc</artifactId>
     <version>0.3.2-patch7</version>
@@ -19,7 +19,7 @@ Keep in mind that `proton-jdbc` is synchronous, and in general it has more overh
 
 **Driver Class**: `com.proton.jdbc.ProtonDriver`
 
-Note: `ru.yandex.proton.ProtonDriver` and everything under `ru.yandex.proton` will be removed starting from 0.4.0.
+Note: `com.timeplus.proton.ProtonDriver` and everything under `com.timeplus.proton` will be removed starting from 0.4.0.
 
 **URL Syntax**: `jdbc:<prefix>[:<protocol>]://<host>:[<port>][/<database>[?param1=value1&param2=value2]]`, for examples:
 
@@ -215,45 +215,45 @@ Entry point for API is `ProtonStatement#write()` method.
 1. Importing file into table
 
 ```java
-import ru.yandex.proton.ProtonStatement;
-ProtonStatement sth = connection.createStatement();
-sth
-    .write() // Write API entrypoint
-    .table("default.my_table") // where to write data
-    .option("format_csv_delimiter", ";") // specific param
-    .data(new File("/path/to/file.csv.gz"), ProtonFormat.CSV, ProtonCompression.gzip) // specify input
-    .send();
+
+ProtonStatement sth=connection.createStatement();
+        sth
+        .write() // Write API entrypoint
+        .table("default.my_table") // where to write data
+        .option("format_csv_delimiter",";") // specific param
+        .data(new File("/path/to/file.csv.gz"),ProtonFormat.CSV,ProtonCompression.gzip) // specify input
+        .send();
 ```
 
 2. Configurable send
 
 ```java
-import ru.yandex.proton.ProtonStatement;
-ProtonStatement sth = connection.createStatement();
-sth
-    .write()
-    .sql("INSERT INTO default.my_table (a,b,c)")
-    .data(new MyCustomInputStream(), ProtonFormat.JSONEachRow)
-    .dataCompression(ProtonCompression.brotli)
-    .addDbParam(ProtonQueryParam.MAX_PARALLEL_REPLICAS, 2)
-    .send();
+
+ProtonStatement sth=connection.createStatement();
+        sth
+        .write()
+        .sql("INSERT INTO default.my_table (a,b,c)")
+        .data(new MyCustomInputStream(),ProtonFormat.JSONEachRow)
+        .dataCompression(ProtonCompression.brotli)
+        .addDbParam(ProtonQueryParam.MAX_PARALLEL_REPLICAS,2)
+        .send();
 ```
 
 3. Send data in binary formatted with custom user callback
 
 ```java
-import ru.yandex.proton.ProtonStatement;
-ProtonStatement sth = connection.createStatement();
-sth.write().send("INSERT INTO test.writer", new ProtonStreamCallback() {
-    @Override
-    public void writeTo(ProtonRowBinaryStream stream) throws IOException {
-        for (int i = 0; i < 10; i++) {
-            stream.writeInt32(i);
-            stream.writeString("Name " + i);
+
+ProtonStatement sth=connection.createStatement();
+        sth.write().send("INSERT INTO test.writer",new ProtonStreamCallback(){
+@Override
+public void writeTo(ProtonRowBinaryStream stream)throws IOException{
+        for(int i=0;i< 10;i++){
+        stream.writeInt32(i);
+        stream.writeString("Name "+i);
         }
-    }
-},
-ProtonFormat.RowBinary); // RowBinary or Native are supported
+        }
+        },
+        ProtonFormat.RowBinary); // RowBinary or Native are supported
 ```
 
 </details>

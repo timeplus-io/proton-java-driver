@@ -7,7 +7,7 @@
         <version>${revision}</version>
     </parent>
 
-    <groupId>ru.yandex.proton</groupId>
+    <groupId>com.timeplus.proton</groupId>
     <artifactId>proton-jdbc</artifactId>
     <version>${revision}</version>
     <packaging>jar</packaging>
@@ -47,7 +47,7 @@
     <properties>
         <httpclient.version>4.5.13</httpclient.version>
         <javacc-plugin.version>4.1.4</javacc-plugin.version>
-        <shade.base>ru.yandex.proton.jdbc.internal</shade.base>
+        <shade.base>com.timeplus.proton.jdbc.internal</shade.base>
         <spec.title>JDBC</spec.title>
         <spec.version>4.2</spec.version>
     </properties>
