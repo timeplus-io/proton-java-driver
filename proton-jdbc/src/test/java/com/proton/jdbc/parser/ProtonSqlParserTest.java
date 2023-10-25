@@ -93,13 +93,13 @@ public class ProtonSqlParserTest {
     public void testAlterStatement() {
         String sql;
 
-        checkSingleStatement(parse(sql = "ALTER TABLE alter_test ADD COLUMN Added0 UInt32"), sql,
+        checkSingleStatement(parse(sql = "ALTER STREAM alter_test ADD COLUMN Added0 UInt32"), sql,
                 StatementType.ALTER,
                 "system", "alter_test");
         checkSingleStatement(
-                parse(sql = "ALTER TABLE test_db.test_table UPDATE a = 1, \"b\" = '2', `c`=3.3 WHERE d=123 and e=456"),
+                parse(sql = "ALTER STREAM test_db.test_table UPDATE a = 1, \"b\" = '2', `c`=3.3 WHERE d=123 and e=456"),
                 sql, StatementType.ALTER_UPDATE, "test_db", "test_table");
-        checkSingleStatement(parse(sql = "ALTER TABLE tTt on cluster 'cc' delete WHERE d=123 and e=456"), sql,
+        checkSingleStatement(parse(sql = "ALTER STREAM tTt on cluster 'cc' delete WHERE d=123 and e=456"), sql,
                 StatementType.ALTER_DELETE, "system", "tTt");
         checkSingleStatement(parse(sql = "ALTER USER user DEFAULT ROLE role1, role2"), sql,
                 StatementType.ALTER);
@@ -109,7 +109,7 @@ public class ProtonSqlParserTest {
     public void testAttachStatement() {
         String sql;
 
-        checkSingleStatement(parse(sql = "ATTACH TABLE IF NOT EXISTS t.t ON CLUSTER cluster"), sql,
+        checkSingleStatement(parse(sql = "ATTACH STREAM IF NOT EXISTS t.t ON CLUSTER cluster"), sql,
                 StatementType.ATTACH);
     }
 
@@ -117,15 +117,15 @@ public class ProtonSqlParserTest {
     public void testCheckStatement() {
         String sql;
 
-        checkSingleStatement(parse(sql = "check table a"), sql, StatementType.CHECK);
-        checkSingleStatement(parse(sql = "check table a.a"), sql, StatementType.CHECK);
+        checkSingleStatement(parse(sql = "check stream a"), sql, StatementType.CHECK);
+        checkSingleStatement(parse(sql = "check stream a.a"), sql, StatementType.CHECK);
     }
 
     @Test(groups = "unit")
     public void testCreateStatement() {
         String sql;
 
-        checkSingleStatement(parse(sql = "create table a(a String) engine=Memory"), sql, StatementType.CREATE);
+        checkSingleStatement(parse(sql = "create stream a(a String) engine=Memory"), sql, StatementType.CREATE);
     }
 
     @Test(groups = "unit")
@@ -143,13 +143,13 @@ public class ProtonSqlParserTest {
         String sql;
 
         checkSingleStatement(parse(sql = "desc a"), sql, StatementType.DESCRIBE, "system", "columns");
-        checkSingleStatement(parse(sql = "desc table a"), sql, StatementType.DESCRIBE, "system", "columns");
-        checkSingleStatement(parse(sql = "describe table a.a"), sql, StatementType.DESCRIBE, "a", "columns");
-        checkSingleStatement(parse(sql = "desc table table"), sql, StatementType.DESCRIBE, "system", "columns");
+        checkSingleStatement(parse(sql = "desc stream a"), sql, StatementType.DESCRIBE, "system", "columns");
+        checkSingleStatement(parse(sql = "describe stream a.a"), sql, StatementType.DESCRIBE, "a", "columns");
+        checkSingleStatement(parse(sql = "desc stream table"), sql, StatementType.DESCRIBE, "system", "columns");
         // fix issue #614
         checkSingleStatement(parse(sql = "desc t1 t2"), sql, StatementType.DESCRIBE, "system", "columns");
-        checkSingleStatement(parse(sql = "desc table t1 t2"), sql, StatementType.DESCRIBE, "system", "columns");
-        checkSingleStatement(parse(sql = "desc table t1 as `t2`"), sql, StatementType.DESCRIBE, "system",
+        checkSingleStatement(parse(sql = "desc stream t1 t2"), sql, StatementType.DESCRIBE, "system", "columns");
+        checkSingleStatement(parse(sql = "desc stream t1 as `t2`"), sql, StatementType.DESCRIBE, "system",
                 "columns");
     }
 
@@ -157,8 +157,8 @@ public class ProtonSqlParserTest {
     public void testDetachStatement() {
         String sql;
 
-        checkSingleStatement(parse(sql = "detach TABLE t"), sql, StatementType.DETACH);
-        checkSingleStatement(parse(sql = "detach TABLE if exists t.t on cluster 'cc'"), sql,
+        checkSingleStatement(parse(sql = "detach STREAM t"), sql, StatementType.DETACH);
+        checkSingleStatement(parse(sql = "detach STREAM if exists t.t on cluster 'cc'"), sql,
                 StatementType.DETACH);
     }
 
@@ -166,16 +166,16 @@ public class ProtonSqlParserTest {
     public void testDropStatement() {
         String sql;
 
-        checkSingleStatement(parse(sql = "drop TEMPORARY table t"), sql, StatementType.DROP);
-        checkSingleStatement(parse(sql = "drop TABLE if exists t.t on cluster 'cc'"), sql, StatementType.DROP);
+        checkSingleStatement(parse(sql = "drop TEMPORARY stream t"), sql, StatementType.DROP);
+        checkSingleStatement(parse(sql = "drop STREAM if exists t.t on cluster 'cc'"), sql, StatementType.DROP);
     }
 
     @Test(groups = "unit")
     public void testExistsStatement() {
         String sql;
 
-        checkSingleStatement(parse(sql = "EXISTS TEMPORARY TABLE a"), sql, StatementType.EXISTS);
-        checkSingleStatement(parse(sql = "EXISTS TABLE a.a"), sql, StatementType.EXISTS);
+        checkSingleStatement(parse(sql = "EXISTS TEMPORARY STREAM a"), sql, StatementType.EXISTS);
+        checkSingleStatement(parse(sql = "EXISTS STREAM a.a"), sql, StatementType.EXISTS);
         checkSingleStatement(parse(sql = "EXISTS DICTIONARY c"), sql, StatementType.EXISTS);
     }
 
@@ -205,7 +205,7 @@ public class ProtonSqlParserTest {
     public void testInsertStatement() throws ParseException {
         String sql;
 
-        ProtonSqlStatement s = parse(sql = "insert into table test(a,b) Values (1,2)")[0];
+        ProtonSqlStatement s = parse(sql = "insert into stream test(a,b) Values (1,2)")[0];
         assertEquals(sql.substring(s.getStartPosition("values"), s.getEndPosition("VALUES")), "Values");
         assertEquals(sql.substring(0, s.getEndPosition("values")) + " (1,2)", sql);
 
@@ -229,11 +229,11 @@ public class ProtonSqlParserTest {
                 StatementType.INSERT);
         checkSingleStatement(parse(sql = "insert into test2(a,b) values('values(',',')"), sql,
                 StatementType.INSERT, "system", "test2");
-        checkSingleStatement(parse(sql = "INSERT INTO table t(a, b, c) values('1', ',', 'ccc')"), sql,
+        checkSingleStatement(parse(sql = "INSERT INTO stream t(a, b, c) values('1', ',', 'ccc')"), sql,
                 StatementType.INSERT, "system", "t");
-        checkSingleStatement(parse(sql = "INSERT INTO table t(a, b, c) values('1', 2, 'ccc') (3,2,1)"), sql,
+        checkSingleStatement(parse(sql = "INSERT INTO stream t(a, b, c) values('1', 2, 'ccc') (3,2,1)"), sql,
                 StatementType.INSERT, "system", "t");
-        checkSingleStatement(parse(sql = "INSERT INTO table s.t select * from ttt"), sql, StatementType.INSERT,
+        checkSingleStatement(parse(sql = "INSERT INTO stream s.t select * from ttt"), sql, StatementType.INSERT,
                 "s", "t");
         checkSingleStatement(parse(sql = "INSERT INTO insert_select_testtable (* EXCEPT(b)) Values (2, 2)"),
                 sql, StatementType.INSERT, "system", "insert_select_testtable");
@@ -245,13 +245,13 @@ public class ProtonSqlParserTest {
                 sql, StatementType.INSERT, "system", "test");
         s = checkSingleStatement(
                 parse(sql = "insert into `test`"), sql, StatementType.INSERT, "system", "test");
-        Assert.assertEquals(s.getContentBetweenKeywords(ProtonSqlStatement.KEYWORD_TABLE_COLUMNS_START,
-                ProtonSqlStatement.KEYWORD_TABLE_COLUMNS_END, 1), "");
+        Assert.assertEquals(s.getContentBetweenKeywords(ProtonSqlStatement.KEYWORD_STREAM_COLUMNS_START,
+                ProtonSqlStatement.KEYWORD_STREAM_COLUMNS_END, 1), "");
         s = checkSingleStatement(
                 parse(sql = "insert into `test` (id, name) format RowBinary"),
                 sql, StatementType.INSERT, "system", "test");
-        Assert.assertEquals(s.getContentBetweenKeywords(ProtonSqlStatement.KEYWORD_TABLE_COLUMNS_START,
-                ProtonSqlStatement.KEYWORD_TABLE_COLUMNS_END, 1), "id, name");
+        Assert.assertEquals(s.getContentBetweenKeywords(ProtonSqlStatement.KEYWORD_STREAM_COLUMNS_START,
+                ProtonSqlStatement.KEYWORD_STREAM_COLUMNS_END, 1), "id, name");
     }
 
     @Test(groups = "unit")
@@ -261,7 +261,7 @@ public class ProtonSqlParserTest {
         checkSingleStatement(parse(sql = "KILL QUERY WHERE query_id='2-857d-4a57-9ee0-327da5d60a90'"), sql,
                 StatementType.KILL);
         checkSingleStatement(parse(
-                sql = "KILL MUTATION WHERE database = 'default' AND table = 'table' AND mutation_id = 'mutation_3.txt' SYNC"),
+                sql = "KILL MUTATION WHERE database = 'default' AND stream = 'table' AND mutation_id = 'mutation_3.txt' SYNC"),
                 sql, StatementType.KILL);
     }
 
@@ -270,7 +270,7 @@ public class ProtonSqlParserTest {
         String sql;
 
         checkSingleStatement(
-                parse(sql = "OPTIMIZE TABLE a ON CLUSTER cluster PARTITION ID 'partition_id' FINAL"),
+                parse(sql = "OPTIMIZE STREAM a ON CLUSTER cluster PARTITION ID 'partition_id' FINAL"),
                 sql,
                 StatementType.OPTIMIZE);
     }
@@ -279,11 +279,11 @@ public class ProtonSqlParserTest {
     public void testRenameStatement() {
         String sql;
 
-        checkSingleStatement(parse(sql = "RENAME TABLE table1 TO table2, table3 TO table4 ON CLUSTER cluster"),
+        checkSingleStatement(parse(sql = "RENAME STREAM table1 TO table2, table3 TO table4 ON CLUSTER cluster"),
                 sql,
                 StatementType.RENAME);
         checkSingleStatement(parse(
-                sql = "RENAME TABLE db1.table1 TO db2.table2, db2.table3 to db2.table4, db3.table5 to db2.table6 ON CLUSTER 'c'"),
+                sql = "RENAME STREAM db1.table1 TO db2.table2, db2.table3 to db2.table4, db3.table5 to db2.table6 ON CLUSTER 'c'"),
                 sql, StatementType.RENAME);
     }
 
@@ -386,7 +386,7 @@ public class ProtonSqlParserTest {
 
         checkSingleStatement(parse(sql = "SHOW DATABASES LIKE '%de%'"), sql, StatementType.SHOW, "system",
                 "databases");
-        checkSingleStatement(parse(sql = "show tables from db"), sql, StatementType.SHOW, "system", "tables");
+        checkSingleStatement(parse(sql = "show streams from db"), sql, StatementType.SHOW, "system", "streams");
         checkSingleStatement(parse(sql = "show dictionaries from db"), sql, StatementType.SHOW, "system",
                 "dictionaries");
     }
@@ -408,7 +408,7 @@ public class ProtonSqlParserTest {
     public void testTruncateStatement() {
         String sql;
 
-        checkSingleStatement(parse(sql = "truncate table a.b"), sql, StatementType.TRUNCATE, "a", "b");
+        checkSingleStatement(parse(sql = "truncate stream a.b"), sql, StatementType.TRUNCATE, "a", "b");
     }
 
     @Test(groups = "unit")
@@ -585,7 +585,7 @@ public class ProtonSqlParserTest {
 
     @Test(groups = "unit")
     public void testParameterHandling() throws ParseException {
-        String sql = "insert into table d.t(a1, a2, a3) values(?,?,?)";
+        String sql = "insert into stream d.t(a1, a2, a3) values(?,?,?)";
         ProtonSqlStatement[] stmts = parse(sql);
         assertEquals(stmts.length, 1);
         assertEquals(stmts[0].getSQL(), sql);
@@ -597,7 +597,7 @@ public class ProtonSqlParserTest {
             }
         });
         assertEquals(stmts.length, 1);
-        assertEquals(stmts[0].getSQL(), "insert into table d.t(a1, a2, a3) values(1,2,3)");
+        assertEquals(stmts[0].getSQL(), "insert into stream d.t(a1, a2, a3) values(1,2,3)");
     }
 
     @Test(groups = "unit")
@@ -627,46 +627,46 @@ public class ProtonSqlParserTest {
     public void testExtractDBAndTableName() {
         String sql;
 
-        checkSingleStatement(parse(sql = "SELECT 1 from table"), sql, StatementType.SELECT, "system", "table");
-        checkSingleStatement(parse(sql = "SELECT 1 from table a"), sql, StatementType.SELECT, "system",
-                "table");
-        checkSingleStatement(parse(sql = "SELECT 1 from\ntable a"), sql, StatementType.SELECT, "system",
-                "table");
-        checkSingleStatement(parse(sql = "SELECT 1\nfrom\ntable a"), sql, StatementType.SELECT, "system",
-                "table");
-        checkSingleStatement(parse(sql = "SELECT 1\nFrom\ntable a"), sql, StatementType.SELECT, "system",
-                "table");
-        checkSingleStatement(parse(sql = "SELECT 1 from db.table a"), sql, StatementType.SELECT, "db", "table");
-        checkSingleStatement(parse(sql = " SELECT 1 from \"db.table\" a"), sql, StatementType.SELECT, "system",
-                "db.table");
-        checkSingleStatement(parse(sql = "SELECT 1 from `db.table` a"), sql, StatementType.SELECT, "system",
-                "db.table");
-        checkSingleStatement(parse(sql = "from `db.table` a"), sql, StatementType.UNKNOWN, "system", "unknown");
-        checkSingleStatement(parse(sql = " from `db.table` a"), sql, StatementType.UNKNOWN, "system",
+        checkSingleStatement(parse(sql = "SELECT 1 from stream"), sql, StatementType.SELECT, "system", "stream");
+        checkSingleStatement(parse(sql = "SELECT 1 from stream a"), sql, StatementType.SELECT, "system",
+                "stream");
+        checkSingleStatement(parse(sql = "SELECT 1 from\nstream a"), sql, StatementType.SELECT, "system",
+                "stream");
+        checkSingleStatement(parse(sql = "SELECT 1\nfrom\nstream a"), sql, StatementType.SELECT, "system",
+                "stream");
+        checkSingleStatement(parse(sql = "SELECT 1\nFrom\nstream a"), sql, StatementType.SELECT, "system",
+                "stream");
+        checkSingleStatement(parse(sql = "SELECT 1 from db.stream a"), sql, StatementType.SELECT, "db", "stream");
+        checkSingleStatement(parse(sql = " SELECT 1 from \"db.stream\" a"), sql, StatementType.SELECT, "system",
+                "db.stream");
+        checkSingleStatement(parse(sql = "SELECT 1 from `db.stream` a"), sql, StatementType.SELECT, "system",
+                "db.stream");
+        checkSingleStatement(parse(sql = "from `db.stream` a"), sql, StatementType.UNKNOWN, "system", "unknown");
+        checkSingleStatement(parse(sql = " from `db.stream` a"), sql, StatementType.UNKNOWN, "system",
                 "unknown");
-        checkSingleStatement(parse(sql = "ELECT from `db.table` a"), sql, StatementType.UNKNOWN, "system",
+        checkSingleStatement(parse(sql = "ELECT from `db.stream` a"), sql, StatementType.UNKNOWN, "system",
                 "unknown");
         checkSingleStatement(parse(sql = "SHOW tables"), sql, StatementType.SHOW, "system", "tables");
         checkSingleStatement(parse(sql = "desc table1"), sql, StatementType.DESCRIBE, "system", "columns");
         checkSingleStatement(parse(sql = "DESC table1"), sql, StatementType.DESCRIBE, "system", "columns");
-        checkSingleStatement(parse(sql = "SELECT 'from db.table a' from tab"), sql, StatementType.SELECT,
+        checkSingleStatement(parse(sql = "SELECT 'from db.stream a' from tab"), sql, StatementType.SELECT,
                 "system",
                 "tab");
         checkSingleStatement(parse(sql = "SELECT"), sql, StatementType.UNKNOWN, "system", "unknown");
         checkSingleStatement(parse(sql = "S"), sql, StatementType.UNKNOWN, "system", "unknown");
         checkSingleStatement(parse(sql = ""), sql, StatementType.UNKNOWN, "system", "unknown");
-        checkSingleStatement(parse(sql = " SELECT 1 from table from"), sql, StatementType.SELECT, "system",
-                "table");
-        checkSingleStatement(parse(sql = " SELECT 1 from table from"), sql, StatementType.SELECT, "system",
-                "table");
-        checkSingleStatement(parse(sql = "SELECT fromUnixTimestamp64Milli(time) as x from table"), sql,
-                StatementType.SELECT, "system", "table");
-        checkSingleStatement(parse(sql = " SELECT fromUnixTimestamp64Milli(time)from table"), sql,
+        checkSingleStatement(parse(sql = " SELECT 1 from stream from"), sql, StatementType.SELECT, "system",
+                "stream");
+        checkSingleStatement(parse(sql = " SELECT 1 from stream from"), sql, StatementType.SELECT, "system",
+                "stream");
+        checkSingleStatement(parse(sql = "SELECT fromUnixTimestamp64Milli(time) as x from stream"), sql,
+                StatementType.SELECT, "system", "stream");
+        checkSingleStatement(parse(sql = " SELECT fromUnixTimestamp64Milli(time)from stream"), sql,
                 StatementType.SELECT,
-                "system", "table");
-        checkSingleStatement(parse(sql = "/*qq*/ SELECT fromUnixTimestamp64Milli(time)from table"), sql,
-                StatementType.SELECT, "system", "table");
-        checkSingleStatement(parse(sql = " SELECTfromUnixTimestamp64Milli(time)from table"), sql,
+                "system", "stream");
+        checkSingleStatement(parse(sql = "/*qq*/ SELECT fromUnixTimestamp64Milli(time)from stream"), sql,
+                StatementType.SELECT, "system", "stream");
+        checkSingleStatement(parse(sql = " SELECTfromUnixTimestamp64Milli(time)from stream"), sql,
                 StatementType.UNKNOWN,
                 "system", "unknown");
         checkSingleStatement(parse(sql = " SELECT fromUnixTimestamp64Milli(time)from \".inner.a\""), sql,

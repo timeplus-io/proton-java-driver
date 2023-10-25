@@ -22,8 +22,8 @@ public class ProtonSqlStatement {
     public static final String KEYWORD_TOTALS = "TOTALS";
     public static final String KEYWORD_VALUES = "VALUES";
 
-    public static final String KEYWORD_TABLE_COLUMNS_START = "ColumnsStart";
-    public static final String KEYWORD_TABLE_COLUMNS_END = "ColumnsEnd";
+    public static final String KEYWORD_STREAM_COLUMNS_START = "ColumnsStart";
+    public static final String KEYWORD_STREAM_COLUMNS_END = "ColumnsEnd";
     public static final String KEYWORD_VALUES_START = "ValuesStart";
     public static final String KEYWORD_VALUES_END = "ValuesEnd";
 

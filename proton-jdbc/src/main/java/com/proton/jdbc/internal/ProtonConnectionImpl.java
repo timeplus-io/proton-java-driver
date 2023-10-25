@@ -187,7 +187,7 @@ public class ProtonConnectionImpl extends JdbcWrapper implements ProtonConnectio
         if (!ProtonChecker.isNullOrEmpty(dbName)) {
             builder.append('`').append(ProtonUtils.escape(dbName, '`')).append('`').append('.');
         }
-        builder.append('`').append(ProtonUtils.escape(tableName, '`')).append('`').append(" WHERE 0");
+        builder.append('`').append(ProtonUtils.escape(tableName, '`')).append('`').append(" WHERE 0 LIMIT 0");
         List<ProtonColumn> list;
         try (ProtonResponse resp = clientRequest.copy().query(builder.toString()).execute().get()) {
             list = resp.getColumns();
@@ -632,8 +632,8 @@ public class ProtonConnectionImpl extends JdbcWrapper implements ProtonConnectio
                                     newQueryId()),
                             getTableColumns(parsedStmt.getDatabase(), parsedStmt.getTable(),
                                     parsedStmt.getContentBetweenKeywords(
-                                            ProtonSqlStatement.KEYWORD_TABLE_COLUMNS_START,
-                                            ProtonSqlStatement.KEYWORD_TABLE_COLUMNS_END)),
+                                            ProtonSqlStatement.KEYWORD_STREAM_COLUMNS_START,
+                                            ProtonSqlStatement.KEYWORD_STREAM_COLUMNS_END)),
                             resultSetType, resultSetConcurrency, resultSetHoldability);
                 }
             }
@@ -656,8 +656,8 @@ public class ProtonConnectionImpl extends JdbcWrapper implements ProtonConnectio
                             clientRequest.write().query(parsedStmt.getSQL(), newQueryId()),
                             getTableColumns(parsedStmt.getDatabase(), parsedStmt.getTable(),
                                     parsedStmt.getContentBetweenKeywords(
-                                            ProtonSqlStatement.KEYWORD_TABLE_COLUMNS_START,
-                                            ProtonSqlStatement.KEYWORD_TABLE_COLUMNS_END)),
+                                            ProtonSqlStatement.KEYWORD_STREAM_COLUMNS_START,
+                                            ProtonSqlStatement.KEYWORD_STREAM_COLUMNS_END)),
                             resultSetType, resultSetConcurrency, resultSetHoldability);
                 }
             }
