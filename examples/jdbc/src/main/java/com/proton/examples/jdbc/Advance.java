@@ -15,15 +15,15 @@ import com.proton.client.data.ProtonExternalTable;
 
 public class Advance {
     static String exteralTables(String url, String user, String password) throws SQLException {
-        String sql = "select a.name as n1, b.name as n2 from {tt 'table1'} a inner join {tt 'table2'} b on a.id=b.id";
+        String sql = "select a.name as n1, b.name as n2 from {tt 'table1'} as a inner join {tt 'table2'} as b on a.id=b.id";
         try (Connection conn = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setObject(1,
-                    ProtonExternalTable.builder().name("table1").columns("id Int32, name Nullable(String)")
+                    ProtonExternalTable.builder().name("table1").columns("id int32, name nullable(string)")
                             .format(ProtonFormat.CSV)
                             .content(new ByteArrayInputStream("1,a\n2,b".getBytes(StandardCharsets.US_ASCII))).build());
             ps.setObject(2,
-                    ProtonExternalTable.builder().name("table2").columns("id Int32, name String")
+                    ProtonExternalTable.builder().name("table2").columns("id int32, name string")
                             .format(ProtonFormat.JSONEachRow)
                             .content(new ByteArrayInputStream("{\"id\":3,\"name\":\"c\"}\n{\"id\":1,\"name\":\"d\"}"
                                     .getBytes(StandardCharsets.US_ASCII)))
@@ -47,7 +47,7 @@ public class Advance {
         // two parameters:
         // * a - String
         // * b - DateTime64(3)
-        String sql = "select :a as a1, :a(String) as a2, :b(DateTime64(3)) as b";
+        String sql = "select :a as a1, :a(string) as a2, :b(datetime64(3)) as b";
         try (Connection conn = DriverManager.getConnection(url, props);
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, "a");
@@ -64,14 +64,14 @@ public class Advance {
     }
 
     public static void main(String[] args) {
-        String url = String.format("jdbc:ch://%s:%d/system", System.getProperty("chHost", "localhost"),
-                Integer.parseInt(System.getProperty("chPort", "8123")));
+        String url = String.format("jdbc:ch://%s:%d/default", System.getProperty("chHost", "localhost"),
+                Integer.parseInt(System.getProperty("chPort", "3218")));
         String user = System.getProperty("chUser", "default");
         String password = System.getProperty("chPassword", "");
 
         try {
-            exteralTables(url, user, password);
-            namedParameter(url, user, password);
+            System.out.println(exteralTables(url, user, password));
+            System.out.println(namedParameter(url, user, password));
         } catch (SQLException e) {
             e.printStackTrace();
         }

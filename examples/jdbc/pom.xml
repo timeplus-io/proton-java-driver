@@ -56,7 +56,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <proton-jdbc.version>0.3.2-patch7</proton-jdbc.version>
+        <proton-jdbc.version>0.3.3-SNAPSHOT</proton-jdbc.version>
 
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
 
