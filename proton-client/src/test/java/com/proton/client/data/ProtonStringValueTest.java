@@ -66,7 +66,7 @@ public class ProtonStringValueTest extends BaseProtonValueTest {
         Assert.assertEquals(ProtonStringValue.of(new byte[0]).asBinary(0), new byte[0]);
         Assert.assertEquals(ProtonStringValue.of("").asBinary(0), new byte[0]);
 
-        Assert.assertThrows(IllegalArgumentException.class, () -> ProtonStringValue.of("").asBinary(1));
+        Assert.assertThrows(IllegalArgumentException.class, () -> ProtonStringValue.of("111").asBinary(1));
 
         Assert.assertEquals(ProtonStringValue.of("a").asBinary(1), new byte[] { 97 });
         Assert.assertEquals(ProtonStringValue.of("a").asBinary(0), new byte[] { 97 });

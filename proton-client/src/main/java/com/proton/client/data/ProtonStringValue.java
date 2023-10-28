@@ -12,6 +12,7 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
+
 import com.proton.client.ProtonChecker;
 import com.proton.client.ProtonValue;
 import com.proton.client.ProtonValues;
@@ -31,7 +32,7 @@ public class ProtonStringValue implements ProtonValue {
 
     /**
      * Update given value to null or create a new instance if {@code ref} is null.
-     * 
+     *
      * @param ref object to update, could be null
      * @return same object as {@code ref} or a new instance if it's null
      */
@@ -225,8 +226,12 @@ public class ProtonStringValue implements ProtonValue {
         if (value != null && bytes == null) {
             bytes = value.getBytes(charset == null ? StandardCharsets.UTF_8 : charset);
         }
-
         if (bytes != null && length > 0) {
+            if (bytes.length < length) {
+                byte[] buffer = new byte[length];
+                System.arraycopy(bytes, 0, buffer, 0, bytes.length);
+                bytes = buffer;
+            }
             return ProtonChecker.notWithDifferentLength(bytes, length);
         } else {
             return bytes;
@@ -236,6 +241,11 @@ public class ProtonStringValue implements ProtonValue {
     @Override
     public String asString() {
         if (bytes != null && value == null) {
+            int length = bytes.length;
+            while (length > 0 && bytes[length - 1] == 0) {
+                length--;
+            }
+            bytes = Arrays.copyOf(bytes, length);
             value = new String(bytes, StandardCharsets.UTF_8);
         }
 
@@ -247,6 +257,11 @@ public class ProtonStringValue implements ProtonValue {
         if (value != null && length > 0) {
             if (bytes == null) {
                 bytes = value.getBytes(charset == null ? StandardCharsets.UTF_8 : charset);
+                if (bytes.length < length) {
+                    byte[] buffer = new byte[length];
+                    System.arraycopy(bytes, 0, buffer, 0, bytes.length);
+                    bytes = buffer;
+                }
             }
             ProtonChecker.notWithDifferentLength(bytes, length);
         }
