@@ -7,7 +7,7 @@ Async Java client for Proton. `proton-client` is an abstract module, so it does 
 
 ```xml
 <dependency>
-    <groupId>com.proton</groupId>
+    <groupId>com.timeplus</groupId>
     <artifactId>proton-http-client</artifactId>
     <version>0.3.2-patch7</version>
 </dependency>

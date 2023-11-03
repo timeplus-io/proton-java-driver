@@ -1,12 +1,12 @@
 /**
- * Declares com.proton.client module.
+ * Declares com.timeplus.proton.client module.
  */
-module com.proton.client {
-    exports com.proton.client;
-    exports com.proton.client.config;
-    exports com.proton.client.data;
-    exports com.proton.client.data.array;
-    exports com.proton.client.logging;
+module com.timeplus.proton.client {
+    exports com.timeplus.proton.client;
+    exports com.timeplus.proton.client.config;
+    exports com.timeplus.proton.client.data;
+    exports com.timeplus.proton.client.data.array;
+    exports com.timeplus.proton.client.logging;
 
     requires static java.logging;
     requires static com.google.gson;
@@ -16,9 +16,9 @@ module com.proton.client {
     requires static org.slf4j;
     requires static org.roaringbitmap;
 
-    uses com.proton.client.ProtonClient;
-    uses com.proton.client.ProtonDataStreamFactory;
-    uses com.proton.client.ProtonDnsResolver;
-    uses com.proton.client.ProtonSslContextProvider;
-    uses com.proton.client.logging.LoggerFactory;
+    uses com.timeplus.proton.client.ProtonClient;
+    uses com.timeplus.proton.client.ProtonDataStreamFactory;
+    uses com.timeplus.proton.client.ProtonDnsResolver;
+    uses com.timeplus.proton.client.ProtonSslContextProvider;
+    uses com.timeplus.proton.client.logging.LoggerFactory;
 }

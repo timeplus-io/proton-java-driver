@@ -9,15 +9,15 @@ Keep in mind that `proton-jdbc` is synchronous, and in general it has more overh
 ```xml
 <dependency>
     <!-- will stop using com.timeplus.proton starting from 0.4.0 -->
-    <groupId>com.proton</groupId>
+    <groupId>com.timeplus</groupId>
     <artifactId>proton-jdbc</artifactId>
-    <version>0.3.2-patch7</version>
+    <version>0.3.3-SNAPSHOT</version>
 </dependency>
 ```
 
 ## Configuration
 
-**Driver Class**: `com.proton.jdbc.ProtonDriver`
+**Driver Class**: `com.timeplus.proton.jdbc.ProtonDriver`
 
 Note: `com.timeplus.proton.ProtonDriver` and everything under `com.timeplus.proton` will be removed starting from 0.4.0.
 

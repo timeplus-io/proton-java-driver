@@ -25,7 +25,7 @@ options {
 
 PARSER_BEGIN(ProtonSqlParser)
 
-package com.proton.jdbc.parser;
+package com.timeplus.proton.jdbc.parser;
 
 import java.io.StringReader;
 
@@ -38,9 +38,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import com.proton.client.ProtonConfig;
-import com.proton.client.logging.Logger;
-import com.proton.client.logging.LoggerFactory;
+import com.timeplus.proton.client.ProtonConfig;
+import com.timeplus.proton.client.logging.Logger;
+import com.timeplus.proton.client.logging.LoggerFactory;
 
 public class ProtonSqlParser {
     private static final boolean DEBUG = false;
@@ -239,7 +239,7 @@ TOKEN_MGR_DECLS: {
             s = new ProtonSqlStatement(
                 sqlStmt, stmtType, cluster, database, stream, input, format, outfile, parameters, positions, settings, tempStreams);
         }
-        
+
         // reset variables
         reset();
 
@@ -283,7 +283,7 @@ TOKEN_MGR_DECLS: {
 
 SKIP: {
     <WHITESPACE: " " | "\t" | "\n" | "\r" | "\u000b" | "\u000c" | "\u0085" | "\u00a0" | "\u180e"
-        | "\u2000" | "\u200a" | "\u200b" | "\u200c" | "\u200d" 
+        | "\u2000" | "\u200a" | "\u200b" | "\u200c" | "\u200d"
         | "\u2028" | "\u2029" | "\u202f" | "\u205f" | "\u2060" | "\u3000" | "\ufeff">
     { append(image); }
     | <JDBC_LITERAL: ("{d" | "{t" | "{ts" | "{tt") (~["}"])* "}"> {
@@ -479,7 +479,7 @@ void dropStmt(): {} {
         LOOKAHEAD(2)
         (
             <DATABASE> { token_source.addPosition(token); }
-            | (<TEMPORARY>)? <STREAM> | <VIEW> | <DICTIONARY> | <USER> | <ROLE> 
+            | (<TEMPORARY>)? <STREAM> | <VIEW> | <DICTIONARY> | <USER> | <ROLE>
             | (<ROW>)? <POLICY> | <QUOTA> | (<SETTINGS>)? <PROFILE>
         )
         (
@@ -509,7 +509,7 @@ void grantStmt(): {} { // not interested
 void insertStmt(): {} {
     <INSERT> <INTO>
     (
-        LOOKAHEAD({ getToken(1).kind == FUNCTION }) <FUNCTION> functionExpr() 
+        LOOKAHEAD({ getToken(1).kind == FUNCTION }) <FUNCTION> functionExpr()
         | (LOOKAHEAD(2) <STREAM>)? streamIdentifier(true)
     )
     dataClause()
@@ -529,7 +529,7 @@ void dataClause(): {} {
                 <RPAREN> { token_source.removePosition(ProtonSqlStatement.KEYWORD_VALUES_END); }
             )*
             ( settingsPart() )?
-        | (LOOKAHEAD(2) ((withClause())? <SELECT> { token_source.addPosition(token); } columnExprList() <FROM> 
+        | (LOOKAHEAD(2) ((withClause())? <SELECT> { token_source.addPosition(token); } columnExprList() <FROM>
             <INPUT> <LPAREN> <STRING_LITERAL> { token_source.input = ProtonSqlUtils.unescape(token.image); } <RPAREN>)?
             <FORMAT> <IDENTIFIER> { token_source.format = token.image; } )? (anyExprList())?
     } catch (ParseException e) {
@@ -692,7 +692,7 @@ void allColumnsExpr(): {} {
 
 void nestedExpr(): {} {
     LOOKAHEAD(2) (<DASH> | <NOT>) nestedExpr()
-    | LOOKAHEAD(2) <CASE> (LOOKAHEAD({ getToken(1).kind != WHEN }) nestedExpr())? 
+    | LOOKAHEAD(2) <CASE> (LOOKAHEAD({ getToken(1).kind != WHEN }) nestedExpr())?
         (<WHEN> nestedExpr() <THEN> nestedExpr())+ (<ELSE> nestedExpr())? <END>
     | LOOKAHEAD(2) <INTERVAL> (LOOKAHEAD(2) <STRING_LITERAL> | nestedExpr() interval())
     | columnExpr()
@@ -716,7 +716,7 @@ void calcExpr(): {} {
 
 void betweenExpr(): {} {
     <BETWEEN> { token_source.enterToken(BETWEEN); }
-    nestedExpr() 
+    nestedExpr()
     <AND>  { token_source.leaveToken(BETWEEN); }
     nestedExpr()
 }
@@ -895,9 +895,9 @@ void operator(): {} {
     | <GE> | <GT> | <LE> | <LT> | <NOT_EQ> | <PERCENT> | <PLUS> | <SLASH>)
 }
 
-void macro(): { 
-    Token t; 
-    String name; 
+void macro(): {
+    Token t;
+    String name;
     List<String> params = new ArrayList<>();
 } {
     (
@@ -928,15 +928,15 @@ Token anyKeyword(): { Token t; } {
         | t = <OPTIMIZE> | t = <RENAME> | t = <REVOKE> | t = <SELECT> | t = <SET> | t = <SHOW> | t = <SYSTEM>
         | t = <TRUNCATE> | t = <UPDATE> | t = <USE> | t = <WATCH>
         // others
-        | t = <ALL> | t = <AND> | t = <APPLY> | t = <ARRAY> | t = <AS> | t = <ASOF> | t = <BETWEEN> | t = <CASE> 
-        | t = <CLUSTER> | t = <DATE> | t = <DATABASE> | t = <DATABASES> | t = <DICTIONARY> | t = <DICTIONARIES> 
-        | t = <DISTINCT> | t = <ELSE> | t = <END> | t = <EXCEPT> | t = <FORMAT> | t = <FROM> | t = <FINAL> | t = <FULL> 
-        | t = <FUNCTION> | t = <GLOBAL> | t = <GROUP> | t = <HAVING> | t = <IF> | t = <ILIKE> | t = <IN> | t = <INNER> 
-        | t = <INPUT> | t = <INTERVAL> | t = <INTO> | t = <IS> | t = <JOIN> | t = <LEFT> | t = <LIKE> | t = <LIMIT> | t = <LIVE> 
+        | t = <ALL> | t = <AND> | t = <APPLY> | t = <ARRAY> | t = <AS> | t = <ASOF> | t = <BETWEEN> | t = <CASE>
+        | t = <CLUSTER> | t = <DATE> | t = <DATABASE> | t = <DATABASES> | t = <DICTIONARY> | t = <DICTIONARIES>
+        | t = <DISTINCT> | t = <ELSE> | t = <END> | t = <EXCEPT> | t = <FORMAT> | t = <FROM> | t = <FINAL> | t = <FULL>
+        | t = <FUNCTION> | t = <GLOBAL> | t = <GROUP> | t = <HAVING> | t = <IF> | t = <ILIKE> | t = <IN> | t = <INNER>
+        | t = <INPUT> | t = <INTERVAL> | t = <INTO> | t = <IS> | t = <JOIN> | t = <LEFT> | t = <LIKE> | t = <LIMIT> | t = <LIVE>
         | t = <MATERIALIZED> | t = <NOT> | t = <OFFSET> | t = <ON> | t = <OR> | t = <ORDER> | t = <OUTFILE> | t = <POLICY>
         | t = <PREWHERE> | t = <PROFILE> | t = <QUOTA> | t = <REPLACE> | t = <RIGHT> | t = <ROLE> | t = <ROW> | t = <SAMPLE>
-        | t = <SETTINGS> | t = <TEMPORARY> | t = <STREAM> | t = <STREAMS> | t = <THEN> | t = <TIES> | t = <TIMESTAMP> 
-        | t = <TOP> | t = <TOTALS> | t = <VALUES> | t = <VIEW> | t = <USER> | t = <UNION> | t = <USING> 
+        | t = <SETTINGS> | t = <TEMPORARY> | t = <STREAM> | t = <STREAMS> | t = <THEN> | t = <TIES> | t = <TIMESTAMP>
+        | t = <TOP> | t = <TOTALS> | t = <VALUES> | t = <VIEW> | t = <USER> | t = <UNION> | t = <USING>
         | t = <WHEN> | t = <WHERE> | t = <WITH>
         // interval
         | t = <SECOND> | t = <MINUTE> | t = <HOUR> | t = <DAY> | t = <WEEK> | t = <MONTH> | t = <QUARTER> | t = <YEAR>
@@ -954,11 +954,11 @@ Token keyword(): { Token t; } {
         | t = <OPTIMIZE> | t = <RENAME> | t = <REVOKE> | t = <SELECT> | t = <SET> | t = <SHOW> | t = <SYSTEM>
         | t = <TRUNCATE> | t = <UPDATE> | t = <USE> | t = <WATCH>
         // others
-        | t = <CASE> | t = <CLUSTER> | t = <DATE> | t = <DATABASE> | t = <DATABASES> | t = <DICTIONARY> 
-        | t = <DICTIONARIES> | t = <DISTINCT> | t = <ELSE> | t = <END> | t = <EXCEPT>| t = <FUNCTION> 
-        | t = <IF> | t = <INTERVAL> | t = <IS> | t = <LIVE>  | t = <MATERIALIZED> | t = <OUTFILE> | t = <POLICY> 
-        | t = <PROFILE> | t = <QUOTA> | t = <REPLACE> | t = <ROLE> | t = <ROW> | t = <TEMPORARY> 
-        | t = <STREAM> | t = <STREAMS> | t = <THEN> | t = <TIES> | t = <TIMESTAMP> | t = <TOP> | t = <TOTALS> 
+        | t = <CASE> | t = <CLUSTER> | t = <DATE> | t = <DATABASE> | t = <DATABASES> | t = <DICTIONARY>
+        | t = <DICTIONARIES> | t = <DISTINCT> | t = <ELSE> | t = <END> | t = <EXCEPT>| t = <FUNCTION>
+        | t = <IF> | t = <INTERVAL> | t = <IS> | t = <LIVE>  | t = <MATERIALIZED> | t = <OUTFILE> | t = <POLICY>
+        | t = <PROFILE> | t = <QUOTA> | t = <REPLACE> | t = <ROLE> | t = <ROW> | t = <TEMPORARY>
+        | t = <STREAM> | t = <STREAMS> | t = <THEN> | t = <TIES> | t = <TIMESTAMP> | t = <TOP> | t = <TOTALS>
         | t = <VALUES> | t = <VIEW> | t = <WHEN> | t = <USER>
         // interval
         | t = <SECOND> | t = <MINUTE> | t = <HOUR> | t = <DAY> | t = <WEEK> | t = <MONTH> | t = <QUARTER> | t = <YEAR>
@@ -1161,7 +1161,7 @@ TOKEN: {
 }
 
 // string literal
-TOKEN: { 
+TOKEN: {
     <STRING_LITERAL: <SINGLE_QUOTE> (<BACK_SLASH> ~[] | ~["'", "\\"] | "''")* <SINGLE_QUOTE>>
 }
 

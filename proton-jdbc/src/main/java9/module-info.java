@@ -1,17 +1,10 @@
 /**
  * Declares com.timeplus.proton module.
  */
-module com.proton.jdbc {
-    exports com.proton.jdbc;
-    
-    exports com.timeplus.proton;
-    exports com.timeplus.proton.domain;
-    exports com.timeplus.proton.except;
-    exports com.timeplus.proton.response;
-    exports com.timeplus.proton.settings;
-    exports com.timeplus.proton.util;
+module com.timeplus.proton.jdbc {
+    exports com.timeplus.proton.jdbc;
 
-    requires transitive com.proton.client;
+    requires transitive com.timeplus.proton.client;
     requires transitive com.google.gson;
     requires transitive org.apache.httpcomponents.httpclient;
     requires transitive org.apache.httpcomponents.httpmime;
@@ -23,9 +16,9 @@ module com.proton.jdbc {
     // requires static org.slf4j;
     requires static org.roaringbitmap;
 
-    uses com.proton.client.ProtonClient;
-    uses com.proton.client.ProtonDataStreamFactory;
-    uses com.proton.client.ProtonDnsResolver;
-    uses com.proton.client.ProtonSslContextProvider;
-    uses com.proton.client.logging.LoggerFactory;
+    uses com.timeplus.proton.client.ProtonClient;
+    uses com.timeplus.proton.client.ProtonDataStreamFactory;
+    uses com.timeplus.proton.client.ProtonDnsResolver;
+    uses com.timeplus.proton.client.ProtonSslContextProvider;
+    uses com.timeplus.proton.client.logging.LoggerFactory;
 }
