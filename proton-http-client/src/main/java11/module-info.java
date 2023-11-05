@@ -1,12 +1,12 @@
-module com.proton.client.http {
-    exports com.proton.client.http;
-    exports com.proton.client.http.config;
+module com.timeplus.proton.client.http {
+    exports com.timeplus.proton.client.http;
+    exports com.timeplus.proton.client.http.config;
 
-    provides com.proton.client.ProtonClient with com.proton.client.http.ProtonHttpClient;
+    provides com.timeplus.proton.client.ProtonClient with com.timeplus.proton.client.http.ProtonHttpClient;
 
     requires java.net.http;
 
     requires static com.google.gson;
 
-    requires transitive com.proton.client;
+    requires transitive com.timeplus.proton.client;
 }

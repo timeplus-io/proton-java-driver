@@ -1,11 +1,11 @@
-module com.proton.client.grpc {
-    exports com.proton.client.grpc;
-    exports com.proton.client.grpc.config;
-    exports com.proton.client.grpc.impl;
+module com.timeplus.proton.client.grpc {
+    exports com.timeplus.proton.client.grpc;
+    exports com.timeplus.proton.client.grpc.config;
+    exports com.timeplus.proton.client.grpc.impl;
 
-    provides com.proton.client.ProtonClient with com.proton.client.grpc.ProtonGrpcClient;
+    provides com.timeplus.proton.client.ProtonClient with com.timeplus.proton.client.grpc.ProtonGrpcClient;
 
-    requires transitive com.proton.client;
+    requires transitive com.timeplus.proton.client;
     requires transitive com.google.gson;
     requires transitive com.google.protobuf;
     requires transitive io.grpc;

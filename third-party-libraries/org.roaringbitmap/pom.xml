@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.proton</groupId>
+        <groupId>com.timeplus</groupId>
         <artifactId>third-party-libraries</artifactId>
         <version>${revision}</version>
     </parent>
