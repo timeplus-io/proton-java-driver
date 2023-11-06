@@ -38,6 +38,7 @@ Keep in mind that `proton-jdbc` is synchronous, and in general it has more overh
 
 Note: please refer to [JDBC specific configuration](https://github.com/timeplus-io/proton-java-driver/blob/master/proton-jdbc/src/main/java/com/proton/jdbc/JdbcConfig.java) and client options([common](https://github.com/timeplus-io/proton-java-driver/blob/master/proton-client/src/main/java/com/proton/client/config/ProtonClientOption.java), [http](https://github.com/timeplus-io/proton-java-driver/blob/master/proton-http-client/src/main/java/com/proton/client/http/config/ProtonHttpOption.java) and [grpc](https://github.com/timeplus-io/proton-java-driver/blob/master/proton-grpc-client/src/main/java/com/proton/client/grpc/config/ProtonGrpcOption.java)) for more.
 
-## Examples
+## More Documents and Examples
 
-see basic examples [here](https://github.com/timeplus-io/proton-java-driver/tree/develop/examples/jdbc)
+- [How to connect to Proton via JDBC](https://github.com/timeplus-io/proton/tree/develop/examples/jdbc)
+- [examples](https://github.com/timeplus-io/proton-java-driver/tree/develop/examples/jdbc)
