@@ -42,3 +42,34 @@ Note: please refer to [JDBC specific configuration](https://github.com/timeplus-
 
 - [How to connect to Proton via JDBC](https://github.com/timeplus-io/proton/tree/develop/examples/jdbc)
 - [examples](https://github.com/timeplus-io/proton-java-driver/tree/develop/examples/jdbc)
+
+## How to build from sources
+
+First clone the repository:
+
+```bash
+git clone https://github.com/timeplus-io/proton-java-driver.git
+cd proton-java-driver
+```
+
+Then, run the command in terminal:
+
+```bash
+cd third-party-libraries
+mvn -Drelease clean install
+cd ..
+cd proton-client
+mvn -Drelease clean install
+cd ..
+cd proton-grpc-client
+mvn -Drelease clean install
+cd ..
+cd proton-http-client
+mvn -Drelease clean install
+cd ..
+cd proton-jdbc
+mvn -Drelease clean install
+cd ..
+```
+
+After that, proton-jdbc will be installed in your local maven repository.
