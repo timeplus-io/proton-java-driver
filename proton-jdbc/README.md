@@ -45,6 +45,13 @@ Note: please refer to [JDBC specific configuration](https://github.com/timeplus-
 
 ## How to build from sources
 
+Recommend to use Java 11 and Maven. For example, on Mac OS X
+
+```bash
+sdk install java 11.0.21-tem
+brew install maven
+```
+
 First clone the repository:
 
 ```bash
@@ -57,19 +64,12 @@ Then, run the command in terminal:
 ```bash
 cd third-party-libraries
 mvn -Drelease clean install
-cd ..
-cd proton-client
+cd ../proton-client
 mvn -Drelease clean install
-cd ..
-cd proton-grpc-client
+cd ../proton-http-client
 mvn -Drelease clean install
-cd ..
-cd proton-http-client
+cd ../proton-jdbc
 mvn -Drelease clean install
-cd ..
-cd proton-jdbc
-mvn -Drelease clean install
-cd ..
 ```
 
-After that, proton-jdbc will be installed in your local maven repository.
+After that, proton-jdbc will be installed in your local maven repository. You can also get the JAR files in proton-jdbc/target. `proton-jdbc-<version>-all.jar` is recommended to add to your JDBC client or project.

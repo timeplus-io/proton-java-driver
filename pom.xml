@@ -10,11 +10,11 @@
     <name>proton-java</name>
     <description>Java Client and JDBC driver for Proton</description>
     <url>https://github.com/timeplus-io/proton-java-driver</url>
-    <inceptionYear>2015</inceptionYear>
+    <inceptionYear>2021</inceptionYear>
 
     <organization>
-        <name>Proton, Inc.</name>
-        <url>https://proton.com/</url>
+        <name>Timeplus, Inc.</name>
+        <url>https://timeplus.com/</url>
     </organization>
 
     <licenses>
@@ -32,13 +32,19 @@
             <email>zhicwu@gmail.com</email>
             <timezone>+8</timezone>
         </developer>
+        <developer>
+            <id>jovezhong</id>
+            <name>Jove Zhong</name>
+            <email>jove@timeplus.com</email>
+            <timezone>-1</timezone>
+        </developer>
     </developers>
 
     <modules>
         <module>proton-client</module>
-        <module>proton-grpc-client</module>
         <module>proton-http-client</module>
-        <module>proton-tcp-client</module>
+        <!-- <module>proton-grpc-client</module>
+        <module>proton-tcp-client</module> -->
         <module>proton-jdbc</module>
     </modules>
 
@@ -85,7 +91,7 @@
         <grpc.version>1.40.2</grpc.version>
         <gson.version>2.9.0</gson.version>
         <httpclient.version>4.5.13</httpclient.version>
-        <protobuf.version>3.17.3</protobuf.version>
+        <protobuf.version>3.25.1</protobuf.version>
         <lz4.version>1.8.0</lz4.version>
         <roaring-bitmap.version>0.9.25</roaring-bitmap.version>
         <slf4j.version>2.0.0-alpha5</slf4j.version>
@@ -136,12 +142,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>com.clickhouse</groupId>
                 <artifactId>io.grpc</artifactId>
                 <version>${repackaged.version}</version>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>com.clickhouse</groupId>
                 <artifactId>org.roaringbitmap</artifactId>
                 <version>${repackaged.version}</version>
             </dependency>
@@ -434,7 +440,7 @@
                     <configuration>
                         <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
                         <pluginId>grpc-java</pluginId>
-                        <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+                        <pluginArtifact>com.google.protobuf:protoc:3.25.1:exe:${os.detected.classifier}</pluginArtifact>
                     </configuration>
                     <executions>
                         <execution>

@@ -17,7 +17,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>${project.parent.groupId}</groupId>
+            <groupId>com.clickhouse</groupId>
             <artifactId>org.roaringbitmap</artifactId>
             <scope>provided</scope>
             <exclusions>

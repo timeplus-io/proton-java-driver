@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.timeplus</groupId>
+    <artifactId>proton-jdbc</artifactId>
+    <version>0.4.0</version>
+
+    <name>proton-jdbc</name>
+    <description>Java Client and JDBC driver for Proton</description>
+    <url>https://github.com/timeplus-io/proton-java-driver</url>
+    <inceptionYear>2021</inceptionYear>
+    <packaging>jar</packaging>
+
+    <organization>
+        <name>Timeplus, Inc.</name>
+        <url>https://timeplus.com/</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Apache-2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/timeplus-io/proton-java-driver.git</connection>
+        <developerConnection>scm:git:https://github.com/timeplus-io/proton-java-driver.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/timeplus-io/proton</url>
+    </scm>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/timeplus-io/proton-java-driver/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Github</system>
+        <url>https://github.com/timeplus-io/proton-java-driver/actions</url>
+    </ciManagement>
+
+    <developers>
+        <developer>
+            <id>zhicwu</id>
+            <name>Zhichun Wu</name>
+            <email>zhicwu@gmail.com</email>
+            <timezone>+8</timezone>
+        </developer>
+        <developer>
+            <id>jovezhong</id>
+            <name>Jove Zhong</name>
+            <email>jove@timeplus.com</email>
+            <timezone>-1</timezone>
+        </developer>
+    </developers>
+
+    <properties>
+        <httpclient.version>4.5.13</httpclient.version>
+        <javacc-plugin.version>4.1.4</javacc-plugin.version>
+        <shade.base>com.timeplus.proton.jdbc.internal</shade.base>
+        <spec.title>JDBC</spec.title>
+        <spec.version>4.2</spec.version>
+    </properties>
+
+    <dependencies>
+    </dependencies>
+</project>

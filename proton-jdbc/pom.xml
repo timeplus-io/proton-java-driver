@@ -30,7 +30,7 @@
             <version>${revision}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>proton-grpc-client</artifactId>
             <classifier>netty</classifier>
@@ -41,7 +41,7 @@
                     <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>proton-http-client</artifactId>
@@ -55,7 +55,7 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>${project.parent.groupId}</groupId>
+            <groupId>com.clickhouse</groupId>
             <artifactId>org.roaringbitmap</artifactId>
             <version>${repackaged.version}</version>
             <scope>provided</scope>

@@ -6,12 +6,12 @@ Repacked third party libraries(gRPC and RoaringBitmap) for JPMS support.
 
 ```xml
 <dependency>
-    <groupId>com.timeplus</groupId>
+    <groupId>com.clickhouse</groupId>
     <artifactId>io.grpc</artifactId>
     <version>1.1.2</version>
 </dependency>
 <dependency>
-    <groupId>com.timeplus</groupId>
+    <groupId>com.clickhouse</groupId>
     <artifactId>org.roaringbitmap</artifactId>
     <version>1.1.2</version>
 </dependency>
