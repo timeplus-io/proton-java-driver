@@ -5,13 +5,21 @@ Build on top of `proton-client`, `proton-jdbc` follows JDBC standards and provid
 Keep in mind that `proton-jdbc` is synchronous, and in general it has more overheads(e.g. SQL parsing and type mapping/conversion etc.). You should consider `proton-client` when performance is critical and/or you prefer more direct way to work with Proton.
 
 ## Maven Dependency
-
+This library is available on maven central repository since Nov 17, 2023.
+ 
 ```xml
 <dependency>
     <groupId>com.timeplus</groupId>
     <artifactId>proton-jdbc</artifactId>
     <version>0.4.0</version>
 </dependency>
+```
+
+## Gradle
+```
+dependencies {
+    implementation 'com.timeplus:proton-jdbc:0.4.0'
+}
 ```
 
 ## Configuration
@@ -58,6 +66,8 @@ First clone the repository:
 git clone https://github.com/timeplus-io/proton-java-driver.git
 cd proton-java-driver
 ```
+
+To succesfully built the jar and pass the tests, you need to start Proton server with 3218 port open. Check [this docker compose file](https://github.com/timeplus-io/proton/tree/develop/examples/jdbc) for detals.
 
 Then, run the command in terminal:
 
