@@ -24,27 +24,9 @@ dependencies {
 
 ## Configuration
 
-**Driver Class**: `com.timeplus.proton.jdbc.ProtonDriver`
-
-**URL Syntax**: `jdbc:<prefix>[:<protocol>]://<host>:[<port>][/<database>[?param1=value1&param2=value2]]`, for examples:
-
-- `jdbc:ch:grpc://localhost` is same as `jdbc:proton:grpc://localhost:9100`
-- `jdbc:ch:grpc://localhost` is same as `jdbc:proton:grpc://localhost:9100`)
-- `jdbc:ch://localhost/test?socket_timeout=120000`
-
-**Connection Properties**:
-
-| Property                 | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| continueBatchOnError     | `false` | Whether to continue batch processing when error occurred                                                                                                                                                                                                                                                                                                                                                                   |
-| createDatabaseIfNotExist | `false` | Whether to create database if it does not exist                                                                                                                                                                                                                                                                                                                                                                            |
-| custom_http_headers      |         | comma separated custom http headers, for example: `User-Agent=client1,X-Gateway-Id=123`                                                                                                                                                                                                                                                                                                                                    |
-| custom_http_params       |         | comma separated custom http query parameters, for example: `extremes=0,max_result_rows=100`                                                                                                                                                                                                                                                                                                                                |
-| jdbcCompliance           | `true`  | Whether to support standard synchronous UPDATE/DELETE and fake transaction                                                                                                                                                                                                                                                                                                                                                 |
-| typeMappings             |         | Customize mapping between Proton data type and Java class, which will affect result of both [getColumnType()](https://docs.oracle.com/javase/8/docs/api/java/sql/ResultSetMetaData.html#getColumnType-int-) and [getObject(Class<?>)](https://docs.oracle.com/javase/8/docs/api/java/sql/ResultSet.html#getObject-java.lang.String-java.lang.Class-). For example: `UInt128=java.lang.String,UInt256=java.lang.String` |
-| wrapperObject            | `false` | Whether [getObject()](https://docs.oracle.com/javase/8/docs/api/java/sql/ResultSet.html#getObject-int-) should return java.sql.Array / java.sql.Struct for Array / Tuple.                                                                                                                                                                                                                                                  |
-
-Note: please refer to [JDBC specific configuration](https://github.com/timeplus-io/proton-java-driver/blob/master/proton-jdbc/src/main/java/com/proton/jdbc/JdbcConfig.java) and client options([common](https://github.com/timeplus-io/proton-java-driver/blob/master/proton-client/src/main/java/com/proton/client/config/ProtonClientOption.java), [http](https://github.com/timeplus-io/proton-java-driver/blob/master/proton-http-client/src/main/java/com/proton/client/http/config/ProtonHttpOption.java) and [grpc](https://github.com/timeplus-io/proton-java-driver/blob/master/proton-grpc-client/src/main/java/com/proton/client/grpc/config/ProtonGrpcOption.java)) for more.
+* Driver Class: `com.timeplus.proton.jdbc.ProtonDriver`
+* JDBC URL: `jdbc:proton://localhost:8123` or `jdbc:proton://localhost:8123/default`
+* Username is `default` and password is an empty string
 
 ## More Documents and Examples
 
@@ -82,4 +64,4 @@ cd ../proton-jdbc
 mvn -Drelease clean install
 ```
 
-After that, proton-jdbc will be installed in your local maven repository. You can also get the JAR files in proton-jdbc/target. `proton-jdbc-<version>-all.jar` is recommended to add to your JDBC client or project.
+After that, proton-jdbc will be installed in your local maven repository. You can also get the JAR files in proton-jdbc/target. `proton-jdbc-<version>-all.jar` is recommended to add to your JDBC client or project. But the better way is to load the jar from maven: `com.timeplus:proton-jdbc:0.4.0`.
