@@ -11,14 +11,14 @@ This library is available on maven central repository since Nov 17, 2023.
 <dependency>
     <groupId>com.timeplus</groupId>
     <artifactId>proton-jdbc</artifactId>
-    <version>0.5.0</version>
+    <version>0.6.0</version>
 </dependency>
 ```
 
 ## Gradle
 ```
 dependencies {
-    implementation 'com.timeplus:proton-jdbc:0.5.0'
+    implementation 'com.timeplus:proton-jdbc:0.6.0'
 }
 ```
 
@@ -64,4 +64,6 @@ cd ../proton-jdbc
 mvn -Drelease clean source:jar install verify
 ```
 
-After that, proton-jdbc will be installed in your local maven repository. You can also get the JAR files in proton-jdbc/target. `proton-jdbc-<version>-all.jar` is recommended to add to your JDBC client or project. But the better way is to load the jar from maven: `com.timeplus:proton-jdbc:0.5.0`.
+After that, proton-jdbc will be installed in your local maven repository. You can also get the JAR files in proton-jdbc/target. `proton-jdbc-<version>-all.jar` is recommended to add to your JDBC client or project. But the better way is to load the jar from maven: `com.timeplus:proton-jdbc:0.6.0`.
+
+To upload the new version to maven repository, run the above commands to generate JAR files. In the deployment subfolder, update the pom file. Also copy javadoc.jar, sources.jar with their md5 and sha1. You also need to copy proton-jdbc-version-all.jar and its md5 and sha1 but remove the `-all` from the file names. Create md5 and sha1 files for the pom file, using `md5` and `shasum` commands. Create the .asc files with `gpg -ab <filename>` commpands. You need to get the passcode from Jove. Finally go to the deployment folder and run `zip -r proton-jdbc-<version> ./`. In https://central.sonatype.com/publishing page, upload the deployment zip file. Wait for 3 minutes to verify it and 30 minutes to publish it.

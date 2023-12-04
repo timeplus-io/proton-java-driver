@@ -77,7 +77,7 @@
     </distributionManagement>
 
     <properties>
-        <revision>0.5.0</revision>
+        <revision>0.6.0</revision>
         <project.current.year>2023</project.current.year>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -136,7 +136,7 @@
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
         <sonar.organization>proton</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.projectVersion>0.5.0</sonar.projectVersion>
+        <sonar.projectVersion>0.6.0</sonar.projectVersion>
     </properties>
 
     <dependencyManagement>

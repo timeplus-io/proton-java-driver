@@ -3,7 +3,7 @@
 
     <groupId>com.timeplus</groupId>
     <artifactId>proton-jdbc</artifactId>
-    <version>0.5.0</version>
+    <version>0.6.0</version>
 
     <name>proton-jdbc</name>
     <description>Java Client and JDBC driver for Proton</description>
