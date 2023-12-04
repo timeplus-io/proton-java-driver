@@ -9,13 +9,13 @@ This library is available on maven central repository since Nov 17, 2023.
 <dependency>
     <groupId>com.timeplus</groupId>
     <artifactId>proton-jdbc</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.0</version>
 </dependency>
 ```
 
 ```
 dependencies {
-    implementation 'com.timeplus:proton-jdbc:0.4.0'
+    implementation 'com.timeplus:proton-jdbc:0.5.0'
 }
 ```
 

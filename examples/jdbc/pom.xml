@@ -52,11 +52,11 @@
     </ciManagement>
 
     <properties>
-        <project.current.year>2022</project.current.year>
+        <project.current.year>2023</project.current.year>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <proton-jdbc.version>0.4.0</proton-jdbc.version>
+        <proton-jdbc.version>0.5.0</proton-jdbc.version>
 
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
 

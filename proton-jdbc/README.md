@@ -11,14 +11,14 @@ This library is available on maven central repository since Nov 17, 2023.
 <dependency>
     <groupId>com.timeplus</groupId>
     <artifactId>proton-jdbc</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.0</version>
 </dependency>
 ```
 
 ## Gradle
 ```
 dependencies {
-    implementation 'com.timeplus:proton-jdbc:0.4.0'
+    implementation 'com.timeplus:proton-jdbc:0.5.0'
 }
 ```
 
@@ -49,7 +49,7 @@ git clone https://github.com/timeplus-io/proton-java-driver.git
 cd proton-java-driver
 ```
 
-To succesfully built the jar and pass the tests, you need to start Proton server with 3218 port open. Check [this docker compose file](https://github.com/timeplus-io/proton/tree/develop/examples/jdbc) for detals.
+To succesfully built the jar and pass the tests, you need to start Proton server with 3218 port open. You can use [this docker compose file](https://github.com/timeplus-io/proton/tree/develop/examples/jdbc).
 
 Then, run the command in terminal:
 
@@ -61,7 +61,7 @@ mvn -Drelease clean install
 cd ../proton-http-client
 mvn -Drelease clean install
 cd ../proton-jdbc
-mvn -Drelease clean install
+mvn -Drelease clean source:jar install verify
 ```
 
-After that, proton-jdbc will be installed in your local maven repository. You can also get the JAR files in proton-jdbc/target. `proton-jdbc-<version>-all.jar` is recommended to add to your JDBC client or project. But the better way is to load the jar from maven: `com.timeplus:proton-jdbc:0.4.0`.
+After that, proton-jdbc will be installed in your local maven repository. You can also get the JAR files in proton-jdbc/target. `proton-jdbc-<version>-all.jar` is recommended to add to your JDBC client or project. But the better way is to load the jar from maven: `com.timeplus:proton-jdbc:0.5.0`.
