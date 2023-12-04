@@ -769,7 +769,7 @@ public class ProtonDatabaseMetaData extends JdbcWrapper implements DatabaseMetaD
                             + "when empty(t.data_paths) then 'REMOTE TABLE' else 'TABLE' end as TABLE_TYPE, "
                             + ":comment as REMARKS, null as TYPE_CAT, d.engine as TYPE_SCHEM, "
                             + "t.engine as TYPE_NAME, null as SELF_REFERENCING_COL_NAME, null as REF_GENERATION\n"
-                            + "from system.tables t inner join system.databases d on t.database = d.name\n"
+                            + "from system.tables as t inner join system.databases as d on t.database = d.name\n"
                             + "where t.database like :database and t.name like :table and TABLE_TYPE in (:types) "
                             + "order by t.database, t.name", params);
             results.add(query(sql, true));
@@ -1014,7 +1014,7 @@ public class ProtonDatabaseMetaData extends JdbcWrapper implements DatabaseMetaD
                         + "TYPE int16, ORDINAL_POSITION int16, COLUMN_NAME nullable(string), ASC_OR_DESC nullable(string), "
                         + "CARDINALITY int64, PAGES int64, FILTER_CONDITION nullable(string)"),
                 query(ProtonParameterizedQuery.apply(
-                        "select null as TABLE_CAT, database as TABLE_SCHEM, table as TABLE_NAME, toUInt8(0) as NON_UNIQUE, "
+                        "select null as TABLE_CAT, database as TABLE_SCHEM, table as TABLE_NAME, to_uint8(0) as NON_UNIQUE, "
                                 + "null as INDEX_QUALIFIER, null as INDEX_NAME, to_int16(:statIndex) as TYPE, "
                                 + "to_int16(0) as ORDINAL_POSITION, null as COLUMN_NAME, null as ASC_OR_DESC, "
                                 + "sum(rows) as CARDINALITY, uniq_exact(name) as PAGES, null as FILTER_CONDITION from system.parts "
