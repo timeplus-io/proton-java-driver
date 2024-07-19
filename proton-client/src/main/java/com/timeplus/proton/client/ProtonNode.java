@@ -276,7 +276,7 @@ public class ProtonNode
          * @return this builder
          */
         public Builder removeOption(String option) {
-            if (!ClickHouseChecker.isNullOrEmpty(option)) {
+            if (!ProtonChecker.isNullOrEmpty(option)) {
                 options.remove(option);
             }
 
