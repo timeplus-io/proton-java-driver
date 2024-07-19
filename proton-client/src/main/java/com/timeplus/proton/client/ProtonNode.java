@@ -1,5 +1,7 @@
 package com.timeplus.proton.client;
 
+import com.timeplus.proton.client.config.ProtonClientOption;
+import com.timeplus.proton.client.config.ProtonDefaults;
 import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.util.Collection;
@@ -12,25 +14,28 @@ import java.util.TimeZone;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import com.timeplus.proton.client.config.ProtonClientOption;
-import com.timeplus.proton.client.config.ProtonDefaults;
-
 /**
  * This class depicts a Proton server, essentially a combination of host,
  * port and protocol, for client to connect.
  */
-public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Serializable {
+public class ProtonNode
+    implements Function<ProtonNodeSelector, ProtonNode>, Serializable {
+
     /**
      * Node status.
      */
     public enum Status {
-        HEALTHY, UNHEALTHY, MANAGED, UNMANAGED
+        HEALTHY,
+        UNHEALTHY,
+        MANAGED,
+        UNMANAGED,
     }
 
     /**
      * Mutable and non-thread safe builder.
      */
     public static class Builder {
+
         protected String cluster;
         protected String host;
         protected Integer port;
@@ -54,7 +59,8 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
 
         protected String getCluster() {
             if (cluster == null) {
-                cluster = (String) ProtonDefaults.CLUSTER.getEffectiveDefaultValue();
+                cluster =
+                    (String) ProtonDefaults.CLUSTER.getEffectiveDefaultValue();
             }
 
             return cluster;
@@ -78,7 +84,8 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
 
         protected ProtonProtocol getProtocol() {
             if (protocol == null) {
-                protocol = (ProtonProtocol) ProtonDefaults.PROTOCOL.getEffectiveDefaultValue();
+                protocol =
+                    (ProtonProtocol) ProtonDefaults.PROTOCOL.getEffectiveDefaultValue();
             }
             return protocol;
         }
@@ -104,7 +111,8 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
 
         protected int getWeight() {
             if (weight == null) {
-                weight = (Integer) ProtonDefaults.WEIGHT.getEffectiveDefaultValue();
+                weight =
+                    (Integer) ProtonDefaults.WEIGHT.getEffectiveDefaultValue();
             }
 
             return weight.intValue();
@@ -161,7 +169,10 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
          * @return this builder
          */
         public Builder port(ProtonProtocol protocol) {
-            return port(protocol, ProtonChecker.nonNull(protocol, "protocol").getDefaultPort());
+            return port(
+                protocol,
+                ProtonChecker.nonNull(protocol, "protocol").getDefaultPort()
+            );
         }
 
         /**
@@ -200,7 +211,10 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
          *                 and {@link ProtonDefaults#PORT}
          * @return this builder
          */
-        public Builder address(ProtonProtocol protocol, InetSocketAddress address) {
+        public Builder address(
+            ProtonProtocol protocol,
+            InetSocketAddress address
+        ) {
             if (!Objects.equals(this.address, address)) {
                 this.host = null;
                 this.port = null;
@@ -233,6 +247,55 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
          */
         public Builder credentials(ProtonCredentials credentials) {
             this.credentials = credentials;
+            return this;
+        }
+
+        /**
+         * Adds an option for this node.
+         *
+         * @param option option name, null value will be ignored
+         * @param value  option value
+         * @return this builder
+         */
+        public Builder addOption(String option, String value) {
+            if (option != null) {
+                if (value != null) {
+                    options.put(option, value);
+                } else {
+                    options.remove(option);
+                }
+            }
+
+            return this;
+        }
+
+        /**
+         * Removes an option from this node.
+         *
+         * @param option option to be removed, null value will be ignored
+         * @return this builder
+         */
+        public Builder removeOption(String option) {
+            if (!ClickHouseChecker.isNullOrEmpty(option)) {
+                options.remove(option);
+            }
+
+            return this;
+        }
+
+        /**
+         * Sets all options for this node. Use null or empty value to clear all existing
+         * options.
+         *
+         * @param options options for the node
+         * @return this builder
+         */
+        public Builder options(Map<String, String> options) {
+            this.options.clear();
+
+            if (options != null) {
+                this.options.putAll(options);
+            }
             return this;
         }
 
@@ -395,10 +458,16 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
     public static Builder builder(ProtonNode base) {
         Builder b = new Builder();
         if (base != null) {
-            b.cluster(base.getCluster()).host(base.getHost()).port(base.getProtocol(), base.getPort())
-                    .credentials(base.getCredentials().orElse(null)).database(base.getDatabase().orElse(null))
-                    .tags(base.getTags()).weight(base.getWeight()).timeZone(base.getTimeZone().orElse(null))
-                    .version(base.getVersion().orElse(null));
+            b
+                .cluster(base.getCluster())
+                .host(base.getHost())
+                .port(base.getProtocol(), base.getPort())
+                .credentials(base.getCredentials().orElse(null))
+                .database(base.getDatabase().orElse(null))
+                .tags(base.getTags())
+                .weight(base.getWeight())
+                .timeZone(base.getTimeZone().orElse(null))
+                .version(base.getVersion().orElse(null));
         }
         return b;
     }
@@ -414,9 +483,17 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
      * @param tags     tags for the node, null tag will be ignored
      * @return node object
      */
-    public static ProtonNode of(String host, ProtonProtocol protocol, int port, String database,
-            String... tags) {
-        Builder builder = builder().host(host).port(protocol, port).database(database);
+    public static ProtonNode of(
+        String host,
+        ProtonProtocol protocol,
+        int port,
+        String database,
+        String... tags
+    ) {
+        Builder builder = builder()
+            .host(host)
+            .port(protocol, port)
+            .database(database);
         if (tags != null && tags.length > 0) {
             builder.tags(null, tags);
         }
@@ -483,12 +560,14 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
      * Gets credentials for accessing this node. It first attempts to use
      * credentials tied to the node, and then use default credentials from the given
      * configuration.
-     * 
+     *
      * @param config non-null configuration for retrieving default credentials
      * @return credentials for accessing this node
      */
     public ProtonCredentials getCredentials(ProtonConfig config) {
-        return credentials != null ? credentials : ProtonChecker.nonNull(config, "config").getDefaultCredentials();
+        return credentials != null
+            ? credentials
+            : ProtonChecker.nonNull(config, "config").getDefaultCredentials();
     }
 
     /**
@@ -521,13 +600,19 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
     /**
      * Gets database of the node. When {@link #hasPreferredDatabase()} is
      * {@code false}, it will use database from the given configuration.
-     * 
+     *
      * @param config non-null configuration to get default database
      * @return database of the node
      */
     public String getDatabase(ProtonConfig config) {
-        return !ProtonChecker.nonNull(config, "config").hasOption(ProtonClientOption.DATABASE)
-                && hasPreferredDatabase() ? database : config.getDatabase();
+        return (
+                !ProtonChecker.nonNull(config, "config").hasOption(
+                    ProtonClientOption.DATABASE
+                ) &&
+                hasPreferredDatabase()
+            )
+            ? database
+            : config.getDatabase();
     }
 
     /**
@@ -560,12 +645,14 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
     /**
      * Gets time zone of the node. When not defined, it will use server time zone
      * from the given configuration.
-     * 
+     *
      * @param config non-null configuration to get server time zone
      * @return time zone of the node
      */
     public TimeZone getTimeZone(ProtonConfig config) {
-        return tz != null ? tz : ProtonChecker.nonNull(config, "config").getServerTimeZone();
+        return tz != null
+            ? tz
+            : ProtonChecker.nonNull(config, "config").getServerTimeZone();
     }
 
     /**
@@ -580,12 +667,14 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
     /**
      * Gets version of the node. When not defined, it will use server version from
      * the given configuration.
-     * 
+     *
      * @param config non-null configuration to get server version
      * @return version of the node
      */
     public ProtonVersion getVersion(ProtonConfig config) {
-        return version != null ? version : ProtonChecker.nonNull(config, "config").getServerVersion();
+        return version != null
+            ? version
+            : ProtonChecker.nonNull(config, "config").getServerVersion();
     }
 
     /**
@@ -618,10 +707,12 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
 
     /**
      * Sets manager for this node.
-     * 
+     *
      * @param manager function to manage status of the node
      */
-    public synchronized void setManager(BiConsumer<ProtonNode, Status> manager) {
+    public synchronized void setManager(
+        BiConsumer<ProtonNode, Status> manager
+    ) {
         if (this.manager != null && !this.manager.equals(manager)) {
             this.manager.accept(this, Status.UNMANAGED);
         }
@@ -635,7 +726,7 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
     /**
      * Updates status of the node. This will only work when a manager function
      * exists via {@link #setManager(BiConsumer)}.
-     * 
+     *
      * @param status node status
      */
     public synchronized void updateStatus(Status status) {
@@ -646,8 +737,12 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
 
     @Override
     public ProtonNode apply(ProtonNodeSelector t) {
-        if (t != null && t != ProtonNodeSelector.EMPTY
-                && (!t.matchAnyOfPreferredProtocols(protocol) || !t.matchAllPreferredTags(tags))) {
+        if (
+            t != null &&
+            t != ProtonNodeSelector.EMPTY &&
+            (!t.matchAnyOfPreferredProtocols(protocol) ||
+                !t.matchAllPreferredTags(tags))
+        ) {
             throw new IllegalArgumentException("No suitable node found");
         }
 
@@ -656,13 +751,20 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder().append(getClass().getSimpleName()).append('(');
+        StringBuilder builder = new StringBuilder()
+            .append(getClass().getSimpleName())
+            .append('(');
         boolean hasCluster = cluster != null && !cluster.isEmpty();
         if (hasCluster) {
             builder.append("cluster=").append(cluster).append(", ");
         }
-        builder.append("addr=").append(protocol.name().toLowerCase()).append(":").append(address).append(", db=")
-                .append(database);
+        builder
+            .append("addr=")
+            .append(protocol.name().toLowerCase())
+            .append(":")
+            .append(address)
+            .append(", db=")
+            .append(database);
         if (tz != null) {
             builder.append(", tz=").append(tz.getID());
         }
@@ -681,7 +783,17 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
 
     @Override
     public int hashCode() {
-        return Objects.hash(address, cluster, credentials, database, protocol, tags, weight, tz, version);
+        return Objects.hash(
+            address,
+            cluster,
+            credentials,
+            database,
+            protocol,
+            tags,
+            weight,
+            tz,
+            version
+        );
     }
 
     @Override
@@ -695,9 +807,16 @@ public class ProtonNode implements Function<ProtonNodeSelector, ProtonNode>, Ser
         }
 
         ProtonNode node = (ProtonNode) obj;
-        return address.equals(node.address) && cluster.equals(node.cluster)
-                && Objects.equals(credentials, node.credentials) && Objects.equals(database, node.database)
-                && protocol == node.protocol && tags.equals(node.tags) && weight == node.weight
-                && Objects.equals(tz, node.tz) && Objects.equals(version, node.version);
+        return (
+            address.equals(node.address) &&
+            cluster.equals(node.cluster) &&
+            Objects.equals(credentials, node.credentials) &&
+            Objects.equals(database, node.database) &&
+            protocol == node.protocol &&
+            tags.equals(node.tags) &&
+            weight == node.weight &&
+            Objects.equals(tz, node.tz) &&
+            Objects.equals(version, node.version)
+        );
     }
 }
