@@ -39,24 +39,24 @@ public class HttpUrlConnectionImpl extends ProtonHttpConnection {
     private final HttpURLConnection conn;
 
     private ProtonHttpResponse buildResponse() throws IOException {
-        // x-proton-server-display-name: xxx
-        // x-proton-query-id: xxx
-        // x-proton-format: RowBinaryWithNamesAndTypes
-        // x-proton-timezone: UTC
-        // x-proton-summary:
+        // x-timeplus-server-display-name: xxx
+        // x-timeplus-query-id: xxx
+        // x-timeplus-format: RowBinaryWithNamesAndTypes
+        // x-timeplus-timezone: UTC
+        // x-timeplus-summary:
         // {"read_rows":"0","read_bytes":"0","written_rows":"0","written_bytes":"0","total_rows_to_read":"0"}
-        String displayName = getResponseHeader("x-proton-server-display-name", server.getHost());
-        String queryId = getResponseHeader("x-proton-query-id", "");
-        String summary = getResponseHeader("x-proton-summary", "{}");
+        String displayName = getResponseHeader("x-timeplus-server-display-name", server.getHost());
+        String queryId = getResponseHeader("x-timeplus-query-id", "");
+        String summary = getResponseHeader("x-timeplus-summary", "{}");
 
         ProtonFormat format = config.getFormat();
         TimeZone timeZone = config.getServerTimeZone();
         // queryId, format and timeZone are only available for queries
         if (!ProtonChecker.isNullOrEmpty(queryId)) {
-            String value = getResponseHeader("x-proton-format", "");
+            String value = getResponseHeader("x-timeplus-format", "");
             format = !ProtonChecker.isNullOrEmpty(value) ? ProtonFormat.valueOf(value)
                     : format;
-            value = getResponseHeader("x-proton-timezone", "");
+            value = getResponseHeader("x-timeplus-timezone", "");
             timeZone = !ProtonChecker.isNullOrEmpty(value) ? TimeZone.getTimeZone(value)
                     : timeZone;
         }
@@ -66,6 +66,7 @@ public class HttpUrlConnectionImpl extends ProtonHttpConnection {
     }
 
     private HttpURLConnection newConnection(String url, boolean post) throws IOException {
+        System.out.println(url);
         HttpURLConnection newConn = (HttpURLConnection) new URL(url).openConnection();
 
         if ((newConn instanceof HttpsURLConnection) && config.isSsl()) {
@@ -114,7 +115,7 @@ public class HttpUrlConnectionImpl extends ProtonHttpConnection {
     private void checkResponse(HttpURLConnection conn) throws IOException {
         if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
             // TODO get exception from response header, for example:
-            // x-proton-exception-code: 47
+            // x-timeplus-exception-code: 47
             StringBuilder builder = new StringBuilder();
             try (Reader reader = new InputStreamReader(getResponseInputStream(conn.getErrorStream()),
                     StandardCharsets.UTF_8)) {

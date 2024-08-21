@@ -51,18 +51,18 @@ public class HttpClientConnectionImpl extends ProtonHttpConnection {
 
     private ProtonHttpResponse buildResponse(HttpResponse<InputStream> r) throws IOException {
         HttpHeaders headers = r.headers();
-        String displayName = headers.firstValue("x-proton-server-display-name").orElse(server.getHost());
-        String queryId = headers.firstValue("x-proton-query-id").orElse("");
-        String summary = headers.firstValue("x-proton-summary").orElse("{}");
+        String displayName = headers.firstValue("x-timeplus-server-display-name").orElse(server.getHost());
+        String queryId = headers.firstValue("x-timeplus-query-id").orElse("");
+        String summary = headers.firstValue("x-timeplus-summary").orElse("{}");
 
         ProtonFormat format = config.getFormat();
         TimeZone timeZone = config.getServerTimeZone();
         // queryId, format and timeZone are only available for queries
         if (!ProtonChecker.isNullOrEmpty(queryId)) {
-            String value = headers.firstValue("x-proton-format").orElse("");
+            String value = headers.firstValue("x-timeplus-format").orElse("");
             format = !ProtonChecker.isNullOrEmpty(value) ? ProtonFormat.valueOf(value)
                     : format;
-            value = headers.firstValue("x-proton-timezone").orElse("");
+            value = headers.firstValue("x-timeplus-timezone").orElse("");
             timeZone = !ProtonChecker.isNullOrEmpty(value) ? TimeZone.getTimeZone(value)
                     : timeZone;
         }
@@ -74,7 +74,7 @@ public class HttpClientConnectionImpl extends ProtonHttpConnection {
     private HttpResponse<InputStream> checkResponse(HttpResponse<InputStream> r) throws IOException {
         if (r.statusCode() != HttpURLConnection.HTTP_OK) {
             // TODO get exception from response header, for example:
-            // x-proton-exception-code: 47
+            // x-timeplus-exception-code: 47
             StringBuilder builder = new StringBuilder();
             try (Reader reader = new InputStreamReader(getResponseInputStream(r.body()), StandardCharsets.UTF_8)) {
                 int c = 0;

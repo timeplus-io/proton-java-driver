@@ -181,18 +181,18 @@ public abstract class ProtonHttpConnection implements AutoCloseable {
             // TODO check if auth-scheme is available and supported
             map.put("Authorization", credentials.getAccessToken());
         } else {
-            map.put("x-proton-user", credentials.getUserName());
+            map.put("x-timeplus-user", credentials.getUserName());
             if (!ProtonChecker.isNullOrEmpty(credentials.getPassword())) {
-                map.put("x-proton-key", credentials.getPassword());
+                map.put("x-timeplus-key", credentials.getPassword());
             }
         }
 
         String database = server.getDatabase(config);
         if (!ProtonChecker.isNullOrEmpty(database)) {
-            map.put("x-proton-database", database);
+            map.put("x-timeplus-database", database);
         }
         // Also, you can use the ‘default_format’ URL parameter
-        map.put("x-proton-format", config.getFormat().name());
+        map.put("x-timeplus-format", config.getFormat().name());
         if (config.isCompressServerResponse()) {
             map.put("Accept-Encoding", config.getCompressAlgorithmForServerResponse().encoding());
         }

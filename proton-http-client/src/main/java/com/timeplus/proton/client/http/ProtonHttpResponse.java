@@ -65,7 +65,7 @@ public class ProtonHttpResponse {
         // {"read_rows":"0","read_bytes":"0","written_rows":"0","written_bytes":"0","total_rows_to_read":"0"}
         Map<String, String> map = (Map<String, String>) ProtonUtils
                 .parseJson(!ProtonChecker.isNullOrEmpty(summary) ? summary : "{}");
-        // discard those x-proton-progress headers
+        // discard those x-timeplus-progress headers
         this.summary = new ProtonResponseSummary(
                 new ProtonResponseSummary.Progress(getLongValue(map, "read_rows"), getLongValue(map, "read_bytes"),
                         getLongValue(map, "total_rows_to_read"), getLongValue(map, "written_rows"),
