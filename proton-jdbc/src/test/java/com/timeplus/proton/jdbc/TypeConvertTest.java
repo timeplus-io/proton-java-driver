@@ -99,7 +99,7 @@ public class TypeConvertTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -124,7 +124,7 @@ public class TypeConvertTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -146,7 +146,7 @@ public class TypeConvertTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -187,7 +187,7 @@ public class TypeConvertTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -238,7 +238,7 @@ public class TypeConvertTest {
                 ps.addBatch();
                 ps.executeBatch();
             }
-            wait(2);
+            wait(3);
             try (Connection conn = getConnection();
                  Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -273,7 +273,7 @@ public class TypeConvertTest {
                 ps.addBatch();
                 ps.executeBatch();
             }
-            wait(2);
+            wait(3);
             try (Connection conn = getConnection();
                  Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -296,7 +296,7 @@ public class TypeConvertTest {
                 ps.addBatch();
                 ps.executeBatch();
             }
-            wait(2);
+            wait(3);
             try (Connection conn = getConnection();
                  Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {

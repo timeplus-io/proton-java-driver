@@ -128,7 +128,7 @@ public class TypeTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -193,7 +193,7 @@ public class TypeTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -236,7 +236,7 @@ public class TypeTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -272,7 +272,7 @@ public class TypeTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -300,7 +300,7 @@ public class TypeTest {
             }
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -344,7 +344,7 @@ public class TypeTest {
                 }
             });
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -368,7 +368,7 @@ public class TypeTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -390,7 +390,7 @@ public class TypeTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -412,7 +412,7 @@ public class TypeTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -442,7 +442,7 @@ public class TypeTest {
                 ps.addBatch();
                 ps.executeBatch();
             }
-            wait(2);
+            wait(3);
             try (Connection conn = getConnection();
                  Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -465,7 +465,7 @@ public class TypeTest {
                 ps.addBatch();
                 ps.executeBatch();
             }
-            wait(2);
+            wait(3);
             try (Connection conn = getConnection();
                  Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -516,7 +516,7 @@ public class TypeTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -558,7 +558,7 @@ public class TypeTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {
@@ -587,7 +587,7 @@ public class TypeTest {
             ps.addBatch();
             ps.executeBatch();
         }
-        wait(2);
+        wait(3);
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(querySql(STREAMNAME, struct))) {

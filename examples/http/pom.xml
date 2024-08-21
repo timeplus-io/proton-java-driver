@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.timeplus</groupId>
-    <artifactId>grpc-examples</artifactId>
+    <artifactId>http-examples</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>grpc-examples</name>
+    <name>http-examples</name>
     <description>gRPC Examples</description>
     <url>https://github.com/timeplus-io/proton-java-driver</url>
     <inceptionYear>2022</inceptionYear>
@@ -56,7 +56,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <proton-grpc.version>0.3.2-patch7</proton-grpc.version>
+        <proton-http.version>0.6.0</proton-http.version>
 
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
 
@@ -66,8 +66,8 @@
     <dependencies>
         <dependency>
             <groupId>com.timeplus</groupId>
-            <artifactId>proton-grpc-client</artifactId>
-            <version>${proton-grpc.version}</version>
+            <artifactId>proton-http-client</artifactId>
+            <version>${proton-http.version}</version>
             <classifier>shaded</classifier>
             <exclusions>
                 <exclusion>

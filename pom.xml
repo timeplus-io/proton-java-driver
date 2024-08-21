@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
 
     <name>proton-java</name>
-    <description>Java Client and JDBC driver for Proton</description>
+    <description>Java Client and JDBC driver for Timeplus over HTTP</description>
     <url>https://github.com/timeplus-io/proton-java-driver</url>
     <inceptionYear>2021</inceptionYear>
 
@@ -46,6 +46,7 @@
         <!-- <module>proton-grpc-client</module>
         <module>proton-tcp-client</module> -->
         <module>proton-jdbc</module>
+        <module>examples/http</module>
     </modules>
 
     <scm>
