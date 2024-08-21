@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.TimeZone;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -44,6 +46,9 @@ public class ProtonNode
         protected ProtonCredentials credentials;
         protected String database;
         // label is more expressive, but is slow for comparison
+
+        protected final Map<String, String> options;
+
         protected Set<String> tags;
         protected Integer weight;
 
@@ -54,6 +59,7 @@ public class ProtonNode
          * Default constructor.
          */
         protected Builder() {
+            this.options = new LinkedHashMap<>();
             this.tags = new HashSet<>(3);
         }
 
