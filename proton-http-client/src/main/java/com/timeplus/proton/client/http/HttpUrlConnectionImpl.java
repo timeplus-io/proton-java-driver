@@ -5,6 +5,7 @@ import com.timeplus.proton.client.ProtonFormat;
 import com.timeplus.proton.client.ProtonNode;
 import com.timeplus.proton.client.ProtonRequest;
 import com.timeplus.proton.client.ProtonSslContextProvider;
+import com.timeplus.proton.client.config.ProtonClientOption;
 import com.timeplus.proton.client.config.ProtonSslMode;
 import com.timeplus.proton.client.data.ProtonExternalTable;
 import com.timeplus.proton.client.http.config.ProtonHttpOption;
@@ -66,7 +67,11 @@ public class HttpUrlConnectionImpl extends ProtonHttpConnection {
     }
 
     private HttpURLConnection newConnection(String url, boolean post) throws IOException {
-        System.out.println(url);
+        if (post) {
+            // IMPORTANT, remove the web context for POST requests, mainly for sending SQL.
+            // Other requests, such as /ping over GET still need the web context. Temp solution.
+            url = url.replace((String)(ProtonHttpOption.WEB_CONTEXT.getDefaultValue()),"/");
+        }
         HttpURLConnection newConn = (HttpURLConnection) new URL(url).openConnection();
 
         if ((newConn instanceof HttpsURLConnection) && config.isSsl()) {

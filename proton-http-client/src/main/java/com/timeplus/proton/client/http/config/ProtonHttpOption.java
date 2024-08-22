@@ -45,7 +45,7 @@ public enum ProtonHttpOption implements ProtonOption {
     /**
      * Flow control window.
      */
-    WEB_CONTEXT("web_context", "/", "Web context.");
+    WEB_CONTEXT("web_context", "/timeplusd/", "Web context.");
 
     private final String key;
     private final Serializable defaultValue;
