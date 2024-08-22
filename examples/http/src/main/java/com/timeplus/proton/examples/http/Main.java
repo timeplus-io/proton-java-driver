@@ -43,33 +43,14 @@ public class Main {
 
     static long insert(ProtonNode server, String table) throws ProtonException {
         try (ProtonClient client = ProtonClient.newInstance(server.getProtocol())) {
-            ProtonRequest.Mutation request = client.connect(server).write().table(table)
-                    .format(ProtonFormat.RowBinary);
-            ProtonConfig config = request.getConfig();
-            CompletableFuture<ProtonResponse> future;
-            // back-pressuring is not supported, you can adjust the first two arguments
-            try (ProtonPipedStream stream = new ProtonPipedStream(config.getMaxBufferSize(),
-                    config.getMaxQueuedBuffers(), config.getSocketTimeout())) {
-                // in async mode, which is default, execution happens in a worker thread
-                future = request.data(stream.getInput()).execute();
-
-                // writing happens in main thread
-                for (int i = 0; i < 1000000; i++) {
-                    BinaryStreamUtils.writeString(stream, String.valueOf(i % 16));
-                    BinaryStreamUtils.writeNonNull(stream);
-                    BinaryStreamUtils.writeString(stream, UUID.randomUUID().toString());
-                }
-            }
-
-            // response should be always closed
-            try (ProtonResponse response = future.get()) {
-                ProtonResponseSummary summary = response.getSummary();
-                return summary.getWrittenRows();
-            }
+            ProtonRequest<?> request = client.connect(server);
+            request.query("insert into " + table + "(a,b) values ('a','1'),('b','2')")
+                    .execute().get();
+            return 2;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw ProtonException.forCancellation(e, server);
-        } catch (ExecutionException | IOException e) {
+        } catch (ExecutionException e) {
             throw ProtonException.of(e, server);
         }
     }

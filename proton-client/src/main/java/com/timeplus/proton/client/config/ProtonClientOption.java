@@ -23,7 +23,7 @@ public enum ProtonClientOption implements ProtonOption {
     /**
      * Client name.
      */
-    CLIENT_NAME("client_name", "Proton Java Client",
+    CLIENT_NAME("client_name", "Timeplus Java Client",
             "Client name, which is either 'client_name' or 'http_user_agent' shows up in system.query_log table."),
     /**
      * Whether server will compress response to client or not.
