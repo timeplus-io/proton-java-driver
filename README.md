@@ -22,11 +22,13 @@ dependencies {
 For how to use the JDBC driver, please check the [README in proton repo](https://github.com/timeplus-io/proton/tree/develop/examples/jdbc).
 
 To compile and publish the project, run the following command (making sure you have a Timeplus Proton or Enterprise running):
-```
+```bash
 export GPG_TTY=$(tty)
-mvn -Drelease clean source:jar package install gpg:sign -Drevision=0.7.0
+mvn -Drelease clean source:jar package install gpg:sign -Drevision=<version>
+# or disable tests
+mvn -Drelease clean source:jar package install gpg:sign -DskipITs -DskipTests -Drevision=..
 ```
 
-In some cases,the asc file is not properly generated and cannot be verified via `gpg --verify proton-jdbc/target/proton-jdbc-0.7.0.jar.asc` You may need to regenerate it via `gpg -ab proton-jdbc/target/proton-jdbc-0.7.0.jar`
+In some cases,the asc file is not properly generated and cannot be verified via `gpg --verify proton-jdbc/target/proton-jdbc-<version>.jar.asc` You may need to regenerate it via `gpg -ab proton-jdbc/target/proton-jdbc-<version>.jar`
 
 Please check the README in [proton-jdbc](proton-jdbc) sub-folder for more details.
