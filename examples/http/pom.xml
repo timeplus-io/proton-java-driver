@@ -4,7 +4,7 @@
 
     <groupId>com.timeplus</groupId>
     <artifactId>http-examples</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
 
     <name>http-examples</name>
@@ -56,7 +56,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <proton-http.version>0.6.0</proton-http.version>
+        <proton-http.version>${revision}</proton-http.version>
 
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
 

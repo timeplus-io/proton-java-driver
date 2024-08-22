@@ -27,24 +27,23 @@
 
     <developers>
         <developer>
-            <id>zhicwu</id>
-            <name>Zhichun Wu</name>
-            <email>zhicwu@gmail.com</email>
-            <timezone>+8</timezone>
-        </developer>
-        <developer>
             <id>jovezhong</id>
             <name>Jove Zhong</name>
             <email>jove@timeplus.com</email>
             <timezone>-1</timezone>
+        </developer>
+        <developer>
+            <id>zhicwu</id>
+            <name>Zhichun Wu</name>
+            <email>zhicwu@gmail.com</email>
+            <timezone>+8</timezone>
         </developer>
     </developers>
 
     <modules>
         <module>proton-client</module>
         <module>proton-http-client</module>
-        <!-- <module>proton-grpc-client</module>
-        <module>proton-tcp-client</module> -->
+        <!-- <module>proton-grpc-client</module> -->
         <module>proton-jdbc</module>
         <module>examples/http</module>
     </modules>
@@ -78,8 +77,8 @@
     </distributionManagement>
 
     <properties>
-        <revision>0.6.0</revision>
-        <project.current.year>2023</project.current.year>
+        <revision>0.7.0</revision>
+        <project.current.year>2024</project.current.year>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -133,11 +132,6 @@
         <skipITs>${skipTests}</skipITs>
         <skipUTs>${skipTests}</skipUTs>
 
-        <sonar.projectKey>proton_proton-jdbc</sonar.projectKey>
-        <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
-        <sonar.organization>proton</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.projectVersion>0.6.0</sonar.projectVersion>
     </properties>
 
     <dependencyManagement>

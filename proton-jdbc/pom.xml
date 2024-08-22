@@ -12,7 +12,7 @@
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
-    <description>JDBC driver for Proton</description>
+    <description>JDBC driver for Timeplus</description>
     <url>https://github.com/timeplus-io/proton-java-driver/tree/master/proton-jdbc</url>
 
     <properties>
